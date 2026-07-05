@@ -20,7 +20,7 @@ export default function Home() {
           </button>
         </div>
       </section>
-
+import Navbar from "@/components/layout/Navbar";
       <section className="mx-auto grid max-w-5xl gap-6 px-6 pb-20 md:grid-cols-4">
         {[
           ["Fleet", "0"],
