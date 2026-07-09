@@ -1,9 +1,10 @@
 import { ReactNode } from "react";
+import Container from "./Container";
 
-type SectionProps = {
+interface SectionProps {
   children: ReactNode;
   className?: string;
-};
+}
 
 export default function Section({
   children,
@@ -11,7 +12,9 @@ export default function Section({
 }: SectionProps) {
   return (
     <section className={`py-24 ${className}`}>
-      {children}
+      <Container>
+        {children}
+      </Container>
     </section>
   );
 }
