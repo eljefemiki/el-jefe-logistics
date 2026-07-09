@@ -5,6 +5,8 @@ import FleetShowcase from "@/components/home/FleetShowcase";
 import ChroniclePreview from "@/components/home/ChroniclePreview";
 import RecruitmentCTA from "@/components/home/RecruitmentCTA";
 import Footer from "@/components/layout/Footer";
+import FleetPreview from "@/components/home/FleetPreview";
+import DriverSpotlight from "@/components/home/DriverSpotlight";
 
 export default function Home() {
   return (
@@ -17,9 +19,11 @@ export default function Home() {
     <FleetShowcase />
      <ChroniclePreview />
       <RecruitmentCTA />
-      
+      <FleetPreview />
+      <DriverSpotlight />
+      <Footer />
 </main>
-<Footer />
+
     </>
   );
 }
