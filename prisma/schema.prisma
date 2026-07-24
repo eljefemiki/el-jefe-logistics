@@ -1,0 +1,405 @@
+// =======================================================
+// JEFECORE DATABASE SCHEMA
+// Version: 0.8.0 - Customer CRM
+// El Jefe Logistics
+// =======================================================
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// =======================================================
+// ENUMS
+// =======================================================
+
+enum UserRole {
+  CEO
+  MANAGER
+  HR
+  DISPATCHER
+  FLEET_MANAGER
+  DRIVER
+  APPLICANT
+}
+
+enum DriverRank {
+  TRAINEE
+  JUNIOR
+  SENIOR
+  ELITE
+}
+
+enum DriverStatus {
+  AVAILABLE
+  DRIVING
+  OFF_DUTY
+  ON_LEAVE
+  SUSPENDED
+}
+
+enum TruckStatus {
+  AVAILABLE
+  DELIVERING
+  MAINTENANCE
+  OUT_OF_SERVICE
+}
+
+enum TruckManufacturer {
+  VOLVO
+  SCANIA
+  DAF
+  MAN
+  MERCEDES
+  RENAULT
+  IVECO
+}
+
+enum TruckType {
+  TRACTOR
+  RIGID
+}
+
+enum MaintenanceStatus {
+  REPORTED
+  SCHEDULED
+  IN_PROGRESS
+  WAITING_PARTS
+  COMPLETED
+  CANCELLED
+}
+
+enum MaintenancePriority {
+  LOW
+  ROUTINE
+  HIGH
+  CRITICAL
+}
+
+enum MaintenanceType {
+  INSPECTION
+  PREVENTIVE_SERVICE
+  REPAIR
+  TYRES
+  MOT
+  BREAKDOWN
+  OTHER
+}
+
+enum FuelType {
+  DIESEL
+  HVO
+  ADBLUE
+  ELECTRIC
+  OTHER
+}
+
+enum CustomerStatus {
+  LEAD
+  ACTIVE
+  ON_HOLD
+  INACTIVE
+}
+
+// =======================================================
+// ACCOUNT
+// Authentication & Website Access
+// =======================================================
+
+model Account {
+  id String @id @default(cuid())
+
+  email        String @unique
+  passwordHash String
+
+  firstName String
+  lastName  String
+
+  role UserRole @default(DRIVER)
+
+  isActive      Boolean @default(true)
+  emailVerified Boolean @default(false)
+
+  lastLogin DateTime?
+
+  driver Driver?
+
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  archivedAt DateTime?
+
+  @@index([email])
+  @@index([role])
+}
+
+// =======================================================
+// DRIVER
+// Company Driver Profile
+// =======================================================
+
+model Driver {
+  id String @id @default(cuid())
+
+  accountId String  @unique
+  account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  employeeNumber String @unique
+
+  callsign String?
+
+  rank   DriverRank   @default(TRAINEE)
+  status DriverStatus @default(AVAILABLE)
+
+  reputation Float @default(100)
+
+  totalDistanceKm Int @default(0)
+  totalDeliveries Int @default(0)
+  totalConvoys    Int @default(0)
+
+  favouriteTruck String?
+
+  // Current truck relationships.
+  // This will later be replaced/expanded with DriverAssignment history.
+  trucks Truck[]
+
+  joinedAt DateTime @default(now())
+
+  notes String?
+
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  archivedAt DateTime?
+
+  @@index([employeeNumber])
+  @@index([status])
+  @@index([rank])
+}
+
+// =======================================================
+// COMPANY
+// El Jefe Logistics Company Record
+// =======================================================
+
+model Company {
+  id String @id @default(cuid())
+
+  name String
+  code String @unique
+
+  country      String
+  headquarters String
+
+  depots Depot[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([code])
+}
+
+// =======================================================
+// CUSTOMER
+// Customer relationship and commercial account record
+// =======================================================
+
+model Customer {
+  id String @id @default(cuid())
+
+  customerNumber String @unique
+  companyName    String
+  status         CustomerStatus @default(LEAD)
+
+  contactFirstName String
+  contactLastName  String
+  email            String
+  phone            String?
+  billingEmail     String?
+
+  addressLine1 String?
+  addressLine2 String?
+  city         String?
+  postcode     String?
+  country      String @default("United Kingdom")
+
+  creditLimit      Float?
+  paymentTermsDays Int @default(30)
+  notes            String?
+
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  archivedAt DateTime?
+
+  @@index([customerNumber])
+  @@index([companyName])
+  @@index([status])
+  @@index([email])
+  @@index([archivedAt])
+}
+
+// =======================================================
+// DEPOT
+// Fleet Depot / Company Location
+// =======================================================
+
+model Depot {
+  id String @id @default(cuid())
+
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  name String
+
+  city    String
+  country String
+
+  trucks Truck[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([companyId])
+  @@index([name])
+  @@index([city])
+}
+
+// =======================================================
+// TRUCK
+// Fleet Vehicle Record
+// =======================================================
+
+model Truck {
+  id String @id @default(cuid())
+
+  fleetNumber  String @unique
+  registration String @unique
+
+  manufacturer TruckManufacturer
+  model        String
+  type         TruckType         @default(TRACTOR)
+
+  year   Int
+  colour String?
+
+  mileage   Int @default(0)
+  fuelLevel Int @default(100)
+
+  status TruckStatus @default(AVAILABLE)
+
+  // =====================================================
+  // DEPOT RELATIONSHIP
+  // =====================================================
+
+  depotId String?
+  depot   Depot?  @relation(fields: [depotId], references: [id], onDelete: SetNull)
+
+  // =====================================================
+  // CURRENT DRIVER RELATIONSHIP
+  // =====================================================
+
+  driverId String?
+  driver   Driver? @relation(fields: [driverId], references: [id], onDelete: SetNull)
+
+  // =====================================================
+  // FINANCIAL INFORMATION
+  // =====================================================
+
+  purchaseDate  DateTime?
+  purchasePrice Float?
+  currentValue  Float?
+
+  maintenanceJobs MaintenanceJob[]
+  fuelEntries     FuelEntry[]
+
+  // =====================================================
+  // AUDIT FIELDS
+  // =====================================================
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([fleetNumber])
+  @@index([registration])
+  @@index([status])
+  @@index([manufacturer])
+  @@index([depotId])
+  @@index([driverId])
+}
+
+// =======================================================
+// FUEL ENTRY
+// Vehicle refuelling and energy-cost history
+// =======================================================
+
+model FuelEntry {
+  id String @id @default(cuid())
+
+  reference String @unique
+  truckId   String
+  truck     Truck  @relation(fields: [truckId], references: [id], onDelete: Cascade)
+
+  fuelType FuelType @default(DIESEL)
+  quantity Float
+  unitPrice Float
+  totalCost Float
+  odometerKm Int
+  fuelLevelAfter Int?
+
+  station String
+  location String?
+  receiptNumber String?
+  purchasedAt DateTime
+  notes String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([truckId])
+  @@index([fuelType])
+  @@index([purchasedAt])
+  @@index([station])
+}
+
+
+// =======================================================
+// MAINTENANCE JOB
+// Workshop work order and service history
+// =======================================================
+
+model MaintenanceJob {
+  id String @id @default(cuid())
+
+  jobNumber String @unique
+  truckId   String
+  truck     Truck  @relation(fields: [truckId], references: [id], onDelete: Cascade)
+
+  title       String
+  description String?
+  type        MaintenanceType
+  priority    MaintenancePriority @default(ROUTINE)
+  status      MaintenanceStatus   @default(REPORTED)
+
+  odometerKm Int?
+  technician String?
+  vendor     String?
+
+  reportedAt  DateTime @default(now())
+  scheduledFor DateTime?
+  startedAt   DateTime?
+  completedAt DateTime?
+
+  estimatedCost Float?
+  actualCost    Float?
+  notes         String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([truckId])
+  @@index([status])
+  @@index([priority])
+  @@index([scheduledFor])
+}

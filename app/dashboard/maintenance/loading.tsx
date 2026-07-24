@@ -1,0 +1,2 @@
+import DashboardLayout from "@/components/layout/DashboardLayout";
+export default function MaintenanceLoading() { return <DashboardLayout><div className="mx-auto max-w-7xl animate-pulse space-y-8"><div className="h-12 w-80 rounded bg-slate-800" /><div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">{Array.from({ length: 5 }, (_, index) => <div key={index} className="h-28 rounded-xl bg-slate-900" />)}</div><div className="h-96 rounded-xl bg-slate-900" /></div></DashboardLayout>; }

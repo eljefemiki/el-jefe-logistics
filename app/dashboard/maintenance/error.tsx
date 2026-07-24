@@ -1,0 +1,3 @@
+"use client";
+import { AlertTriangle, RefreshCw } from "lucide-react";
+export default function MaintenanceError({ reset }: { error: Error; reset: () => void }) { return <div className="flex min-h-[500px] items-center justify-center p-6"><div className="max-w-lg rounded-xl border border-red-500/20 bg-slate-900 p-8 text-center"><AlertTriangle className="mx-auto h-10 w-10 text-red-400" /><h2 className="mt-5 text-2xl font-bold text-white">Workshop Centre Error</h2><p className="mt-3 text-sm text-slate-400">JefeCore could not load the maintenance work orders.</p><button onClick={reset} className="mt-6 inline-flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-3 text-sm font-semibold text-white"><RefreshCw className="h-4 w-4" />Try again</button></div></div>; }
