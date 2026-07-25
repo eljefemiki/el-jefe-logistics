@@ -22,7 +22,7 @@ export default function Hero() {
           </h1>
 
           <p className="mt-8 max-w-xl text-xl leading-8 text-slate-400">
-            Join one of Europe's fastest growing virtual trucking companies
+            Join one of Europe&apos;s fastest growing virtual trucking companies
             and build your legacy one delivery at a time.
           </p>
 

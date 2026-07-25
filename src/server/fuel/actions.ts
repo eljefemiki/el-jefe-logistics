@@ -3,6 +3,8 @@
 import { revalidatePath } from "next/cache";
 import { createFuelEntry, updateFuelEntry } from "./service";
 import { fuelEntrySchema } from "./validation";
+import { authorize } from "@/src/lib/auth";
+import { recordAudit } from "@/src/server/platform/audit";
 
 export interface FuelActionState {
   success: boolean;
@@ -37,10 +39,12 @@ function parse(formData: FormData) {
 }
 
 async function run(formData: FormData, id?: string): Promise<FuelActionState> {
+  await authorize("fuel:manage");
   const result = parse(formData);
   if (!result.success) return { success: false, message: "Please check the highlighted fields.", fieldErrors: result.error.flatten().fieldErrors };
   try {
     const entry = id ? await updateFuelEntry(id, result.data) : await createFuelEntry(result.data);
+    await recordAudit({ action: id ? "UPDATE" : "CREATE", entityType: "FuelEntry", entityId: entry.id, summary: `${id ? "Updated" : "Recorded"} fuel entry ${entry.reference}`, after: entry });
     revalidatePath("/dashboard/fuel");
     revalidatePath("/dashboard/fleet");
     revalidatePath(`/dashboard/fleet/${entry.truckId}`);

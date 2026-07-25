@@ -3,6 +3,8 @@
 import { revalidatePath } from "next/cache";
 import { archiveCustomer, createCustomer, restoreCustomer, updateCustomer } from "./service";
 import { customerSchema } from "./validation";
+import { authorize } from "@/src/lib/auth";
+import { recordAudit } from "@/src/server/platform/audit";
 
 export interface CustomerActionState {
   success: boolean;
@@ -41,12 +43,14 @@ function parse(formData: FormData) {
 }
 
 async function save(formData: FormData, id?: string): Promise<CustomerActionState> {
+  await authorize("customers:manage");
   const result = parse(formData);
   if (!result.success) {
     return { success: false, message: "Please check the highlighted fields.", fieldErrors: result.error.flatten().fieldErrors };
   }
   try {
     const customer = id ? await updateCustomer(id, result.data) : await createCustomer(result.data);
+    await recordAudit({ action: id ? "UPDATE" : "CREATE", entityType: "Customer", entityId: customer.id, summary: `${id ? "Updated" : "Created"} customer ${customer.companyName}`, after: customer });
     revalidatePath("/dashboard/customers");
     revalidatePath("/dashboard/dispatch");
     return { success: true, message: id ? "Customer updated." : "Customer created.", customerId: customer.id };
@@ -64,13 +68,17 @@ export async function updateCustomerAction(id: string, _state: CustomerActionSta
 }
 
 export async function archiveCustomerAction(id: string) {
+  await authorize("customers:manage");
   await archiveCustomer(id);
+  await recordAudit({ action: "ARCHIVE", entityType: "Customer", entityId: id, summary: "Archived customer" });
   revalidatePath("/dashboard/customers");
   revalidatePath(`/dashboard/customers/${id}`);
 }
 
 export async function restoreCustomerAction(id: string) {
+  await authorize("customers:manage");
   await restoreCustomer(id);
+  await recordAudit({ action: "RESTORE", entityType: "Customer", entityId: id, summary: "Restored customer" });
   revalidatePath("/dashboard/customers");
   revalidatePath(`/dashboard/customers/${id}`);
 }

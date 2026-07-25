@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import AuthCard from "./AuthCard";
 import AuthHeader from "./AuthHeader";
@@ -11,20 +12,26 @@ import LoadingButton from "./LoadingButton";
 
 export default function LoginForm() {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     setLoading(true);
 
-    // Sprint 6
-    // Connect to authentication API
-
-    console.log("Logging in...");
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    setError("");
+    const form = new FormData(e.currentTarget);
+    try {
+      const response = await fetch("/api/login", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email: form.get("email"), password: form.get("password") }) });
+      const result = await response.json();
+      if (!response.ok) { setError(result.message ?? "Unable to sign in."); return; }
+      const next = searchParams.get("next");
+      router.push(next?.startsWith("/dashboard") ? next : "/dashboard");
+      router.refresh();
+    } catch { setError("Unable to reach JefeCore. Please try again."); }
+    finally { setLoading(false); }
   }
 
   return (
@@ -47,6 +54,7 @@ export default function LoginForm() {
           </label>
 
           <input
+            name="email"
             type="email"
             placeholder="you@email.com"
             className="w-full rounded-xl border border-slate-700 bg-slate-950 p-3 outline-none focus:border-blue-500"
@@ -58,6 +66,7 @@ export default function LoginForm() {
           label="Password"
           placeholder="Enter your password"
         />
+        {error && <p role="alert" className="text-sm text-red-400">{error}</p>}
 
         <RememberMe />
 

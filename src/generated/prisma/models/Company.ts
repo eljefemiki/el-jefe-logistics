@@ -199,6 +199,7 @@ export type CompanyWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Company"> | Date | string
   depots?: Prisma.DepotListRelationFilter
+  settings?: Prisma.XOR<Prisma.CompanySettingsNullableScalarRelationFilter, Prisma.CompanySettingsWhereInput> | null
 }
 
 export type CompanyOrderByWithRelationInput = {
@@ -210,6 +211,7 @@ export type CompanyOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   depots?: Prisma.DepotOrderByRelationAggregateInput
+  settings?: Prisma.CompanySettingsOrderByWithRelationInput
 }
 
 export type CompanyWhereUniqueInput = Prisma.AtLeast<{
@@ -224,6 +226,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Company"> | Date | string
   depots?: Prisma.DepotListRelationFilter
+  settings?: Prisma.XOR<Prisma.CompanySettingsNullableScalarRelationFilter, Prisma.CompanySettingsWhereInput> | null
 }, "id" | "code">
 
 export type CompanyOrderByWithAggregationInput = {
@@ -261,6 +264,7 @@ export type CompanyCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   depots?: Prisma.DepotCreateNestedManyWithoutCompanyInput
+  settings?: Prisma.CompanySettingsCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateInput = {
@@ -272,6 +276,7 @@ export type CompanyUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   depots?: Prisma.DepotUncheckedCreateNestedManyWithoutCompanyInput
+  settings?: Prisma.CompanySettingsUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUpdateInput = {
@@ -283,6 +288,7 @@ export type CompanyUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   depots?: Prisma.DepotUpdateManyWithoutCompanyNestedInput
+  settings?: Prisma.CompanySettingsUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateInput = {
@@ -294,6 +300,7 @@ export type CompanyUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   depots?: Prisma.DepotUncheckedUpdateManyWithoutCompanyNestedInput
+  settings?: Prisma.CompanySettingsUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyCreateManyInput = {
@@ -375,6 +382,20 @@ export type CompanyUpdateOneRequiredWithoutDepotsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutDepotsInput, Prisma.CompanyUpdateWithoutDepotsInput>, Prisma.CompanyUncheckedUpdateWithoutDepotsInput>
 }
 
+export type CompanyCreateNestedOneWithoutSettingsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutSettingsInput, Prisma.CompanyUncheckedCreateWithoutSettingsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutSettingsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutSettingsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutSettingsInput, Prisma.CompanyUncheckedCreateWithoutSettingsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutSettingsInput
+  upsert?: Prisma.CompanyUpsertWithoutSettingsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutSettingsInput, Prisma.CompanyUpdateWithoutSettingsInput>, Prisma.CompanyUncheckedUpdateWithoutSettingsInput>
+}
+
 export type CompanyCreateWithoutDepotsInput = {
   id?: string
   name: string
@@ -383,6 +404,7 @@ export type CompanyCreateWithoutDepotsInput = {
   headquarters: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  settings?: Prisma.CompanySettingsCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutDepotsInput = {
@@ -393,6 +415,7 @@ export type CompanyUncheckedCreateWithoutDepotsInput = {
   headquarters: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  settings?: Prisma.CompanySettingsUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutDepotsInput = {
@@ -419,6 +442,7 @@ export type CompanyUpdateWithoutDepotsInput = {
   headquarters?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  settings?: Prisma.CompanySettingsUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutDepotsInput = {
@@ -429,6 +453,67 @@ export type CompanyUncheckedUpdateWithoutDepotsInput = {
   headquarters?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  settings?: Prisma.CompanySettingsUncheckedUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutSettingsInput = {
+  id?: string
+  name: string
+  code: string
+  country: string
+  headquarters: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  depots?: Prisma.DepotCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutSettingsInput = {
+  id?: string
+  name: string
+  code: string
+  country: string
+  headquarters: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  depots?: Prisma.DepotUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutSettingsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutSettingsInput, Prisma.CompanyUncheckedCreateWithoutSettingsInput>
+}
+
+export type CompanyUpsertWithoutSettingsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutSettingsInput, Prisma.CompanyUncheckedUpdateWithoutSettingsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutSettingsInput, Prisma.CompanyUncheckedCreateWithoutSettingsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutSettingsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutSettingsInput, Prisma.CompanyUncheckedUpdateWithoutSettingsInput>
+}
+
+export type CompanyUpdateWithoutSettingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  headquarters?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  depots?: Prisma.DepotUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutSettingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  headquarters?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  depots?: Prisma.DepotUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 
@@ -471,6 +556,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   createdAt?: boolean
   updatedAt?: boolean
   depots?: boolean | Prisma.Company$depotsArgs<ExtArgs>
+  settings?: boolean | Prisma.Company$settingsArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["company"]>
 
@@ -507,6 +593,7 @@ export type CompanySelectScalar = {
 export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "code" | "country" | "headquarters" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   depots?: boolean | Prisma.Company$depotsArgs<ExtArgs>
+  settings?: boolean | Prisma.Company$settingsArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CompanyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -516,6 +603,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   name: "Company"
   objects: {
     depots: Prisma.$DepotPayload<ExtArgs>[]
+    settings: Prisma.$CompanySettingsPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -920,6 +1008,7 @@ readonly fields: CompanyFieldRefs;
 export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   depots<T extends Prisma.Company$depotsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$depotsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  settings<T extends Prisma.Company$settingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$settingsArgs<ExtArgs>>): Prisma.Prisma__CompanySettingsClient<runtime.Types.Result.GetResult<Prisma.$CompanySettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1370,6 +1459,25 @@ export type Company$depotsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.DepotScalarFieldEnum | Prisma.DepotScalarFieldEnum[]
+}
+
+/**
+ * Company.settings
+ */
+export type Company$settingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CompanySettings
+   */
+  select?: Prisma.CompanySettingsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CompanySettings
+   */
+  omit?: Prisma.CompanySettingsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanySettingsInclude<ExtArgs> | null
+  where?: Prisma.CompanySettingsWhereInput
 }
 
 /**

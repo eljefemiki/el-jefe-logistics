@@ -673,14 +673,6 @@ export type EnumFuelTypeFieldUpdateOperationsInput = {
   set?: $Enums.FuelType
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type FuelEntryCreateWithoutTruckInput = {
   id?: string
   reference: string

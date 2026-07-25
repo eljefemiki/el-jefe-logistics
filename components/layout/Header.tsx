@@ -1,18 +1,24 @@
 "use client";
 
-import { Bell, Menu, Search, Sun } from "lucide-react";
+import Link from "next/link";
+import { Bell, Menu, Search } from "lucide-react";
 import Avatar from "@/components/ui/Avatar";
+import type { UserRole } from "@/src/generated/prisma/enums";
 
 export interface HeaderProps {
   title?: string;
   subtitle?: string;
   onMenuClick?: () => void;
+  account: { firstName: string; lastName: string; role: UserRole };
+  unreadNotifications: number;
 }
 
 export default function Header({
   title = "Dashboard",
   subtitle = "Welcome back!",
   onMenuClick,
+  account,
+  unreadNotifications,
 }: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-800 bg-slate-950/95 backdrop-blur">
@@ -40,46 +46,41 @@ export default function Header({
         {/* Right */}
         <div className="flex items-center gap-4">
           {/* Search */}
-          <div className="hidden md:flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900 px-4 py-2">
+          <form action="/dashboard/search" className="hidden md:flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900 px-4 py-2">
             <Search
               size={18}
               className="text-slate-500"
             />
 
             <input
+              name="q"
               type="text"
               placeholder="Search..."
               className="w-64 bg-transparent text-sm text-white outline-none placeholder:text-slate-500"
             />
-          </div>
-
-          {/* Weather */}
-          <button className="rounded-xl border border-slate-800 bg-slate-900 p-3 text-slate-400 transition hover:bg-slate-800 hover:text-white">
-            <Sun size={20} />
-          </button>
+          </form>
 
           {/* Notifications */}
-          <button className="relative rounded-xl border border-slate-800 bg-slate-900 p-3 text-slate-400 transition hover:bg-slate-800 hover:text-white">
+          <Link aria-label={`${unreadNotifications} unread notifications`} href="/dashboard/notifications" className="relative rounded-xl border border-slate-800 bg-slate-900 p-3 text-slate-400 transition hover:bg-slate-800 hover:text-white">
             <Bell size={20} />
-
-            <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-red-500" />
-          </button>
+            {unreadNotifications > 0 && <span className="absolute -right-1 -top-1 min-w-5 rounded-full bg-red-500 px-1 text-center text-xs font-bold text-white">{Math.min(unreadNotifications, 99)}</span>}
+          </Link>
 
           {/* User */}
           <div className="flex items-center gap-3 rounded-xl border border-slate-800 bg-slate-900 px-3 py-2">
             <Avatar
-              name="Mike Collis"
+              name={`${account.firstName} ${account.lastName}`}
               size="sm"
               status="online"
             />
 
             <div className="hidden lg:block">
               <p className="font-semibold text-white">
-                Mike Collis
+                {account.firstName} {account.lastName}
               </p>
 
               <p className="text-xs text-slate-400">
-                Chief Executive Officer
+                {account.role.replaceAll("_", " ")}
               </p>
             </div>
           </div>

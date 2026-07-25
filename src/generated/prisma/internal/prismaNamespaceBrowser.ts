@@ -57,6 +57,10 @@ export const ModelName = {
   Customer: 'Customer',
   Invoice: 'Invoice',
   Depot: 'Depot',
+  Notification: 'Notification',
+  Document: 'Document',
+  AuditEvent: 'AuditEvent',
+  CompanySettings: 'CompanySettings',
   Truck: 'Truck',
   FuelEntry: 'FuelEntry',
   MaintenanceJob: 'MaintenanceJob'
@@ -193,6 +197,89 @@ export const DepotScalarFieldEnum = {
 export type DepotScalarFieldEnum = (typeof DepotScalarFieldEnum)[keyof typeof DepotScalarFieldEnum]
 
 
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  recipientId: 'recipientId',
+  title: 'title',
+  message: 'message',
+  type: 'type',
+  severity: 'severity',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  entityHref: 'entityHref',
+  readAt: 'readAt',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const DocumentScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  category: 'category',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  storageKey: 'storageKey',
+  originalName: 'originalName',
+  mimeType: 'mimeType',
+  sizeBytes: 'sizeBytes',
+  externalUrl: 'externalUrl',
+  uploadedById: 'uploadedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  archivedAt: 'archivedAt'
+} as const
+
+export type DocumentScalarFieldEnum = (typeof DocumentScalarFieldEnum)[keyof typeof DocumentScalarFieldEnum]
+
+
+export const AuditEventScalarFieldEnum = {
+  id: 'id',
+  actorId: 'actorId',
+  action: 'action',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  summary: 'summary',
+  before: 'before',
+  after: 'after',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  createdAt: 'createdAt'
+} as const
+
+export type AuditEventScalarFieldEnum = (typeof AuditEventScalarFieldEnum)[keyof typeof AuditEventScalarFieldEnum]
+
+
+export const CompanySettingsScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  legalName: 'legalName',
+  tradingName: 'tradingName',
+  registrationNo: 'registrationNo',
+  vatNumber: 'vatNumber',
+  address: 'address',
+  phone: 'phone',
+  email: 'email',
+  website: 'website',
+  logoUrl: 'logoUrl',
+  primaryColour: 'primaryColour',
+  currency: 'currency',
+  locale: 'locale',
+  vatRate: 'vatRate',
+  invoicePrefix: 'invoicePrefix',
+  nextInvoiceNo: 'nextInvoiceNo',
+  notificationPreferences: 'notificationPreferences',
+  integrations: 'integrations',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CompanySettingsScalarFieldEnum = (typeof CompanySettingsScalarFieldEnum)[keyof typeof CompanySettingsScalarFieldEnum]
+
+
 export const TruckScalarFieldEnum = {
   id: 'id',
   fleetNumber: 'fleetNumber',
@@ -273,6 +360,14 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -287,4 +382,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

@@ -18,12 +18,19 @@ import {
   Wrench,
   Fuel,
   ContactRound,
+  Bell,
+  Search,
+  FileText,
+  ShieldCheck,
 } from "lucide-react";
+import type { UserRole } from "@/src/generated/prisma/enums";
+import { hasPermission, type Permission } from "@/src/lib/permissions";
 
 interface NavItem {
   name: string;
   href: string;
   icon: React.ElementType;
+  permission?: Permission;
 }
 
 const navigation: NavItem[] = [
@@ -36,37 +43,48 @@ const navigation: NavItem[] = [
     name: "Fleet",
     href: "/dashboard/fleet",
     icon: Truck,
+    permission: "fleet:view",
   },
   {
     name: "Drivers",
     href: "/dashboard/drivers",
     icon: Users,
+    permission: "drivers:view",
   },
   {
     name: "Dispatch",
     href: "/dashboard/dispatch",
     icon: Briefcase,
+    permission: "dispatch:view",
   },
   {
     name: "Customers",
     href: "/dashboard/customers",
     icon: ContactRound,
+    permission: "customers:view",
   },
   {
     name: "Workshop",
     href: "/dashboard/maintenance",
     icon: Wrench,
+    permission: "workshop:view",
   },
   {
     name: "Fuel",
     href: "/dashboard/fuel",
     icon: Fuel,
+    permission: "fuel:view",
   },
   {
     name: "Finance",
     href: "/dashboard/finance",
     icon: PoundSterling,
+    permission: "finance:view",
   },
+  { name: "Global Search", href: "/dashboard/search", icon: Search, permission: "dashboard:view" },
+  { name: "Notifications", href: "/dashboard/notifications", icon: Bell, permission: "notifications:view" },
+  { name: "Documents", href: "/dashboard/documents", icon: FileText, permission: "documents:view" },
+  { name: "Audit Centre", href: "/dashboard/audit", icon: ShieldCheck, permission: "audit:view" },
   {
     name: "Chronicle",
     href: "/chronicle",
@@ -86,14 +104,15 @@ const navigation: NavItem[] = [
     name: "Settings",
     href: "/dashboard/settings",
     icon: Settings,
+    permission: "settings:view",
   },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ role }: { role: UserRole }) {
   const pathname = usePathname();
 
   return (
-    <aside className="flex h-screen w-72 flex-col border-r border-slate-800 bg-slate-950">
+    <aside className="hidden h-screen w-72 flex-col border-r border-slate-800 bg-slate-950 lg:flex">
       {/* Logo */}
       <div className="border-b border-slate-800 px-6 py-6">
         <div className="flex items-center gap-3">
@@ -115,7 +134,7 @@ export default function Sidebar() {
 
       {/* Navigation */}
       <nav className="flex-1 space-y-2 overflow-y-auto p-4">
-        {navigation.map((item) => {
+        {navigation.filter((item) => !item.permission || hasPermission(role, item.permission)).map((item) => {
           const Icon = item.icon;
 
           const active =

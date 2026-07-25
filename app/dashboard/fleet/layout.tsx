@@ -1,11 +1,12 @@
 import type { ReactNode } from "react";
+import { requirePermission } from "@/src/lib/auth";
 
 interface FleetLayoutProps {
   children: ReactNode;
 }
 
-export default function FleetLayout({
+export default async function FleetLayout({
   children,
 }: FleetLayoutProps) {
-  return children;
+  await requirePermission("fleet:view"); return children;
 }

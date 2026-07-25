@@ -37,3 +37,11 @@
 - Added a persisted customer invoice ledger with VAT and payment tracking.
 - Added Finance Centre KPIs, filters, invoice details and create/edit workflows.
 - Connected Finance Centre to active Customer CRM accounts and dashboard navigation.
+# 1.0.0 - JefeCore Enterprise platform layer
+
+- Added shared Notifications, Documents, Audit Event and Company Settings data models and indexes.
+- Added signed HTTP-only sessions, central role permissions, protected dashboard routes/actions and role-aware navigation.
+- Added Notifications Centre, Global Search, Document Centre, Audit Centre and Settings Centre.
+- Replaced the dashboard placeholder with live cross-module executive KPIs.
+- Added audit and notification hooks to critical finance, CRM, fleet, driver, workshop and fuel workflows.
+- Added GBP/en-GB company defaults, integration/storage placeholders, responsive navigation cleanup and permission tests.

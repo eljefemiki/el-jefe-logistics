@@ -1,9 +1,9 @@
 "use client";
-
 import { ReactNode } from "react";
 
 import Sidebar from "./Sidebar";
 import Header from "./Header";
+import { useDashboardViewer } from "./DashboardContext";
 
 export interface DashboardLayoutProps {
   children: ReactNode;
@@ -16,11 +16,12 @@ export default function DashboardLayout({
   title = "Dashboard",
   subtitle = "Welcome back!",
 }: DashboardLayoutProps) {
+  const { account, unreadNotifications } = useDashboardViewer();
   return (
     <div className="min-h-screen bg-slate-950 text-white">
       <div className="flex">
         {/* Sidebar */}
-        <Sidebar />
+        <Sidebar role={account.role} />
 
         {/* Main Content */}
         <div className="flex min-h-screen flex-1 flex-col">
@@ -28,6 +29,8 @@ export default function DashboardLayout({
           <Header
             title={title}
             subtitle={subtitle}
+            account={account}
+            unreadNotifications={unreadNotifications}
           />
 
           {/* Main */}

@@ -67,3 +67,10 @@
 - Finance Centre shows invoiced, collected, outstanding and overdue value at a glance.
 - Invoice workflows calculate VAT and balances while tracking lifecycle and payment dates.
 - Customer billing identity and terms flow directly from Customer CRM.
+# JefeCore Enterprise v1.0 release candidate
+
+Phase 3 introduces the shared enterprise platform layer: authenticated role-based access, unified search, notifications, document metadata, searchable audit history, company settings, and executive reporting.
+
+Storage providers and external integrations remain intentionally unconfigured. Document records accept approved external URLs until object storage is selected. Dispatch remains the existing readiness read model, so job and delay KPIs are explicitly reported as zero rather than presenting synthetic data.
+
+Before production tagging, apply the v1.0 Prisma migration to the target database, configure a strong `AUTH_SECRET`, complete user acceptance testing with each role, and configure backup/retention policies for audit and document metadata.

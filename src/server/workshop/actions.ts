@@ -3,6 +3,9 @@
 import { revalidatePath } from "next/cache";
 import { createMaintenanceJob, updateMaintenanceJob } from "./service";
 import { maintenanceJobSchema } from "./validation";
+import { authorize } from "@/src/lib/auth";
+import { recordAudit } from "@/src/server/platform/audit";
+import { notify } from "@/src/server/platform/notifications";
 
 export interface MaintenanceActionState {
   success: boolean;
@@ -45,6 +48,7 @@ function parse(formData: FormData) {
 }
 
 async function run(formData: FormData, id?: string): Promise<MaintenanceActionState> {
+  await authorize("workshop:manage");
   const result = parse(formData);
   if (!result.success) {
     return { success: false, message: "Please check the highlighted fields.", fieldErrors: result.error.flatten().fieldErrors };
@@ -53,6 +57,10 @@ async function run(formData: FormData, id?: string): Promise<MaintenanceActionSt
     const job = id
       ? await updateMaintenanceJob(id, result.data)
       : await createMaintenanceJob(result.data);
+    await Promise.all([
+      recordAudit({ action: id ? "UPDATE" : "CREATE", entityType: "MaintenanceJob", entityId: job.id, summary: `${id ? "Updated" : "Created"} work order ${job.jobNumber}`, after: job }),
+      notify({ title: id ? "Work order updated" : "Work order opened", message: job.jobNumber, type: "WORKSHOP", severity: job.priority === "CRITICAL" ? "CRITICAL" : "INFO", entityType: "MaintenanceJob", entityId: job.id, entityHref: `/dashboard/maintenance/${job.id}` }),
+    ]);
     revalidatePath("/dashboard/maintenance");
     revalidatePath("/dashboard/fleet");
     revalidatePath(`/dashboard/fleet/${job.truckId}`);

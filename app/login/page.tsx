@@ -1,5 +1,6 @@
 import LoginForm from "@/components/auth/LoginForm";
 import Logo from "@/components/auth/Logo";
+import { Suspense } from "react";
 
 export default function LoginPage() {
   return (
@@ -9,7 +10,7 @@ export default function LoginPage() {
           <Logo />
         </div>
 
-        <LoginForm />
+        <Suspense fallback={<div className="h-96 animate-pulse rounded-2xl bg-slate-900" />}><LoginForm /></Suspense>
       </div>
     </main>
   );

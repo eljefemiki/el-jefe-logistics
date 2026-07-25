@@ -1,11 +1,12 @@
 import type { ReactNode } from "react";
+import { requirePermission } from "@/src/lib/auth";
 
 interface DispatchLayoutProps {
   children: ReactNode;
 }
 
-export default function DispatchLayout({
+export default async function DispatchLayout({
   children,
 }: DispatchLayoutProps) {
-  return children;
+  await requirePermission("dispatch:view"); return children;
 }

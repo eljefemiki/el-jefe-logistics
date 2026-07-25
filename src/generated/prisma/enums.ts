@@ -15,11 +15,53 @@ export const UserRole = {
   HR: 'HR',
   DISPATCHER: 'DISPATCHER',
   FLEET_MANAGER: 'FLEET_MANAGER',
+  FINANCE: 'FINANCE',
+  WORKSHOP: 'WORKSHOP',
   DRIVER: 'DRIVER',
   APPLICANT: 'APPLICANT'
 } as const
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+
+
+export const NotificationSeverity = {
+  INFO: 'INFO',
+  SUCCESS: 'SUCCESS',
+  WARNING: 'WARNING',
+  CRITICAL: 'CRITICAL'
+} as const
+
+export type NotificationSeverity = (typeof NotificationSeverity)[keyof typeof NotificationSeverity]
+
+
+export const NotificationType = {
+  SYSTEM: 'SYSTEM',
+  FLEET: 'FLEET',
+  DRIVER: 'DRIVER',
+  DISPATCH: 'DISPATCH',
+  WORKSHOP: 'WORKSHOP',
+  FUEL: 'FUEL',
+  CUSTOMER: 'CUSTOMER',
+  FINANCE: 'FINANCE',
+  DOCUMENT: 'DOCUMENT'
+} as const
+
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
+
+
+export const DocumentCategory = {
+  GENERAL: 'GENERAL',
+  VEHICLE: 'VEHICLE',
+  DRIVER: 'DRIVER',
+  CUSTOMER: 'CUSTOMER',
+  JOB: 'JOB',
+  INVOICE: 'INVOICE',
+  MAINTENANCE: 'MAINTENANCE',
+  FUEL: 'FUEL',
+  COMPLIANCE: 'COMPLIANCE'
+} as const
+
+export type DocumentCategory = (typeof DocumentCategory)[keyof typeof DocumentCategory]
 
 
 export const DriverRank = {

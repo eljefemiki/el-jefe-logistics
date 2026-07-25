@@ -11,6 +11,7 @@ import {
   createTruckSchema,
   updateTruckSchema,
 } from "./validation";
+import { authorize } from "@/src/lib/auth";
 
 export interface CreateTruckActionState {
   success: boolean;
@@ -19,8 +20,7 @@ export interface CreateTruckActionState {
   fieldErrors?: Record<string, string[] | undefined>;
 }
 
-export interface UpdateTruckActionState
-  extends CreateTruckActionState {}
+export type UpdateTruckActionState = CreateTruckActionState;
 
 function optionalString(value: FormDataEntryValue | null) {
   if (typeof value !== "string") {
@@ -53,6 +53,7 @@ export async function createTruckAction(
   _previousState: CreateTruckActionState,
   formData: FormData
 ): Promise<CreateTruckActionState> {
+  await authorize("fleet:manage");
   const rawData = {
     fleetNumber:
       optionalString(formData.get("fleetNumber")) ?? "",
@@ -152,6 +153,7 @@ export async function updateTruckAction(
   _previousState: UpdateTruckActionState,
   formData: FormData
 ): Promise<UpdateTruckActionState> {
+  await authorize("fleet:manage");
   const rawData = {
     fleetNumber:
       optionalString(formData.get("fleetNumber")) ?? "",
@@ -241,6 +243,7 @@ export async function updateTruckAction(
 export async function deleteTruckAction(
   id: string,
 ) {
+  await authorize("fleet:manage");
   try {
     await removeTruck(id);
 

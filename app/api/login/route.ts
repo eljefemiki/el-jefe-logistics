@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/src/lib/prisma";
 import { verifyPassword } from "@/src/lib/hash";
 import { loginSchema } from "@/src/lib/validation";
+import { createSessionToken, sessionCookie } from "@/src/lib/session";
 
 export async function POST(request: Request) {
   try {
@@ -77,7 +78,7 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       message: "Login successful.",
       user: {
@@ -99,6 +100,11 @@ export async function POST(request: Request) {
           : null,
       },
     });
+    response.cookies.set(sessionCookie, createSessionToken(account.id), {
+      httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production",
+      path: "/", maxAge: 60 * 60 * 12,
+    });
+    return response;
   } catch (error) {
     console.error("Login error:", error);
 

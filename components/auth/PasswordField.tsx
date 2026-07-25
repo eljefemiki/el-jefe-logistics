@@ -23,6 +23,7 @@ export default function PasswordField({
       <div className="relative">
 
         <input
+          name="password"
           type={show ? "text" : "password"}
           placeholder={placeholder}
           className="w-full rounded-xl border border-slate-700 bg-slate-950 p-3 pr-14 outline-none transition focus:border-blue-500"

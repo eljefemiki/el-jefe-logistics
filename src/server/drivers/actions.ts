@@ -8,6 +8,7 @@ import {
   updateDriver,
 } from "./service";
 import { updateDriverSchema } from "./validation";
+import { authorize } from "@/src/lib/auth";
 
 export interface UpdateDriverActionState {
   success: boolean;
@@ -48,6 +49,7 @@ export async function updateDriverAction(
   _previousState: UpdateDriverActionState,
   formData: FormData,
 ): Promise<UpdateDriverActionState> {
+  await authorize("drivers:manage");
   const rawData = {
     firstName:
       optionalString(formData.get("firstName")) ?? "",
@@ -121,6 +123,7 @@ export async function updateDriverAction(
 export async function archiveDriverAction(
   id: string,
 ) {
+  await authorize("drivers:manage");
   try {
     const driver = await archiveDriver(id);
 
@@ -146,6 +149,7 @@ export async function archiveDriverAction(
 export async function restoreDriverAction(
   id: string,
 ) {
+  await authorize("drivers:manage");
   try {
     const driver = await restoreDriver(id);
 

@@ -7,7 +7,7 @@ export default function Recruitment() {
         </h2>
 
         <p className="mt-6 text-slate-400">
-          We're always looking for passionate drivers to join our growing community.
+          We&apos;re always looking for passionate drivers to join our growing community.
         </p>
       </div>
     </section>

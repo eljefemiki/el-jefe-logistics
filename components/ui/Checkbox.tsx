@@ -39,7 +39,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               id={id}
               type="checkbox"
               disabled={disabled}
-              className="peer sr-only"
+              className={clsx("peer sr-only", className)}
               {...props}
             />
 

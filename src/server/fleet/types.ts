@@ -161,5 +161,4 @@ export interface CreateTruckInput {
   currentValue?: number;
 }
 
-export interface UpdateTruckInput
-  extends Partial<CreateTruckInput> {}
+export type UpdateTruckInput = Partial<CreateTruckInput>;

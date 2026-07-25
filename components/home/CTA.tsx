@@ -12,7 +12,7 @@ export default function CTA() {
         </h2>
 
         <p className="mt-6 text-xl text-slate-200">
-          Join El Jefe Logistics today and become part of one of Europe's growing virtual trucking communities.
+          Join El Jefe Logistics today and become part of one of Europe&apos;s growing virtual trucking communities.
         </p>
 
         <div className="mt-10">

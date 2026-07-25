@@ -1,6 +1,6 @@
 // =======================================================
 // JEFECORE DATABASE SCHEMA
-// Version: 0.9.0 - Finance Centre
+// Version: 1.0.0 - JefeCore Enterprise platform layer
 // El Jefe Logistics
 // =======================================================
 
@@ -23,8 +23,41 @@ enum UserRole {
   HR
   DISPATCHER
   FLEET_MANAGER
+  FINANCE
+  WORKSHOP
   DRIVER
   APPLICANT
+}
+
+enum NotificationSeverity {
+  INFO
+  SUCCESS
+  WARNING
+  CRITICAL
+}
+
+enum NotificationType {
+  SYSTEM
+  FLEET
+  DRIVER
+  DISPATCH
+  WORKSHOP
+  FUEL
+  CUSTOMER
+  FINANCE
+  DOCUMENT
+}
+
+enum DocumentCategory {
+  GENERAL
+  VEHICLE
+  DRIVER
+  CUSTOMER
+  JOB
+  INVOICE
+  MAINTENANCE
+  FUEL
+  COMPLIANCE
 }
 
 enum DriverRank {
@@ -136,6 +169,9 @@ model Account {
   lastLogin DateTime?
 
   driver Driver?
+  notifications Notification[]
+  documents     Document[]     @relation("DocumentUploader")
+  auditEvents   AuditEvent[]   @relation("AuditActor")
 
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
@@ -203,6 +239,7 @@ model Company {
   headquarters String
 
   depots Depot[]
+  settings CompanySettings?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -308,6 +345,108 @@ model Depot {
   @@index([companyId])
   @@index([name])
   @@index([city])
+}
+
+// =======================================================
+// JEFECORE ENTERPRISE PLATFORM LAYER
+// =======================================================
+
+model Notification {
+  id String @id @default(cuid())
+
+  recipientId String?
+  recipient   Account? @relation(fields: [recipientId], references: [id], onDelete: Cascade)
+
+  title       String
+  message     String
+  type        NotificationType @default(SYSTEM)
+  severity    NotificationSeverity @default(INFO)
+  entityType  String?
+  entityId    String?
+  entityHref  String?
+  readAt      DateTime?
+  createdAt   DateTime @default(now())
+  expiresAt   DateTime?
+
+  @@index([recipientId, readAt, createdAt])
+  @@index([type, createdAt])
+  @@index([entityType, entityId])
+}
+
+model Document {
+  id String @id @default(cuid())
+
+  name          String
+  description   String?
+  category      DocumentCategory @default(GENERAL)
+  entityType    String?
+  entityId      String?
+  storageKey    String?
+  originalName  String?
+  mimeType      String?
+  sizeBytes     Int?
+  externalUrl   String?
+
+  uploadedById String?
+  uploadedBy   Account? @relation("DocumentUploader", fields: [uploadedById], references: [id], onDelete: SetNull)
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  archivedAt DateTime?
+
+  @@index([category, createdAt])
+  @@index([entityType, entityId])
+  @@index([uploadedById])
+  @@index([archivedAt])
+}
+
+model AuditEvent {
+  id String @id @default(cuid())
+
+  actorId   String?
+  actor     Account? @relation("AuditActor", fields: [actorId], references: [id], onDelete: SetNull)
+  action    String
+  entityType String
+  entityId   String?
+  summary    String
+  before     Json?
+  after      Json?
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([actorId, createdAt])
+  @@index([action, createdAt])
+  @@index([entityType, entityId])
+}
+
+model CompanySettings {
+  id String @id @default(cuid())
+
+  companyId String @unique
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  legalName       String
+  tradingName     String?
+  registrationNo String?
+  vatNumber       String?
+  address         String?
+  phone           String?
+  email           String?
+  website         String?
+  logoUrl         String?
+  primaryColour   String @default("#2563eb")
+  currency        String @default("GBP")
+  locale          String @default("en-GB")
+  vatRate         Float @default(20)
+  invoicePrefix   String @default("INV")
+  nextInvoiceNo   Int @default(1)
+  notificationPreferences Json?
+  integrations    Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // =======================================================
