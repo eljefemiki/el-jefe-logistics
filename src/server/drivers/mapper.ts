@@ -17,6 +17,7 @@ interface DriverRecord {
   totalDeliveries: number;
   totalConvoys: number;
   favouriteTruck: string | null;
+  assignedTrailer: import("@/src/lib/ets2-trailers").Ets2TrailerType | null;
   joinedAt: Date;
   notes: string | null;
   createdAt: Date;
@@ -58,6 +59,7 @@ export function mapDriverToDTO(
     totalDeliveries: driver.totalDeliveries,
     totalConvoys: driver.totalConvoys,
     favouriteTruck: driver.favouriteTruck,
+    assignedTrailer: driver.assignedTrailer,
     joinedAt: driver.joinedAt,
     notes: driver.notes,
     createdAt: driver.createdAt,

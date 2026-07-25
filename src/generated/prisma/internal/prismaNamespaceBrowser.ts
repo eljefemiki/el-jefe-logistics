@@ -17,8 +17,8 @@
 
 import * as runtime from "@prisma/client/runtime/index-browser"
 
-export type * from '../models'
-export type * from './prismaNamespace'
+export type * from '../models.ts'
+export type * from './prismaNamespace.ts'
 
 export const Decimal = runtime.Decimal
 
@@ -56,6 +56,8 @@ export const ModelName = {
   Company: 'Company',
   Customer: 'Customer',
   Invoice: 'Invoice',
+  ContractListing: 'ContractListing',
+  ContractBid: 'ContractBid',
   Depot: 'Depot',
   Notification: 'Notification',
   Document: 'Document',
@@ -88,6 +90,10 @@ export const AccountScalarFieldEnum = {
   passwordHash: 'passwordHash',
   firstName: 'firstName',
   lastName: 'lastName',
+  steamId: 'steamId',
+  truckyUserId: 'truckyUserId',
+  truckyUsername: 'truckyUsername',
+  discordId: 'discordId',
   role: 'role',
   isActive: 'isActive',
   emailVerified: 'emailVerified',
@@ -112,6 +118,7 @@ export const DriverScalarFieldEnum = {
   totalDeliveries: 'totalDeliveries',
   totalConvoys: 'totalConvoys',
   favouriteTruck: 'favouriteTruck',
+  assignedTrailer: 'assignedTrailer',
   joinedAt: 'joinedAt',
   notes: 'notes',
   createdAt: 'createdAt',
@@ -182,6 +189,54 @@ export const InvoiceScalarFieldEnum = {
 } as const
 
 export type InvoiceScalarFieldEnum = (typeof InvoiceScalarFieldEnum)[keyof typeof InvoiceScalarFieldEnum]
+
+
+export const ContractListingScalarFieldEnum = {
+  id: 'id',
+  reference: 'reference',
+  customerId: 'customerId',
+  createdById: 'createdById',
+  title: 'title',
+  description: 'description',
+  origin: 'origin',
+  destination: 'destination',
+  cargoType: 'cargoType',
+  cargoCategory: 'cargoCategory',
+  requiredTrailer: 'requiredTrailer',
+  weightKg: 'weightKg',
+  pickupDate: 'pickupDate',
+  deliveryDate: 'deliveryDate',
+  budget: 'budget',
+  currency: 'currency',
+  contractTerms: 'contractTerms',
+  status: 'status',
+  awardedBidId: 'awardedBidId',
+  publishedAt: 'publishedAt',
+  awardedAt: 'awardedAt',
+  closedAt: 'closedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContractListingScalarFieldEnum = (typeof ContractListingScalarFieldEnum)[keyof typeof ContractListingScalarFieldEnum]
+
+
+export const ContractBidScalarFieldEnum = {
+  id: 'id',
+  listingId: 'listingId',
+  carrierName: 'carrierName',
+  contactEmail: 'contactEmail',
+  driverId: 'driverId',
+  trailerType: 'trailerType',
+  amount: 'amount',
+  estimatedDays: 'estimatedDays',
+  proposal: 'proposal',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContractBidScalarFieldEnum = (typeof ContractBidScalarFieldEnum)[keyof typeof ContractBidScalarFieldEnum]
 
 
 export const DepotScalarFieldEnum = {

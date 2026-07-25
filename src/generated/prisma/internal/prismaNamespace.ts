@@ -16,10 +16,10 @@
  */
 
 import * as runtime from "@prisma/client/runtime/client"
-import type * as Prisma from "../models"
-import { type PrismaClient } from "./class"
+import type * as Prisma from "../models.ts"
+import { type PrismaClient } from "./class.ts"
 
-export type * from '../models'
+export type * from '../models.ts'
 
 export type DMMF = typeof runtime.DMMF
 
@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.8.0
- * Query Engine version: 3c6e192761c0362d496ed980de936e2f3cebcd3a
+ * Prisma Client JS version: 7.9.0
+ * Query Engine version: e922089b7d7502aff4249d5da3420f6fa55fc6ad
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.8.0",
-  engine: "3c6e192761c0362d496ed980de936e2f3cebcd3a"
+  client: "7.9.0",
+  engine: "e922089b7d7502aff4249d5da3420f6fa55fc6ad"
 }
 
 /**
@@ -156,6 +156,19 @@ export type Subset<T, U> = {
 };
 
 /**
+ * Resolved type of the argument passed to the `PrismaClient` constructor.
+ *
+ * When called without a narrower options type (the common case), this resolves
+ * to `PrismaClientOptions` directly, which produces a clear TypeScript error
+ * message (`not assignable to parameter of type 'PrismaClientOptions'`) when
+ * the argument is missing or incomplete. When the user supplies a narrower
+ * options type (e.g. via a literal), it falls back to `Subset` to keep
+ * filtering out unknown properties.
+ */
+export type PrismaClientConstructorArgs<Options extends PrismaClientOptions> =
+  [PrismaClientOptions] extends [Options] ? PrismaClientOptions : Subset<Options, PrismaClientOptions>;
+
+/**
  * SelectSubset
  * @desc From `T` pick properties that exist in `U`. Simple version of Intersection.
  * Additionally, it validates, if both select and include are present. If the case, it errors.
@@ -187,7 +200,7 @@ type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
 export type XOR<T, U> =
   T extends object ?
   U extends object ?
-    (Without<T, U> & U) | (Without<U, T> & T)
+    ((Without<T, U> & U) | (Without<U, T> & T)) & object
   : U : T
 
 
@@ -389,6 +402,8 @@ export const ModelName = {
   Company: 'Company',
   Customer: 'Customer',
   Invoice: 'Invoice',
+  ContractListing: 'ContractListing',
+  ContractBid: 'ContractBid',
   Depot: 'Depot',
   Notification: 'Notification',
   Document: 'Document',
@@ -412,7 +427,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "driver" | "company" | "customer" | "invoice" | "depot" | "notification" | "document" | "auditEvent" | "companySettings" | "truck" | "fuelEntry" | "maintenanceJob"
+    modelProps: "account" | "driver" | "company" | "customer" | "invoice" | "contractListing" | "contractBid" | "depot" | "notification" | "document" | "auditEvent" | "companySettings" | "truck" | "fuelEntry" | "maintenanceJob"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -783,6 +798,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.InvoiceCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.InvoiceCountAggregateOutputType> | number
+        }
+      }
+    }
+    ContractListing: {
+      payload: Prisma.$ContractListingPayload<ExtArgs>
+      fields: Prisma.ContractListingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ContractListingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractListingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ContractListingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractListingPayload>
+        }
+        findFirst: {
+          args: Prisma.ContractListingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractListingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ContractListingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractListingPayload>
+        }
+        findMany: {
+          args: Prisma.ContractListingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractListingPayload>[]
+        }
+        create: {
+          args: Prisma.ContractListingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractListingPayload>
+        }
+        createMany: {
+          args: Prisma.ContractListingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ContractListingCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractListingPayload>[]
+        }
+        delete: {
+          args: Prisma.ContractListingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractListingPayload>
+        }
+        update: {
+          args: Prisma.ContractListingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractListingPayload>
+        }
+        deleteMany: {
+          args: Prisma.ContractListingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ContractListingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ContractListingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractListingPayload>[]
+        }
+        upsert: {
+          args: Prisma.ContractListingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractListingPayload>
+        }
+        aggregate: {
+          args: Prisma.ContractListingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateContractListing>
+        }
+        groupBy: {
+          args: Prisma.ContractListingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContractListingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ContractListingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContractListingCountAggregateOutputType> | number
+        }
+      }
+    }
+    ContractBid: {
+      payload: Prisma.$ContractBidPayload<ExtArgs>
+      fields: Prisma.ContractBidFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ContractBidFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractBidPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ContractBidFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractBidPayload>
+        }
+        findFirst: {
+          args: Prisma.ContractBidFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractBidPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ContractBidFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractBidPayload>
+        }
+        findMany: {
+          args: Prisma.ContractBidFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractBidPayload>[]
+        }
+        create: {
+          args: Prisma.ContractBidCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractBidPayload>
+        }
+        createMany: {
+          args: Prisma.ContractBidCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ContractBidCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractBidPayload>[]
+        }
+        delete: {
+          args: Prisma.ContractBidDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractBidPayload>
+        }
+        update: {
+          args: Prisma.ContractBidUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractBidPayload>
+        }
+        deleteMany: {
+          args: Prisma.ContractBidDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ContractBidUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ContractBidUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractBidPayload>[]
+        }
+        upsert: {
+          args: Prisma.ContractBidUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractBidPayload>
+        }
+        aggregate: {
+          args: Prisma.ContractBidAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateContractBid>
+        }
+        groupBy: {
+          args: Prisma.ContractBidGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContractBidGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ContractBidCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContractBidCountAggregateOutputType> | number
         }
       }
     }
@@ -1423,6 +1586,10 @@ export const AccountScalarFieldEnum = {
   passwordHash: 'passwordHash',
   firstName: 'firstName',
   lastName: 'lastName',
+  steamId: 'steamId',
+  truckyUserId: 'truckyUserId',
+  truckyUsername: 'truckyUsername',
+  discordId: 'discordId',
   role: 'role',
   isActive: 'isActive',
   emailVerified: 'emailVerified',
@@ -1447,6 +1614,7 @@ export const DriverScalarFieldEnum = {
   totalDeliveries: 'totalDeliveries',
   totalConvoys: 'totalConvoys',
   favouriteTruck: 'favouriteTruck',
+  assignedTrailer: 'assignedTrailer',
   joinedAt: 'joinedAt',
   notes: 'notes',
   createdAt: 'createdAt',
@@ -1517,6 +1685,54 @@ export const InvoiceScalarFieldEnum = {
 } as const
 
 export type InvoiceScalarFieldEnum = (typeof InvoiceScalarFieldEnum)[keyof typeof InvoiceScalarFieldEnum]
+
+
+export const ContractListingScalarFieldEnum = {
+  id: 'id',
+  reference: 'reference',
+  customerId: 'customerId',
+  createdById: 'createdById',
+  title: 'title',
+  description: 'description',
+  origin: 'origin',
+  destination: 'destination',
+  cargoType: 'cargoType',
+  cargoCategory: 'cargoCategory',
+  requiredTrailer: 'requiredTrailer',
+  weightKg: 'weightKg',
+  pickupDate: 'pickupDate',
+  deliveryDate: 'deliveryDate',
+  budget: 'budget',
+  currency: 'currency',
+  contractTerms: 'contractTerms',
+  status: 'status',
+  awardedBidId: 'awardedBidId',
+  publishedAt: 'publishedAt',
+  awardedAt: 'awardedAt',
+  closedAt: 'closedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContractListingScalarFieldEnum = (typeof ContractListingScalarFieldEnum)[keyof typeof ContractListingScalarFieldEnum]
+
+
+export const ContractBidScalarFieldEnum = {
+  id: 'id',
+  listingId: 'listingId',
+  carrierName: 'carrierName',
+  contactEmail: 'contactEmail',
+  driverId: 'driverId',
+  trailerType: 'trailerType',
+  amount: 'amount',
+  estimatedDays: 'estimatedDays',
+  proposal: 'proposal',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContractBidScalarFieldEnum = (typeof ContractBidScalarFieldEnum)[keyof typeof ContractBidScalarFieldEnum]
 
 
 export const DepotScalarFieldEnum = {
@@ -1840,6 +2056,20 @@ export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
+ * Reference to a field of type 'Ets2TrailerType'
+ */
+export type EnumEts2TrailerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Ets2TrailerType'>
+
+
+
+/**
+ * Reference to a field of type 'Ets2TrailerType[]'
+ */
+export type ListEnumEts2TrailerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Ets2TrailerType[]'>
+
+
+
+/**
  * Reference to a field of type 'CustomerStatus'
  */
 export type EnumCustomerStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerStatus'>
@@ -1864,6 +2094,48 @@ export type EnumInvoiceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
  * Reference to a field of type 'InvoiceStatus[]'
  */
 export type ListEnumInvoiceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InvoiceStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CargoCategory'
+ */
+export type EnumCargoCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CargoCategory'>
+
+
+
+/**
+ * Reference to a field of type 'CargoCategory[]'
+ */
+export type ListEnumCargoCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CargoCategory[]'>
+
+
+
+/**
+ * Reference to a field of type 'ContractListingStatus'
+ */
+export type EnumContractListingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContractListingStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ContractListingStatus[]'
+ */
+export type ListEnumContractListingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContractListingStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ContractBidStatus'
+ */
+export type EnumContractBidStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContractBidStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ContractBidStatus[]'
+ */
+export type ListEnumContractBidStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContractBidStatus[]'>
     
 
 
@@ -2030,19 +2302,10 @@ export type BatchPayload = {
 export const defineExtension = runtime.Extensions.defineExtension as unknown as runtime.Types.Extensions.ExtendsHook<"define", TypeMapCb, runtime.Types.Extensions.DefaultArgs>
 export type DefaultPrismaClient = PrismaClient
 export type ErrorFormat = 'pretty' | 'colorless' | 'minimal'
-export type PrismaClientOptions = ({
-  /**
-   * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-pg`.
-   */
-  adapter: runtime.SqlDriverAdapterFactory
-  accelerateUrl?: never
-} | {
-  /**
-   * Prisma Accelerate URL allowing the client to connect through Accelerate instead of a direct database.
-   */
-  accelerateUrl: string
-  adapter?: never
-}) & {
+/**
+ * Options common to all variants of `PrismaClientOptions`, regardless of whether you connect to your database through a driver adapter or through Prisma Accelerate.
+ */
+export interface PrismaClientBaseOptions {
   /**
    * @default "colorless"
    */
@@ -2129,12 +2392,64 @@ export type PrismaClientOptions = ({
    */
   queryPlanCacheMaxSize?: number
 }
+
+/**
+ * `PrismaClient` options for connecting to your database through Prisma Accelerate instead of a driver adapter.
+ * 
+ * Learn more: https://pris.ly/d/accelerate
+ */
+export interface PrismaClientOptionsWithAccelerateUrl extends PrismaClientBaseOptions {
+  /**
+   * The Prisma Accelerate connection URL. Use this option to connect to your database through Prisma Accelerate instead of using a driver adapter to connect directly.
+   * 
+   * Learn more: https://pris.ly/d/accelerate
+   */
+  accelerateUrl: string
+  adapter?: never
+}
+
+/**
+ * `PrismaClient` options for connecting to your database through a driver adapter. This is the common case in Prisma 7.
+ * 
+ * Learn more: https://pris.ly/d/driver-adapters
+ */
+export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions {
+  /**
+   * A driver adapter that PrismaClient uses to connect to your database, such as the ones provided by `@prisma/adapter-pg`, `@prisma/adapter-libsql`, `@prisma/adapter-planetscale`, etc.
+   * 
+   * A driver adapter is **required** unless you connect to your database through Prisma Accelerate (in which case use `accelerateUrl` instead).
+   * 
+   * Learn more: https://pris.ly/d/driver-adapters
+   * 
+   * @example
+   * ```ts
+   * import { PrismaPg } from '@prisma/adapter-pg'
+   * import { PrismaClient } from './generated/prisma/client'
+   * 
+   * const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
+   * const prisma = new PrismaClient({ adapter })
+   * ```
+   */
+  adapter: runtime.SqlDriverAdapterFactory
+  accelerateUrl?: never
+}
+
+/**
+ * Options passed to the `PrismaClient` constructor.
+ * 
+ * A driver adapter (or, alternatively, a Prisma Accelerate URL) is **required**. See {@link PrismaClientOptionsWithAdapter} and {@link PrismaClientOptionsWithAccelerateUrl} for the two variants. All other properties live in {@link PrismaClientBaseOptions} and are optional.
+ * 
+ * Learn more about driver adapters: https://pris.ly/d/driver-adapters
+ */
+export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
   account?: Prisma.AccountOmit
   driver?: Prisma.DriverOmit
   company?: Prisma.CompanyOmit
   customer?: Prisma.CustomerOmit
   invoice?: Prisma.InvoiceOmit
+  contractListing?: Prisma.ContractListingOmit
+  contractBid?: Prisma.ContractBidOmit
   depot?: Prisma.DepotOmit
   notification?: Prisma.NotificationOmit
   document?: Prisma.DocumentOmit
@@ -2205,4 +2520,3 @@ export type PrismaAction =
  * `PrismaClient` proxy available in interactive transactions.
  */
 export type TransactionClient = Omit<DefaultPrismaClient, runtime.ITXClientDenyList>
-

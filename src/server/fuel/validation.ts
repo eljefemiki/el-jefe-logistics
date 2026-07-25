@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { fuelTypes } from "./types";
+import { fuelTypes } from "./types.ts";
 
 const optionalText = z.string().trim().max(1000).optional();
 

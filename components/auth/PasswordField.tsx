@@ -4,12 +4,16 @@ import { useState } from "react";
 
 interface PasswordFieldProps {
   label: string;
+  name?: string;
   placeholder?: string;
+  autoComplete?: string;
 }
 
 export default function PasswordField({
   label,
+  name = "password",
   placeholder,
+  autoComplete = "current-password",
 }: PasswordFieldProps) {
   const [show, setShow] = useState(false);
 
@@ -23,10 +27,12 @@ export default function PasswordField({
       <div className="relative">
 
         <input
-          name="password"
+          name={name}
           type={show ? "text" : "password"}
           placeholder={placeholder}
-          className="w-full rounded-xl border border-slate-700 bg-slate-950 p-3 pr-14 outline-none transition focus:border-blue-500"
+          autoComplete={autoComplete}
+          required
+          className="w-full rounded-xl border border-slate-700 bg-slate-950 p-3 pr-14 text-white placeholder:text-slate-500 outline-none transition focus:border-blue-500"
         />
 
         <button

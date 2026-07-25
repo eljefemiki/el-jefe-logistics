@@ -15,6 +15,7 @@ import {
   type UpdateDriverActionState,
 } from "@/src/server/drivers/actions";
 import type { DriverDTO } from "@/src/server/drivers/types";
+import { ets2TrailerTypes, trailerLabels } from "@/src/lib/ets2-trailers";
 
 interface DriverFormProps {
   driver: DriverDTO;
@@ -310,6 +311,24 @@ export default function DriverForm({
               className={inputClasses}
             />
             <FieldError errors={state.fieldErrors?.favouriteTruck} />
+          </div>
+
+          <div>
+            <label htmlFor="assignedTrailer" className={labelClasses}>
+              Assigned ETS2 Trailer
+            </label>
+            <select
+              id="assignedTrailer"
+              name="assignedTrailer"
+              defaultValue={driver.assignedTrailer ?? ""}
+              className={inputClasses}
+            >
+              <option value="">No trailer assigned</option>
+              {ets2TrailerTypes.map((type) => (
+                <option key={type} value={type}>{trailerLabels[type]}</option>
+              ))}
+            </select>
+            <FieldError errors={state.fieldErrors?.assignedTrailer} />
           </div>
 
           <div className="md:col-span-2">

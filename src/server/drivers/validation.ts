@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { ets2TrailerTypes } from "../../lib/ets2-trailers.ts";
 
 export const driverStatusSchema = z.enum([
   "AVAILABLE",
@@ -82,6 +83,8 @@ export const updateDriverSchema = z.object({
     .trim()
     .max(80, "Favourite truck is too long")
     .optional(),
+
+  assignedTrailer: z.enum(ets2TrailerTypes).nullable().optional(),
 
   joinedAt: z
     .date()

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { invoiceStatuses } from "./types";
+import { invoiceStatuses } from "./types.ts";
 export const invoiceSchema = z.object({
   customerId: z.string().min(1, "Select a customer."),
   status: z.enum(invoiceStatuses),

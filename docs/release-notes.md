@@ -1,3 +1,21 @@
+# JefeCore v1.1.0 release notes
+
+JefeCore v1.1.0 builds on the enterprise fleet, driver, customer, maintenance, fuel, finance, authentication, permissions, audit, notification, document-metadata, and company-settings modules with a persisted smart contract marketplace.
+
+Security and release hardening includes Next.js 16.2.11, a non-vulnerable Sharp resolution, safe transitive dependency updates, production-only enforcement of an independent `AUTH_SECRET`, explicit Prisma install-script approvals, marketplace owner checks, server-side workflow validation, protected dashboard routes, and expanded critical workflow tests.
+
+Document uploads remain a metadata/external-link placeholder; no binary upload endpoint is enabled. Dispatch remains a live capacity/readiness view because a persisted dispatch assignment and journey model is not yet present. Driver creation also remains intentionally deferred until a secure invitation/onboarding workflow is designed.
+
+Before production deployment, apply all Prisma migrations in staging, perform a native provider backup/restore test, and configure production secrets, retention, recovery objectives, and operational ownership.
+
+## Smart Contract Marketplace v1.1.0
+
+- Added `/dashboard/marketplace` for persisted freight opportunities, commercial terms and competitive bids.
+- Dispatch and management roles can draft or publish customer-linked contracts.
+- Authenticated marketplace participants can submit carrier proposals with price and delivery estimates.
+- Contract owners can atomically award one bid, accepting the winner and rejecting remaining pending bids.
+- Added marketplace permissions, navigation, KPIs, search, status filtering, audit events and migration.
+
 ## Dispatch Centre v0.5.0
 
 - Added `/dashboard/dispatch` as the operational command centre for the Customer -> Dispatch -> Driver/Truck -> Journey -> Fuel -> Maintenance -> Invoice chain.

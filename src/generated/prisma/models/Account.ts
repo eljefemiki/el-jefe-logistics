@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums"
-import type * as Prisma from "../internal/prismaNamespace"
+import type * as $Enums from "../enums.ts"
+import type * as Prisma from "../internal/prismaNamespace.ts"
 
 /**
  * Model Account
@@ -30,6 +30,10 @@ export type AccountMinAggregateOutputType = {
   passwordHash: string | null
   firstName: string | null
   lastName: string | null
+  steamId: string | null
+  truckyUserId: string | null
+  truckyUsername: string | null
+  discordId: string | null
   role: $Enums.UserRole | null
   isActive: boolean | null
   emailVerified: boolean | null
@@ -45,6 +49,10 @@ export type AccountMaxAggregateOutputType = {
   passwordHash: string | null
   firstName: string | null
   lastName: string | null
+  steamId: string | null
+  truckyUserId: string | null
+  truckyUsername: string | null
+  discordId: string | null
   role: $Enums.UserRole | null
   isActive: boolean | null
   emailVerified: boolean | null
@@ -60,6 +68,10 @@ export type AccountCountAggregateOutputType = {
   passwordHash: number
   firstName: number
   lastName: number
+  steamId: number
+  truckyUserId: number
+  truckyUsername: number
+  discordId: number
   role: number
   isActive: number
   emailVerified: number
@@ -77,6 +89,10 @@ export type AccountMinAggregateInputType = {
   passwordHash?: true
   firstName?: true
   lastName?: true
+  steamId?: true
+  truckyUserId?: true
+  truckyUsername?: true
+  discordId?: true
   role?: true
   isActive?: true
   emailVerified?: true
@@ -92,6 +108,10 @@ export type AccountMaxAggregateInputType = {
   passwordHash?: true
   firstName?: true
   lastName?: true
+  steamId?: true
+  truckyUserId?: true
+  truckyUsername?: true
+  discordId?: true
   role?: true
   isActive?: true
   emailVerified?: true
@@ -107,6 +127,10 @@ export type AccountCountAggregateInputType = {
   passwordHash?: true
   firstName?: true
   lastName?: true
+  steamId?: true
+  truckyUserId?: true
+  truckyUsername?: true
+  discordId?: true
   role?: true
   isActive?: true
   emailVerified?: true
@@ -195,6 +219,10 @@ export type AccountGroupByOutputType = {
   passwordHash: string
   firstName: string
   lastName: string
+  steamId: string | null
+  truckyUserId: string | null
+  truckyUsername: string | null
+  discordId: string | null
   role: $Enums.UserRole
   isActive: boolean
   emailVerified: boolean
@@ -231,6 +259,10 @@ export type AccountWhereInput = {
   passwordHash?: Prisma.StringFilter<"Account"> | string
   firstName?: Prisma.StringFilter<"Account"> | string
   lastName?: Prisma.StringFilter<"Account"> | string
+  steamId?: Prisma.StringNullableFilter<"Account"> | string | null
+  truckyUserId?: Prisma.StringNullableFilter<"Account"> | string | null
+  truckyUsername?: Prisma.StringNullableFilter<"Account"> | string | null
+  discordId?: Prisma.StringNullableFilter<"Account"> | string | null
   role?: Prisma.EnumUserRoleFilter<"Account"> | $Enums.UserRole
   isActive?: Prisma.BoolFilter<"Account"> | boolean
   emailVerified?: Prisma.BoolFilter<"Account"> | boolean
@@ -242,6 +274,7 @@ export type AccountWhereInput = {
   notifications?: Prisma.NotificationListRelationFilter
   documents?: Prisma.DocumentListRelationFilter
   auditEvents?: Prisma.AuditEventListRelationFilter
+  contractListings?: Prisma.ContractListingListRelationFilter
 }
 
 export type AccountOrderByWithRelationInput = {
@@ -250,6 +283,10 @@ export type AccountOrderByWithRelationInput = {
   passwordHash?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
+  steamId?: Prisma.SortOrderInput | Prisma.SortOrder
+  truckyUserId?: Prisma.SortOrderInput | Prisma.SortOrder
+  truckyUsername?: Prisma.SortOrderInput | Prisma.SortOrder
+  discordId?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
@@ -261,17 +298,22 @@ export type AccountOrderByWithRelationInput = {
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   documents?: Prisma.DocumentOrderByRelationAggregateInput
   auditEvents?: Prisma.AuditEventOrderByRelationAggregateInput
+  contractListings?: Prisma.ContractListingOrderByRelationAggregateInput
 }
 
 export type AccountWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   email?: string
+  steamId?: string
+  truckyUserId?: string
+  discordId?: string
   AND?: Prisma.AccountWhereInput | Prisma.AccountWhereInput[]
   OR?: Prisma.AccountWhereInput[]
   NOT?: Prisma.AccountWhereInput | Prisma.AccountWhereInput[]
   passwordHash?: Prisma.StringFilter<"Account"> | string
   firstName?: Prisma.StringFilter<"Account"> | string
   lastName?: Prisma.StringFilter<"Account"> | string
+  truckyUsername?: Prisma.StringNullableFilter<"Account"> | string | null
   role?: Prisma.EnumUserRoleFilter<"Account"> | $Enums.UserRole
   isActive?: Prisma.BoolFilter<"Account"> | boolean
   emailVerified?: Prisma.BoolFilter<"Account"> | boolean
@@ -283,7 +325,8 @@ export type AccountWhereUniqueInput = Prisma.AtLeast<{
   notifications?: Prisma.NotificationListRelationFilter
   documents?: Prisma.DocumentListRelationFilter
   auditEvents?: Prisma.AuditEventListRelationFilter
-}, "id" | "email">
+  contractListings?: Prisma.ContractListingListRelationFilter
+}, "id" | "email" | "steamId" | "truckyUserId" | "discordId">
 
 export type AccountOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -291,6 +334,10 @@ export type AccountOrderByWithAggregationInput = {
   passwordHash?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
+  steamId?: Prisma.SortOrderInput | Prisma.SortOrder
+  truckyUserId?: Prisma.SortOrderInput | Prisma.SortOrder
+  truckyUsername?: Prisma.SortOrderInput | Prisma.SortOrder
+  discordId?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
@@ -312,6 +359,10 @@ export type AccountScalarWhereWithAggregatesInput = {
   passwordHash?: Prisma.StringWithAggregatesFilter<"Account"> | string
   firstName?: Prisma.StringWithAggregatesFilter<"Account"> | string
   lastName?: Prisma.StringWithAggregatesFilter<"Account"> | string
+  steamId?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
+  truckyUserId?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
+  truckyUsername?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
+  discordId?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
   role?: Prisma.EnumUserRoleWithAggregatesFilter<"Account"> | $Enums.UserRole
   isActive?: Prisma.BoolWithAggregatesFilter<"Account"> | boolean
   emailVerified?: Prisma.BoolWithAggregatesFilter<"Account"> | boolean
@@ -327,6 +378,10 @@ export type AccountCreateInput = {
   passwordHash: string
   firstName: string
   lastName: string
+  steamId?: string | null
+  truckyUserId?: string | null
+  truckyUsername?: string | null
+  discordId?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -338,6 +393,7 @@ export type AccountCreateInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
+  contractListings?: Prisma.ContractListingCreateNestedManyWithoutCreatedByInput
 }
 
 export type AccountUncheckedCreateInput = {
@@ -346,6 +402,10 @@ export type AccountUncheckedCreateInput = {
   passwordHash: string
   firstName: string
   lastName: string
+  steamId?: string | null
+  truckyUserId?: string | null
+  truckyUsername?: string | null
+  discordId?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -357,6 +417,7 @@ export type AccountUncheckedCreateInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
+  contractListings?: Prisma.ContractListingUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type AccountUpdateInput = {
@@ -365,6 +426,10 @@ export type AccountUpdateInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -376,6 +441,7 @@ export type AccountUpdateInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
+  contractListings?: Prisma.ContractListingUpdateManyWithoutCreatedByNestedInput
 }
 
 export type AccountUncheckedUpdateInput = {
@@ -384,6 +450,10 @@ export type AccountUncheckedUpdateInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -395,6 +465,7 @@ export type AccountUncheckedUpdateInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
+  contractListings?: Prisma.ContractListingUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type AccountCreateManyInput = {
@@ -403,6 +474,10 @@ export type AccountCreateManyInput = {
   passwordHash: string
   firstName: string
   lastName: string
+  steamId?: string | null
+  truckyUserId?: string | null
+  truckyUsername?: string | null
+  discordId?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -418,6 +493,10 @@ export type AccountUpdateManyMutationInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -433,6 +512,10 @@ export type AccountUncheckedUpdateManyInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -448,6 +531,10 @@ export type AccountCountOrderByAggregateInput = {
   passwordHash?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
+  steamId?: Prisma.SortOrder
+  truckyUserId?: Prisma.SortOrder
+  truckyUsername?: Prisma.SortOrder
+  discordId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
@@ -463,6 +550,10 @@ export type AccountMaxOrderByAggregateInput = {
   passwordHash?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
+  steamId?: Prisma.SortOrder
+  truckyUserId?: Prisma.SortOrder
+  truckyUsername?: Prisma.SortOrder
+  discordId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
@@ -478,6 +569,10 @@ export type AccountMinOrderByAggregateInput = {
   passwordHash?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
+  steamId?: Prisma.SortOrder
+  truckyUserId?: Prisma.SortOrder
+  truckyUsername?: Prisma.SortOrder
+  discordId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
@@ -499,6 +594,10 @@ export type AccountNullableScalarRelationFilter = {
 
 export type StringFieldUpdateOperationsInput = {
   set?: string
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
 }
 
 export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -529,6 +628,20 @@ export type AccountUpdateOneRequiredWithoutDriverNestedInput = {
   upsert?: Prisma.AccountUpsertWithoutDriverInput
   connect?: Prisma.AccountWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutDriverInput, Prisma.AccountUpdateWithoutDriverInput>, Prisma.AccountUncheckedUpdateWithoutDriverInput>
+}
+
+export type AccountCreateNestedOneWithoutContractListingsInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutContractListingsInput, Prisma.AccountUncheckedCreateWithoutContractListingsInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutContractListingsInput
+  connect?: Prisma.AccountWhereUniqueInput
+}
+
+export type AccountUpdateOneRequiredWithoutContractListingsNestedInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutContractListingsInput, Prisma.AccountUncheckedCreateWithoutContractListingsInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutContractListingsInput
+  upsert?: Prisma.AccountUpsertWithoutContractListingsInput
+  connect?: Prisma.AccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutContractListingsInput, Prisma.AccountUpdateWithoutContractListingsInput>, Prisma.AccountUncheckedUpdateWithoutContractListingsInput>
 }
 
 export type AccountCreateNestedOneWithoutNotificationsInput = {
@@ -585,6 +698,10 @@ export type AccountCreateWithoutDriverInput = {
   passwordHash: string
   firstName: string
   lastName: string
+  steamId?: string | null
+  truckyUserId?: string | null
+  truckyUsername?: string | null
+  discordId?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -595,6 +712,7 @@ export type AccountCreateWithoutDriverInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
+  contractListings?: Prisma.ContractListingCreateNestedManyWithoutCreatedByInput
 }
 
 export type AccountUncheckedCreateWithoutDriverInput = {
@@ -603,6 +721,10 @@ export type AccountUncheckedCreateWithoutDriverInput = {
   passwordHash: string
   firstName: string
   lastName: string
+  steamId?: string | null
+  truckyUserId?: string | null
+  truckyUsername?: string | null
+  discordId?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -613,6 +735,7 @@ export type AccountUncheckedCreateWithoutDriverInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
+  contractListings?: Prisma.ContractListingUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type AccountCreateOrConnectWithoutDriverInput = {
@@ -637,6 +760,10 @@ export type AccountUpdateWithoutDriverInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -647,6 +774,7 @@ export type AccountUpdateWithoutDriverInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
+  contractListings?: Prisma.ContractListingUpdateManyWithoutCreatedByNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutDriverInput = {
@@ -655,6 +783,10 @@ export type AccountUncheckedUpdateWithoutDriverInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -662,6 +794,115 @@ export type AccountUncheckedUpdateWithoutDriverInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+  auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
+  contractListings?: Prisma.ContractListingUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type AccountCreateWithoutContractListingsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  steamId?: string | null
+  truckyUserId?: string | null
+  truckyUsername?: string | null
+  discordId?: string | null
+  role?: $Enums.UserRole
+  isActive?: boolean
+  emailVerified?: boolean
+  lastLogin?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  archivedAt?: Date | string | null
+  driver?: Prisma.DriverCreateNestedOneWithoutAccountInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
+  auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
+}
+
+export type AccountUncheckedCreateWithoutContractListingsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  steamId?: string | null
+  truckyUserId?: string | null
+  truckyUsername?: string | null
+  discordId?: string | null
+  role?: $Enums.UserRole
+  isActive?: boolean
+  emailVerified?: boolean
+  lastLogin?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  archivedAt?: Date | string | null
+  driver?: Prisma.DriverUncheckedCreateNestedOneWithoutAccountInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+  auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type AccountCreateOrConnectWithoutContractListingsInput = {
+  where: Prisma.AccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.AccountCreateWithoutContractListingsInput, Prisma.AccountUncheckedCreateWithoutContractListingsInput>
+}
+
+export type AccountUpsertWithoutContractListingsInput = {
+  update: Prisma.XOR<Prisma.AccountUpdateWithoutContractListingsInput, Prisma.AccountUncheckedUpdateWithoutContractListingsInput>
+  create: Prisma.XOR<Prisma.AccountCreateWithoutContractListingsInput, Prisma.AccountUncheckedCreateWithoutContractListingsInput>
+  where?: Prisma.AccountWhereInput
+}
+
+export type AccountUpdateToOneWithWhereWithoutContractListingsInput = {
+  where?: Prisma.AccountWhereInput
+  data: Prisma.XOR<Prisma.AccountUpdateWithoutContractListingsInput, Prisma.AccountUncheckedUpdateWithoutContractListingsInput>
+}
+
+export type AccountUpdateWithoutContractListingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  driver?: Prisma.DriverUpdateOneWithoutAccountNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
+  auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
+}
+
+export type AccountUncheckedUpdateWithoutContractListingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  driver?: Prisma.DriverUncheckedUpdateOneWithoutAccountNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
@@ -673,6 +914,10 @@ export type AccountCreateWithoutNotificationsInput = {
   passwordHash: string
   firstName: string
   lastName: string
+  steamId?: string | null
+  truckyUserId?: string | null
+  truckyUsername?: string | null
+  discordId?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -683,6 +928,7 @@ export type AccountCreateWithoutNotificationsInput = {
   driver?: Prisma.DriverCreateNestedOneWithoutAccountInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
+  contractListings?: Prisma.ContractListingCreateNestedManyWithoutCreatedByInput
 }
 
 export type AccountUncheckedCreateWithoutNotificationsInput = {
@@ -691,6 +937,10 @@ export type AccountUncheckedCreateWithoutNotificationsInput = {
   passwordHash: string
   firstName: string
   lastName: string
+  steamId?: string | null
+  truckyUserId?: string | null
+  truckyUsername?: string | null
+  discordId?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -701,6 +951,7 @@ export type AccountUncheckedCreateWithoutNotificationsInput = {
   driver?: Prisma.DriverUncheckedCreateNestedOneWithoutAccountInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
+  contractListings?: Prisma.ContractListingUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type AccountCreateOrConnectWithoutNotificationsInput = {
@@ -725,6 +976,10 @@ export type AccountUpdateWithoutNotificationsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -735,6 +990,7 @@ export type AccountUpdateWithoutNotificationsInput = {
   driver?: Prisma.DriverUpdateOneWithoutAccountNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
+  contractListings?: Prisma.ContractListingUpdateManyWithoutCreatedByNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutNotificationsInput = {
@@ -743,6 +999,10 @@ export type AccountUncheckedUpdateWithoutNotificationsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -753,6 +1013,7 @@ export type AccountUncheckedUpdateWithoutNotificationsInput = {
   driver?: Prisma.DriverUncheckedUpdateOneWithoutAccountNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
+  contractListings?: Prisma.ContractListingUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type AccountCreateWithoutDocumentsInput = {
@@ -761,6 +1022,10 @@ export type AccountCreateWithoutDocumentsInput = {
   passwordHash: string
   firstName: string
   lastName: string
+  steamId?: string | null
+  truckyUserId?: string | null
+  truckyUsername?: string | null
+  discordId?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -771,6 +1036,7 @@ export type AccountCreateWithoutDocumentsInput = {
   driver?: Prisma.DriverCreateNestedOneWithoutAccountInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
+  contractListings?: Prisma.ContractListingCreateNestedManyWithoutCreatedByInput
 }
 
 export type AccountUncheckedCreateWithoutDocumentsInput = {
@@ -779,6 +1045,10 @@ export type AccountUncheckedCreateWithoutDocumentsInput = {
   passwordHash: string
   firstName: string
   lastName: string
+  steamId?: string | null
+  truckyUserId?: string | null
+  truckyUsername?: string | null
+  discordId?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -789,6 +1059,7 @@ export type AccountUncheckedCreateWithoutDocumentsInput = {
   driver?: Prisma.DriverUncheckedCreateNestedOneWithoutAccountInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
+  contractListings?: Prisma.ContractListingUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type AccountCreateOrConnectWithoutDocumentsInput = {
@@ -813,6 +1084,10 @@ export type AccountUpdateWithoutDocumentsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -823,6 +1098,7 @@ export type AccountUpdateWithoutDocumentsInput = {
   driver?: Prisma.DriverUpdateOneWithoutAccountNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
+  contractListings?: Prisma.ContractListingUpdateManyWithoutCreatedByNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutDocumentsInput = {
@@ -831,6 +1107,10 @@ export type AccountUncheckedUpdateWithoutDocumentsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -841,6 +1121,7 @@ export type AccountUncheckedUpdateWithoutDocumentsInput = {
   driver?: Prisma.DriverUncheckedUpdateOneWithoutAccountNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
+  contractListings?: Prisma.ContractListingUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type AccountCreateWithoutAuditEventsInput = {
@@ -849,6 +1130,10 @@ export type AccountCreateWithoutAuditEventsInput = {
   passwordHash: string
   firstName: string
   lastName: string
+  steamId?: string | null
+  truckyUserId?: string | null
+  truckyUsername?: string | null
+  discordId?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -859,6 +1144,7 @@ export type AccountCreateWithoutAuditEventsInput = {
   driver?: Prisma.DriverCreateNestedOneWithoutAccountInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
+  contractListings?: Prisma.ContractListingCreateNestedManyWithoutCreatedByInput
 }
 
 export type AccountUncheckedCreateWithoutAuditEventsInput = {
@@ -867,6 +1153,10 @@ export type AccountUncheckedCreateWithoutAuditEventsInput = {
   passwordHash: string
   firstName: string
   lastName: string
+  steamId?: string | null
+  truckyUserId?: string | null
+  truckyUsername?: string | null
+  discordId?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -877,6 +1167,7 @@ export type AccountUncheckedCreateWithoutAuditEventsInput = {
   driver?: Prisma.DriverUncheckedCreateNestedOneWithoutAccountInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+  contractListings?: Prisma.ContractListingUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type AccountCreateOrConnectWithoutAuditEventsInput = {
@@ -901,6 +1192,10 @@ export type AccountUpdateWithoutAuditEventsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -911,6 +1206,7 @@ export type AccountUpdateWithoutAuditEventsInput = {
   driver?: Prisma.DriverUpdateOneWithoutAccountNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
+  contractListings?: Prisma.ContractListingUpdateManyWithoutCreatedByNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutAuditEventsInput = {
@@ -919,6 +1215,10 @@ export type AccountUncheckedUpdateWithoutAuditEventsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -929,6 +1229,7 @@ export type AccountUncheckedUpdateWithoutAuditEventsInput = {
   driver?: Prisma.DriverUncheckedUpdateOneWithoutAccountNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+  contractListings?: Prisma.ContractListingUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 
@@ -940,12 +1241,14 @@ export type AccountCountOutputType = {
   notifications: number
   documents: number
   auditEvents: number
+  contractListings: number
 }
 
 export type AccountCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   notifications?: boolean | AccountCountOutputTypeCountNotificationsArgs
   documents?: boolean | AccountCountOutputTypeCountDocumentsArgs
   auditEvents?: boolean | AccountCountOutputTypeCountAuditEventsArgs
+  contractListings?: boolean | AccountCountOutputTypeCountContractListingsArgs
 }
 
 /**
@@ -979,6 +1282,13 @@ export type AccountCountOutputTypeCountAuditEventsArgs<ExtArgs extends runtime.T
   where?: Prisma.AuditEventWhereInput
 }
 
+/**
+ * AccountCountOutputType without action
+ */
+export type AccountCountOutputTypeCountContractListingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ContractListingWhereInput
+}
+
 
 export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -986,6 +1296,10 @@ export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   passwordHash?: boolean
   firstName?: boolean
   lastName?: boolean
+  steamId?: boolean
+  truckyUserId?: boolean
+  truckyUsername?: boolean
+  discordId?: boolean
   role?: boolean
   isActive?: boolean
   emailVerified?: boolean
@@ -997,6 +1311,7 @@ export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   notifications?: boolean | Prisma.Account$notificationsArgs<ExtArgs>
   documents?: boolean | Prisma.Account$documentsArgs<ExtArgs>
   auditEvents?: boolean | Prisma.Account$auditEventsArgs<ExtArgs>
+  contractListings?: boolean | Prisma.Account$contractListingsArgs<ExtArgs>
   _count?: boolean | Prisma.AccountCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["account"]>
 
@@ -1006,6 +1321,10 @@ export type AccountSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   passwordHash?: boolean
   firstName?: boolean
   lastName?: boolean
+  steamId?: boolean
+  truckyUserId?: boolean
+  truckyUsername?: boolean
+  discordId?: boolean
   role?: boolean
   isActive?: boolean
   emailVerified?: boolean
@@ -1021,6 +1340,10 @@ export type AccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   passwordHash?: boolean
   firstName?: boolean
   lastName?: boolean
+  steamId?: boolean
+  truckyUserId?: boolean
+  truckyUsername?: boolean
+  discordId?: boolean
   role?: boolean
   isActive?: boolean
   emailVerified?: boolean
@@ -1036,6 +1359,10 @@ export type AccountSelectScalar = {
   passwordHash?: boolean
   firstName?: boolean
   lastName?: boolean
+  steamId?: boolean
+  truckyUserId?: boolean
+  truckyUsername?: boolean
+  discordId?: boolean
   role?: boolean
   isActive?: boolean
   emailVerified?: boolean
@@ -1045,12 +1372,13 @@ export type AccountSelectScalar = {
   archivedAt?: boolean
 }
 
-export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "firstName" | "lastName" | "role" | "isActive" | "emailVerified" | "lastLogin" | "createdAt" | "updatedAt" | "archivedAt", ExtArgs["result"]["account"]>
+export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "firstName" | "lastName" | "steamId" | "truckyUserId" | "truckyUsername" | "discordId" | "role" | "isActive" | "emailVerified" | "lastLogin" | "createdAt" | "updatedAt" | "archivedAt", ExtArgs["result"]["account"]>
 export type AccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   driver?: boolean | Prisma.Account$driverArgs<ExtArgs>
   notifications?: boolean | Prisma.Account$notificationsArgs<ExtArgs>
   documents?: boolean | Prisma.Account$documentsArgs<ExtArgs>
   auditEvents?: boolean | Prisma.Account$auditEventsArgs<ExtArgs>
+  contractListings?: boolean | Prisma.Account$contractListingsArgs<ExtArgs>
   _count?: boolean | Prisma.AccountCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AccountIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1063,6 +1391,7 @@ export type $AccountPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     documents: Prisma.$DocumentPayload<ExtArgs>[]
     auditEvents: Prisma.$AuditEventPayload<ExtArgs>[]
+    contractListings: Prisma.$ContractListingPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1070,6 +1399,10 @@ export type $AccountPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     passwordHash: string
     firstName: string
     lastName: string
+    steamId: string | null
+    truckyUserId: string | null
+    truckyUsername: string | null
+    discordId: string | null
     role: $Enums.UserRole
     isActive: boolean
     emailVerified: boolean
@@ -1475,6 +1808,7 @@ export interface Prisma__AccountClient<T, Null = never, ExtArgs extends runtime.
   notifications<T extends Prisma.Account$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   documents<T extends Prisma.Account$documentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditEvents<T extends Prisma.Account$auditEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$auditEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  contractListings<T extends Prisma.Account$contractListingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$contractListingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContractListingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1509,6 +1843,10 @@ export interface AccountFieldRefs {
   readonly passwordHash: Prisma.FieldRef<"Account", 'String'>
   readonly firstName: Prisma.FieldRef<"Account", 'String'>
   readonly lastName: Prisma.FieldRef<"Account", 'String'>
+  readonly steamId: Prisma.FieldRef<"Account", 'String'>
+  readonly truckyUserId: Prisma.FieldRef<"Account", 'String'>
+  readonly truckyUsername: Prisma.FieldRef<"Account", 'String'>
+  readonly discordId: Prisma.FieldRef<"Account", 'String'>
   readonly role: Prisma.FieldRef<"Account", 'UserRole'>
   readonly isActive: Prisma.FieldRef<"Account", 'Boolean'>
   readonly emailVerified: Prisma.FieldRef<"Account", 'Boolean'>
@@ -1997,6 +2335,30 @@ export type Account$auditEventsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.AuditEventScalarFieldEnum | Prisma.AuditEventScalarFieldEnum[]
+}
+
+/**
+ * Account.contractListings
+ */
+export type Account$contractListingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ContractListing
+   */
+  select?: Prisma.ContractListingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ContractListing
+   */
+  omit?: Prisma.ContractListingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContractListingInclude<ExtArgs> | null
+  where?: Prisma.ContractListingWhereInput
+  orderBy?: Prisma.ContractListingOrderByWithRelationInput | Prisma.ContractListingOrderByWithRelationInput[]
+  cursor?: Prisma.ContractListingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ContractListingScalarFieldEnum | Prisma.ContractListingScalarFieldEnum[]
 }
 
 /**

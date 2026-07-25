@@ -12,7 +12,6 @@ import {
   PoundSterling,
   Newspaper,
   CalendarDays,
-  BarChart3,
   Settings,
   Building2,
   Wrench,
@@ -22,6 +21,9 @@ import {
   Search,
   FileText,
   ShieldCheck,
+  Store,
+  X,
+  UserCircle,
 } from "lucide-react";
 import type { UserRole } from "@/src/generated/prisma/enums";
 import { hasPermission, type Permission } from "@/src/lib/permissions";
@@ -34,6 +36,11 @@ interface NavItem {
 }
 
 const navigation: NavItem[] = [
+  {
+    name: "My Profile",
+    href: "/profile",
+    icon: UserCircle,
+  },
   {
     name: "Dashboard",
     href: "/dashboard",
@@ -62,6 +69,12 @@ const navigation: NavItem[] = [
     href: "/dashboard/customers",
     icon: ContactRound,
     permission: "customers:view",
+  },
+  {
+    name: "Marketplace",
+    href: "/dashboard/marketplace",
+    icon: Store,
+    permission: "marketplace:view",
   },
   {
     name: "Workshop",
@@ -96,11 +109,6 @@ const navigation: NavItem[] = [
     icon: CalendarDays,
   },
   {
-    name: "Analytics",
-    href: "/dashboard/analytics",
-    icon: BarChart3,
-  },
-  {
     name: "Settings",
     href: "/dashboard/settings",
     icon: Settings,
@@ -108,11 +116,33 @@ const navigation: NavItem[] = [
   },
 ];
 
-export default function Sidebar({ role }: { role: UserRole }) {
+interface SidebarProps {
+  role: UserRole;
+  mobileOpen?: boolean;
+  onClose?: () => void;
+}
+
+export default function Sidebar({ role, mobileOpen = false, onClose }: SidebarProps) {
   const pathname = usePathname();
+  const roleLabel = role.replaceAll("_", " ");
 
   return (
-    <aside className="hidden h-screen w-72 flex-col border-r border-slate-800 bg-slate-950 lg:flex">
+    <>
+      {mobileOpen && (
+        <button
+          type="button"
+          aria-label="Close navigation"
+          className="fixed inset-0 z-40 bg-black/60 lg:hidden"
+          onClick={onClose}
+        />
+      )}
+      <aside
+        aria-label="Dashboard navigation"
+        className={clsx(
+          "fixed inset-y-0 left-0 z-50 flex h-screen w-72 flex-col border-r border-slate-800 bg-slate-950 transition-transform lg:sticky lg:top-0 lg:z-auto lg:translate-x-0",
+          mobileOpen ? "translate-x-0" : "-translate-x-full"
+        )}
+      >
       {/* Logo */}
       <div className="border-b border-slate-800 px-6 py-6">
         <div className="flex items-center gap-3">
@@ -129,6 +159,14 @@ export default function Sidebar({ role }: { role: UserRole }) {
               El Jefe Logistics
             </p>
           </div>
+          <button
+            type="button"
+            aria-label="Close navigation"
+            className="ml-auto rounded-lg p-2 text-slate-400 hover:bg-slate-800 hover:text-white lg:hidden"
+            onClick={onClose}
+          >
+            <X className="h-5 w-5" />
+          </button>
         </div>
       </div>
 
@@ -145,6 +183,7 @@ export default function Sidebar({ role }: { role: UserRole }) {
             <Link
               key={item.name}
               href={item.href}
+              onClick={onClose}
               className={clsx(
                 "flex items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200",
 
@@ -174,19 +213,12 @@ export default function Sidebar({ role }: { role: UserRole }) {
             El Jefe Logistics
           </p>
 
-          <p className="text-sm text-slate-400">
-            CEO Dashboard
-          </p>
-
-          <div className="mt-4 h-2 overflow-hidden rounded-full bg-slate-800">
-            <div className="h-full w-[99%] rounded-full bg-emerald-500" />
-          </div>
-
-          <p className="mt-2 text-xs text-slate-500">
-            Company Health 99%
+          <p className="mt-1 text-sm capitalize text-slate-400">
+            {roleLabel.toLowerCase()} workspace
           </p>
         </div>
       </div>
-    </aside>
+      </aside>
+    </>
   );
 }

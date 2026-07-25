@@ -1,0 +1,155 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+
+import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaClient } from "../src/generated/prisma/client.ts";
+
+const databaseUrl = process.env.TEST_DATABASE_URL;
+const enabled = Boolean(databaseUrl);
+const runId = `release-${process.pid}-${Date.now()}`;
+
+function createClient() {
+  return new PrismaClient({
+    adapter: new PrismaPg({ connectionString: databaseUrl }),
+  });
+}
+
+test("database-backed marketplace award is atomic and owner-scoped", { skip: !enabled }, async () => {
+  const prisma = createClient();
+  process.env.DATABASE_URL = databaseUrl;
+  const { acceptContractBid, insertContractBid, insertContractListing } = await import("../src/server/marketplace/repository.ts");
+  const owner = await prisma.account.create({
+    data: {
+      email: `${runId}-owner@example.test`,
+      passwordHash: "integration-only",
+      firstName: "Release",
+      lastName: "Owner",
+      role: "DISPATCHER",
+    },
+  });
+  const otherOwner = await prisma.account.create({
+    data: {
+      email: `${runId}-other@example.test`,
+      passwordHash: "integration-only",
+      firstName: "Other",
+      lastName: "Owner",
+      role: "DISPATCHER",
+    },
+  });
+  const customer = await prisma.customer.create({
+    data: {
+      customerNumber: `${runId}-customer`,
+      companyName: "Release Test Customer",
+      status: "ACTIVE",
+      contactFirstName: "Test",
+      contactLastName: "Customer",
+      email: `${runId}-customer@example.test`,
+    },
+  });
+  await prisma.driver.create({
+    data: {
+      accountId: owner.id,
+      employeeNumber: `${runId}-driver`,
+      assignedTrailer: "DRY_FREIGHT",
+    },
+  });
+  await prisma.driver.create({
+    data: {
+      accountId: otherOwner.id,
+      employeeNumber: `${runId}-other-driver`,
+      assignedTrailer: "REFRIGERATED",
+    },
+  });
+  const listing = await insertContractListing(`${runId}-contract`, owner.id, {
+      title: "Critical freight workflow",
+      description: "Database-backed release integration test.",
+      customerId: customer.id,
+      origin: "London",
+      destination: "Manchester",
+      cargoType: "General",
+      cargoCategory: "GENERAL",
+      requiredTrailer: "DRY_FREIGHT",
+      pickupDate: new Date("2026-08-01T09:00:00Z"),
+      deliveryDate: new Date("2026-08-02T17:00:00Z"),
+      budget: 2500,
+      currency: "GBP",
+      contractTerms: "Tracked and insured delivery.",
+      publish: true,
+  });
+  await assert.rejects(
+    insertContractBid(listing.id, otherOwner.id, { amount: 2050, estimatedDays: 1, proposal: "Refrigerated trailer cannot serve dry freight." }),
+    /not compatible/,
+  );
+  const bids = [
+    await insertContractBid(listing.id, owner.id, { amount: 2100, estimatedDays: 1, proposal: "Dedicated vehicle with the correct dry freight trailer." }),
+    await insertContractBid(listing.id, owner.id, { amount: 2200, estimatedDays: 2, proposal: "Tracked vehicle with the correct assigned trailer." }),
+  ];
+
+  await assert.rejects(
+    acceptContractBid(listing.id, bids[0].id, otherOwner.id),
+    /can no longer be awarded/,
+  );
+
+  const winningBid = bids[0];
+  await acceptContractBid(listing.id, winningBid.id, owner.id);
+
+  const awarded = await prisma.contractListing.findUnique({
+    where: { id: listing.id },
+    include: { bids: true },
+  });
+  assert.equal(awarded.status, "AWARDED");
+  assert.equal(awarded.awardedBidId, winningBid.id);
+  assert.deepEqual(
+    awarded.bids.map(({ status }) => status).sort(),
+    ["ACCEPTED", "REJECTED"],
+  );
+  await prisma.$disconnect();
+});
+
+test("database-backed maintenance completion restores fleet availability only after the last open job", { skip: !enabled }, async () => {
+  const prisma = createClient();
+  process.env.DATABASE_URL = databaseUrl;
+  const { insertMaintenanceJob, reviseMaintenanceJob } = await import("../src/server/workshop/repository.ts");
+  const truck = await prisma.truck.create({
+    data: {
+      fleetNumber: `${runId}-fleet`,
+      registration: `${runId}-reg`,
+      manufacturer: "VOLVO",
+      model: "FH",
+      type: "TRACTOR",
+      year: 2025,
+      status: "AVAILABLE",
+    },
+  });
+  const jobs = [];
+  for (const [index, title] of ["Brake inspection", "Scheduled service"].entries()) {
+    jobs.push(await insertMaintenanceJob(`${runId}-job-${index}`, {
+      truckId: truck.id,
+      title,
+      type: "INSPECTION",
+      priority: "ROUTINE",
+      status: "REPORTED",
+    }));
+  }
+
+  for (const [index, job] of jobs.entries()) {
+    await reviseMaintenanceJob(job.id, {
+      truckId: truck.id,
+      title: job.title,
+      type: job.type,
+      priority: job.priority,
+      status: "COMPLETED",
+      odometerKm: job.odometerKm ?? undefined,
+      description: job.description ?? undefined,
+      technician: job.technician ?? undefined,
+      vendor: job.vendor ?? undefined,
+      scheduledFor: job.scheduledFor ?? undefined,
+      estimatedCost: job.estimatedCost ?? undefined,
+      actualCost: job.actualCost ?? undefined,
+      notes: job.notes ?? undefined,
+    });
+    const updated = await prisma.truck.findUniqueOrThrow({ where: { id: truck.id } });
+    assert.equal(updated.status, index === 0 ? "MAINTENANCE" : "AVAILABLE");
+  }
+  await prisma.$disconnect();
+});

@@ -1,6 +1,6 @@
 {
   "name": "el-jefe-logistics",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,19 +8,21 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit --incremental false",
-    "test": "node --test --experimental-strip-types tests/*.test.mjs"
+    "test": "node --test --experimental-strip-types tests/*.test.mjs",
+    "test:integration": "tsx --test tests/database-workflows.integration.mjs",
+    "test:acceptance": "tsx --test tests/api-authorization.acceptance.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
-    "@prisma/adapter-pg": "^7.8.0",
-    "@prisma/client": "^7.8.0",
+    "@prisma/adapter-pg": "^7.9.0",
+    "@prisma/client": "^7.9.0",
     "bcryptjs": "^3.0.3",
     "clsx": "^2.1.1",
     "dotenv": "^17.4.2",
     "lucide-react": "^1.23.0",
-    "next": "16.2.10",
+    "next": "16.2.11",
     "pg": "^8.22.0",
-    "prisma": "^7.8.0",
+    "prisma": "^7.9.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-hook-form": "^7.81.0",
@@ -34,14 +36,24 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.2.10",
+    "eslint-config-next": "16.2.11",
     "tailwindcss": "^4",
+    "tsx": "^4.23.1",
     "typescript": "^5"
   },
+  "overrides": {
+    "brace-expansion": "5.0.8",
+    "fast-uri": "4.1.1",
+    "find-my-way": "9.7.0",
+    "minimatch": "10.2.5",
+    "postcss": "8.5.23",
+    "sharp": "0.35.3",
+    "valibot": "1.4.2"
+  },
   "allowScripts": {
-    "@prisma/engines@7.8.0": true,
-    "prisma@7.8.0": true,
-    "sharp@0.34.5": true,
+    "@prisma/engines@7.9.0": true,
+    "esbuild@0.28.1": true,
+    "prisma@7.9.0": true,
     "unrs-resolver@1.12.2": true
   }
 }

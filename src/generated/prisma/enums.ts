@@ -182,3 +182,66 @@ export const InvoiceStatus = {
 } as const
 
 export type InvoiceStatus = (typeof InvoiceStatus)[keyof typeof InvoiceStatus]
+
+
+export const ContractListingStatus = {
+  DRAFT: 'DRAFT',
+  OPEN: 'OPEN',
+  AWARDED: 'AWARDED',
+  CLOSED: 'CLOSED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type ContractListingStatus = (typeof ContractListingStatus)[keyof typeof ContractListingStatus]
+
+
+export const ContractBidStatus = {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED',
+  WITHDRAWN: 'WITHDRAWN'
+} as const
+
+export type ContractBidStatus = (typeof ContractBidStatus)[keyof typeof ContractBidStatus]
+
+
+export const Ets2TrailerType = {
+  DRY_FREIGHT: 'DRY_FREIGHT',
+  INSULATED: 'INSULATED',
+  REFRIGERATED: 'REFRIGERATED',
+  CURTAINSIDER: 'CURTAINSIDER',
+  FLATBED: 'FLATBED',
+  CONTAINER_CARRIER: 'CONTAINER_CARRIER',
+  LOG_TRAILER: 'LOG_TRAILER',
+  FOOD_TANK: 'FOOD_TANK',
+  FUEL_CISTERN: 'FUEL_CISTERN',
+  CHEMICAL_TANK: 'CHEMICAL_TANK',
+  GAS_CISTERN: 'GAS_CISTERN',
+  SILO: 'SILO',
+  DUMPER: 'DUMPER',
+  MOVING_FLOOR: 'MOVING_FLOOR',
+  LOW_BED: 'LOW_BED',
+  LOW_LOADER: 'LOW_LOADER',
+  LIVESTOCK: 'LIVESTOCK'
+} as const
+
+export type Ets2TrailerType = (typeof Ets2TrailerType)[keyof typeof Ets2TrailerType]
+
+
+export const CargoCategory = {
+  GENERAL: 'GENERAL',
+  REFRIGERATED: 'REFRIGERATED',
+  FROZEN: 'FROZEN',
+  LIQUID_FOOD: 'LIQUID_FOOD',
+  FUEL: 'FUEL',
+  CHEMICALS: 'CHEMICALS',
+  GASES: 'GASES',
+  DRY_BULK: 'DRY_BULK',
+  CONSTRUCTION: 'CONSTRUCTION',
+  CONTAINERS: 'CONTAINERS',
+  LOGS: 'LOGS',
+  HEAVY_EQUIPMENT: 'HEAVY_EQUIPMENT',
+  LIVESTOCK: 'LIVESTOCK'
+} as const
+
+export type CargoCategory = (typeof CargoCategory)[keyof typeof CargoCategory]

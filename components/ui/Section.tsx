@@ -1,17 +1,17 @@
-import { ReactNode } from "react";
+import { HTMLAttributes, ReactNode } from "react";
 import Container from "./Container";
 
-interface SectionProps {
+interface SectionProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
-  className?: string;
 }
 
 export default function Section({
   children,
   className = "",
+  ...props
 }: SectionProps) {
   return (
-    <section className={`py-24 ${className}`}>
+    <section className={`py-24 ${className}`} {...props}>
       <Container>
         {children}
       </Container>

@@ -28,7 +28,8 @@ export default function LoginForm() {
       const result = await response.json();
       if (!response.ok) { setError(result.message ?? "Unable to sign in."); return; }
       const next = searchParams.get("next");
-      router.push(next?.startsWith("/dashboard") ? next : "/dashboard");
+      const dashboardTarget = next === "/profile" || next?.startsWith("/dashboard") ? next : "/dashboard";
+      router.push(result.user?.role === "APPLICANT" ? "/profile" : dashboardTarget);
       router.refresh();
     } catch { setError("Unable to reach JefeCore. Please try again."); }
     finally { setLoading(false); }
@@ -49,15 +50,18 @@ export default function LoginForm() {
 
         <div>
 
-          <label className="mb-2 block font-semibold">
+          <label htmlFor="login-email" className="mb-2 block font-semibold text-white">
             Email Address
           </label>
 
           <input
+            id="login-email"
             name="email"
             type="email"
             placeholder="you@email.com"
-            className="w-full rounded-xl border border-slate-700 bg-slate-950 p-3 outline-none focus:border-blue-500"
+            autoComplete="email"
+            required
+            className="w-full rounded-xl border border-slate-700 bg-slate-950 p-3 text-white placeholder:text-slate-500 outline-none focus:border-blue-500"
           />
 
         </div>

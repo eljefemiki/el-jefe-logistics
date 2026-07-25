@@ -40,7 +40,14 @@ export async function POST(request: Request) {
       );
     }
 
-    const { name, password } = result.data;
+    const {
+      name,
+      password,
+      steamId,
+      truckyUserId,
+      truckyUsername,
+      discordId,
+    } = result.data;
     const email = result.data.email.trim().toLowerCase();
 
     const existingAccount = await prisma.account.findUnique({
@@ -73,6 +80,10 @@ export async function POST(request: Request) {
         lastName,
         email,
         passwordHash,
+        steamId,
+        truckyUserId,
+        truckyUsername,
+        discordId,
         role: "APPLICANT",
         isActive: true,
         emailVerified: false,
@@ -95,6 +106,16 @@ export async function POST(request: Request) {
       { status: 201 }
     );
   } catch (error) {
+    if (typeof error === "object" && error !== null && "code" in error && error.code === "P2002") {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "One of these account or driver IDs is already registered.",
+        },
+        { status: 409 }
+      );
+    }
+
     console.error("Registration error:", error);
 
     return NextResponse.json(

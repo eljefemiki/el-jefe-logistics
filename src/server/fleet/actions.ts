@@ -117,16 +117,7 @@ export async function createTruckAction(
   }
 
   try {
-    console.log("Attempting to create truck:", {
-      ...validationResult.data,
-      // No database credentials are logged here.
-    });
-
     const truck = await createTruck(validationResult.data);
-
-    console.log("Truck created successfully:", {
-      id: truck.id,
-    });
 
     revalidatePath("/dashboard/fleet");
 

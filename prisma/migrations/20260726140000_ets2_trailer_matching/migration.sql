@@ -1,0 +1,28 @@
+CREATE TYPE "Ets2TrailerType" AS ENUM (
+  'DRY_FREIGHT', 'INSULATED', 'REFRIGERATED', 'CURTAINSIDER', 'FLATBED',
+  'CONTAINER_CARRIER', 'LOG_TRAILER', 'FOOD_TANK', 'FUEL_CISTERN',
+  'CHEMICAL_TANK', 'GAS_CISTERN', 'SILO', 'DUMPER', 'MOVING_FLOOR',
+  'LOW_BED', 'LOW_LOADER', 'LIVESTOCK'
+);
+
+CREATE TYPE "CargoCategory" AS ENUM (
+  'GENERAL', 'REFRIGERATED', 'FROZEN', 'LIQUID_FOOD', 'FUEL', 'CHEMICALS',
+  'GASES', 'DRY_BULK', 'CONSTRUCTION', 'CONTAINERS', 'LOGS',
+  'HEAVY_EQUIPMENT', 'LIVESTOCK'
+);
+
+ALTER TABLE "Driver" ADD COLUMN "assignedTrailer" "Ets2TrailerType";
+
+ALTER TABLE "ContractListing"
+ADD COLUMN "cargoCategory" "CargoCategory" NOT NULL DEFAULT 'GENERAL',
+ADD COLUMN "requiredTrailer" "Ets2TrailerType" NOT NULL DEFAULT 'DRY_FREIGHT';
+
+ALTER TABLE "ContractBid"
+ADD COLUMN "driverId" TEXT,
+ADD COLUMN "trailerType" "Ets2TrailerType";
+
+ALTER TABLE "ContractBid"
+ADD CONSTRAINT "ContractBid_driverId_fkey"
+FOREIGN KEY ("driverId") REFERENCES "Driver"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+CREATE INDEX "ContractBid_driverId_idx" ON "ContractBid"("driverId");

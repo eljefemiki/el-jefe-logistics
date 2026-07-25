@@ -1,5 +1,29 @@
 import { z } from "zod";
 
+const privateIdentityFields = {
+  steamId: z
+    .string()
+    .trim()
+    .regex(/^\d{17}$/, "Steam ID must be the 17-digit SteamID64."),
+
+  truckyUserId: z
+    .string()
+    .trim()
+    .min(1, "Trucky user ID is required.")
+    .max(64, "Trucky user ID is too long."),
+
+  truckyUsername: z
+    .string()
+    .trim()
+    .min(2, "Trucky username must be at least 2 characters.")
+    .max(64, "Trucky username is too long."),
+
+  discordId: z
+    .string()
+    .trim()
+    .regex(/^\d{17,20}$/, "Discord ID must be a 17 to 20 digit user ID."),
+};
+
 export const registerSchema = z
   .object({
     name: z
@@ -10,6 +34,8 @@ export const registerSchema = z
     email: z
       .email("Please enter a valid email address.")
       .toLowerCase(),
+
+    ...privateIdentityFields,
 
     password: z
       .string()
@@ -35,3 +61,7 @@ export const loginSchema = z.object({
 
 export type RegisterInput = z.infer<typeof registerSchema>;
 export type LoginInput = z.infer<typeof loginSchema>;
+
+export const privateProfileSchema = z.object(privateIdentityFields);
+
+export type PrivateProfileInput = z.infer<typeof privateProfileSchema>;

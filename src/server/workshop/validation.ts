@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { maintenancePriorities, maintenanceStatuses, maintenanceTypes } from "./types";
+import { maintenancePriorities, maintenanceStatuses, maintenanceTypes } from "./types.ts";
 
 const optionalText = z.string().trim().max(2000).optional();
 

@@ -1,0 +1,2 @@
+"use client";
+export default function ErrorPage({ reset }: { reset: () => void }) { return <div className="min-h-screen bg-slate-950 p-8 text-white"><div className="rounded-xl border border-red-500/30 bg-red-500/10 p-6"><h2 className="font-semibold">The contract marketplace could not be loaded.</h2><button onClick={reset} className="mt-4 rounded-lg bg-red-500 px-4 py-2 text-sm">Try again</button></div></div>; }

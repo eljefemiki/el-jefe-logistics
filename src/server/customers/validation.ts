@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { customerStatuses } from "./types";
+import { customerStatuses } from "./types.ts";
 
 const optionalText = (max: number) => z.string().trim().max(max).optional();
 

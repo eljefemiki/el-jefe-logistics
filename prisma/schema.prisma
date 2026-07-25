@@ -1,6 +1,6 @@
 // =======================================================
 // JEFECORE DATABASE SCHEMA
-// Version: 1.0.0 - JefeCore Enterprise platform layer
+// Version: 1.1.0 - Smart Contract Marketplace
 // El Jefe Logistics
 // =======================================================
 
@@ -147,6 +147,57 @@ enum InvoiceStatus {
   VOID
 }
 
+enum ContractListingStatus {
+  DRAFT
+  OPEN
+  AWARDED
+  CLOSED
+  CANCELLED
+}
+
+enum ContractBidStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  WITHDRAWN
+}
+
+enum Ets2TrailerType {
+  DRY_FREIGHT
+  INSULATED
+  REFRIGERATED
+  CURTAINSIDER
+  FLATBED
+  CONTAINER_CARRIER
+  LOG_TRAILER
+  FOOD_TANK
+  FUEL_CISTERN
+  CHEMICAL_TANK
+  GAS_CISTERN
+  SILO
+  DUMPER
+  MOVING_FLOOR
+  LOW_BED
+  LOW_LOADER
+  LIVESTOCK
+}
+
+enum CargoCategory {
+  GENERAL
+  REFRIGERATED
+  FROZEN
+  LIQUID_FOOD
+  FUEL
+  CHEMICALS
+  GASES
+  DRY_BULK
+  CONSTRUCTION
+  CONTAINERS
+  LOGS
+  HEAVY_EQUIPMENT
+  LIVESTOCK
+}
+
 // =======================================================
 // ACCOUNT
 // Authentication & Website Access
@@ -161,6 +212,13 @@ model Account {
   firstName String
   lastName  String
 
+  // Private community identities. These are only exposed through the
+  // authenticated account owner's profile.
+  steamId       String? @unique
+  truckyUserId  String? @unique
+  truckyUsername String?
+  discordId     String? @unique
+
   role UserRole @default(DRIVER)
 
   isActive      Boolean @default(true)
@@ -168,10 +226,11 @@ model Account {
 
   lastLogin DateTime?
 
-  driver Driver?
-  notifications Notification[]
-  documents     Document[]     @relation("DocumentUploader")
-  auditEvents   AuditEvent[]   @relation("AuditActor")
+  driver           Driver?
+  notifications    Notification[]
+  documents        Document[]        @relation("DocumentUploader")
+  auditEvents      AuditEvent[]      @relation("AuditActor")
+  contractListings ContractListing[]
 
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
@@ -206,6 +265,8 @@ model Driver {
   totalConvoys    Int @default(0)
 
   favouriteTruck String?
+  assignedTrailer Ets2TrailerType?
+  contractBids    ContractBid[]
 
   // Current truck relationships.
   // This will later be replaced/expanded with DriverAssignment history.
@@ -238,7 +299,7 @@ model Company {
   country      String
   headquarters String
 
-  depots Depot[]
+  depots   Depot[]
   settings CompanySettings?
 
   createdAt DateTime @default(now())
@@ -255,7 +316,7 @@ model Company {
 model Customer {
   id String @id @default(cuid())
 
-  customerNumber String @unique
+  customerNumber String         @unique
   companyName    String
   status         CustomerStatus @default(LEAD)
 
@@ -269,12 +330,13 @@ model Customer {
   addressLine2 String?
   city         String?
   postcode     String?
-  country      String @default("United Kingdom")
+  country      String  @default("United Kingdom")
 
   creditLimit      Float?
-  paymentTermsDays Int @default(30)
+  paymentTermsDays Int               @default(30)
   notes            String?
   invoices         Invoice[]
+  contractListings ContractListing[]
 
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
@@ -295,7 +357,7 @@ model Customer {
 model Invoice {
   id String @id @default(cuid())
 
-  invoiceNumber String @unique
+  invoiceNumber String   @unique
   customerId    String
   customer      Customer @relation(fields: [customerId], references: [id], onDelete: Restrict)
 
@@ -304,10 +366,10 @@ model Invoice {
   issueDate   DateTime
   dueDate     DateTime
   subtotal    Float
-  vatRate     Float @default(20)
+  vatRate     Float         @default(20)
   vatAmount   Float
   total       Float
-  amountPaid  Float @default(0)
+  amountPaid  Float         @default(0)
   paidAt      DateTime?
   reference   String?
   notes       String?
@@ -319,6 +381,75 @@ model Invoice {
   @@index([status])
   @@index([issueDate])
   @@index([dueDate])
+}
+
+// =======================================================
+// SMART CONTRACT MARKETPLACE
+// Freight opportunities, bids and award lifecycle
+// =======================================================
+
+model ContractListing {
+  id        String @id @default(cuid())
+  reference String @unique
+
+  customerId  String
+  customer    Customer @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  createdById String
+  createdBy   Account  @relation(fields: [createdById], references: [id], onDelete: Restrict)
+
+  title         String
+  description   String
+  origin        String
+  destination   String
+    cargoType     String
+    cargoCategory CargoCategory  @default(GENERAL)
+    requiredTrailer Ets2TrailerType @default(DRY_FREIGHT)
+  weightKg      Float?
+  pickupDate    DateTime
+  deliveryDate  DateTime
+  budget        Float
+  currency      String                @default("GBP")
+  contractTerms String
+  status        ContractListingStatus @default(DRAFT)
+
+  bids         ContractBid[] @relation("ListingBids")
+  awardedBidId String?       @unique
+  awardedBid   ContractBid?  @relation("AwardedBid", fields: [awardedBidId], references: [id], onDelete: SetNull)
+
+  publishedAt DateTime?
+  awardedAt   DateTime?
+  closedAt    DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([customerId])
+  @@index([createdById])
+  @@index([status, pickupDate])
+  @@index([origin, destination])
+}
+
+model ContractBid {
+  id        String          @id @default(cuid())
+  listingId String
+  listing   ContractListing @relation("ListingBids", fields: [listingId], references: [id], onDelete: Cascade)
+
+  carrierName   String
+  contactEmail  String
+  driverId      String?
+  driver        Driver? @relation(fields: [driverId], references: [id], onDelete: SetNull)
+  trailerType   Ets2TrailerType?
+  amount        Float
+  estimatedDays Int
+  proposal      String
+  status        ContractBidStatus @default(PENDING)
+  awardedFor    ContractListing?  @relation("AwardedBid")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([listingId, status])
+  @@index([contactEmail])
+  @@index([driverId])
 }
 
 // =======================================================
@@ -357,16 +488,16 @@ model Notification {
   recipientId String?
   recipient   Account? @relation(fields: [recipientId], references: [id], onDelete: Cascade)
 
-  title       String
-  message     String
-  type        NotificationType @default(SYSTEM)
-  severity    NotificationSeverity @default(INFO)
-  entityType  String?
-  entityId    String?
-  entityHref  String?
-  readAt      DateTime?
-  createdAt   DateTime @default(now())
-  expiresAt   DateTime?
+  title      String
+  message    String
+  type       NotificationType     @default(SYSTEM)
+  severity   NotificationSeverity @default(INFO)
+  entityType String?
+  entityId   String?
+  entityHref String?
+  readAt     DateTime?
+  createdAt  DateTime             @default(now())
+  expiresAt  DateTime?
 
   @@index([recipientId, readAt, createdAt])
   @@index([type, createdAt])
@@ -376,22 +507,22 @@ model Notification {
 model Document {
   id String @id @default(cuid())
 
-  name          String
-  description   String?
-  category      DocumentCategory @default(GENERAL)
-  entityType    String?
-  entityId      String?
-  storageKey    String?
-  originalName  String?
-  mimeType      String?
-  sizeBytes     Int?
-  externalUrl   String?
+  name         String
+  description  String?
+  category     DocumentCategory @default(GENERAL)
+  entityType   String?
+  entityId     String?
+  storageKey   String?
+  originalName String?
+  mimeType     String?
+  sizeBytes    Int?
+  externalUrl  String?
 
   uploadedById String?
   uploadedBy   Account? @relation("DocumentUploader", fields: [uploadedById], references: [id], onDelete: SetNull)
 
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
   archivedAt DateTime?
 
   @@index([category, createdAt])
@@ -403,9 +534,9 @@ model Document {
 model AuditEvent {
   id String @id @default(cuid())
 
-  actorId   String?
-  actor     Account? @relation("AuditActor", fields: [actorId], references: [id], onDelete: SetNull)
-  action    String
+  actorId    String?
+  actor      Account? @relation("AuditActor", fields: [actorId], references: [id], onDelete: SetNull)
+  action     String
   entityType String
   entityId   String?
   summary    String
@@ -424,26 +555,26 @@ model AuditEvent {
 model CompanySettings {
   id String @id @default(cuid())
 
-  companyId String @unique
+  companyId String  @unique
   company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
 
-  legalName       String
-  tradingName     String?
-  registrationNo String?
-  vatNumber       String?
-  address         String?
-  phone           String?
-  email           String?
-  website         String?
-  logoUrl         String?
-  primaryColour   String @default("#2563eb")
-  currency        String @default("GBP")
-  locale          String @default("en-GB")
-  vatRate         Float @default(20)
-  invoicePrefix   String @default("INV")
-  nextInvoiceNo   Int @default(1)
+  legalName               String
+  tradingName             String?
+  registrationNo          String?
+  vatNumber               String?
+  address                 String?
+  phone                   String?
+  email                   String?
+  website                 String?
+  logoUrl                 String?
+  primaryColour           String  @default("#2563eb")
+  currency                String  @default("GBP")
+  locale                  String  @default("en-GB")
+  vatRate                 Float   @default(20)
+  invoicePrefix           String  @default("INV")
+  nextInvoiceNo           Int     @default(1)
   notificationPreferences Json?
-  integrations    Json?
+  integrations            Json?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -524,18 +655,18 @@ model FuelEntry {
   truckId   String
   truck     Truck  @relation(fields: [truckId], references: [id], onDelete: Cascade)
 
-  fuelType FuelType @default(DIESEL)
-  quantity Float
-  unitPrice Float
-  totalCost Float
-  odometerKm Int
+  fuelType       FuelType @default(DIESEL)
+  quantity       Float
+  unitPrice      Float
+  totalCost      Float
+  odometerKm     Int
   fuelLevelAfter Int?
 
-  station String
-  location String?
+  station       String
+  location      String?
   receiptNumber String?
-  purchasedAt DateTime
-  notes String?
+  purchasedAt   DateTime
+  notes         String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -545,7 +676,6 @@ model FuelEntry {
   @@index([purchasedAt])
   @@index([station])
 }
-
 
 // =======================================================
 // MAINTENANCE JOB
@@ -569,10 +699,10 @@ model MaintenanceJob {
   technician String?
   vendor     String?
 
-  reportedAt  DateTime @default(now())
+  reportedAt   DateTime  @default(now())
   scheduledFor DateTime?
-  startedAt   DateTime?
-  completedAt DateTime?
+  startedAt    DateTime?
+  completedAt  DateTime?
 
   estimatedCost Float?
   actualCost    Float?

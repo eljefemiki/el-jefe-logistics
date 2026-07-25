@@ -3,7 +3,13 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 import { cookies } from "next/headers";
 import { prisma } from "@/src/lib/prisma";
 export const sessionCookie = "jefecore_session";
-const secret = () => process.env.AUTH_SECRET || process.env.DATABASE_URL || "development-only-change-me";
+const secret = () => {
+  if (process.env.AUTH_SECRET) return process.env.AUTH_SECRET;
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("AUTH_SECRET must be configured in production.");
+  }
+  return "development-only-change-me";
+};
 const signature = (id: string) => createHmac("sha256", secret()).update(id).digest("base64url");
 export function createSessionToken(accountId: string) { return `${accountId}.${signature(accountId)}`; }
 export function verifySessionToken(value?: string) {

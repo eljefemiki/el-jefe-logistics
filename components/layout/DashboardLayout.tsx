@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 
 import Sidebar from "./Sidebar";
 import Header from "./Header";
@@ -17,11 +17,17 @@ export default function DashboardLayout({
   subtitle = "Welcome back!",
 }: DashboardLayoutProps) {
   const { account, unreadNotifications } = useDashboardViewer();
+  const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-slate-950 text-white">
       <div className="flex">
         {/* Sidebar */}
-        <Sidebar role={account.role} />
+        <Sidebar
+          role={account.role}
+          mobileOpen={mobileNavigationOpen}
+          onClose={() => setMobileNavigationOpen(false)}
+        />
 
         {/* Main Content */}
         <div className="flex min-h-screen flex-1 flex-col">
@@ -31,6 +37,7 @@ export default function DashboardLayout({
             subtitle={subtitle}
             account={account}
             unreadNotifications={unreadNotifications}
+            onMenuClick={() => setMobileNavigationOpen(true)}
           />
 
           {/* Main */}

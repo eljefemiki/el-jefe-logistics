@@ -75,6 +75,8 @@ export async function updateDriverAction(
       optionalNumber(formData.get("totalConvoys")) ?? 0,
     favouriteTruck:
       optionalString(formData.get("favouriteTruck")),
+    assignedTrailer:
+      optionalString(formData.get("assignedTrailer")) ?? null,
     joinedAt:
       optionalDate(formData.get("joinedAt")),
     notes:

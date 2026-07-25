@@ -1,3 +1,14 @@
+# 1.1.0 release readiness
+
+- Updated Next.js and its ESLint configuration from 16.2.10 to 16.2.11.
+- Resolved vulnerable Sharp, Valibot, PostCSS, Fast URI, brace expansion, and Prisma toolchain dependencies without a forced audit fix.
+- Restricted approved dependency install scripts to Prisma and `@prisma/engines`; other package scripts remain unapproved.
+- Added critical validation tests for authentication, fleet, driver editing, customers, maintenance, fuel, invoices, marketplace listings/bids, and permissions.
+- Required an explicit `AUTH_SECRET` in production and removed the database URL as a session-signing fallback.
+- Protected fleet and driver API routes with authenticated role checks.
+- Restricted marketplace publishing and bid awards to the account that created the listing, and rejected bids against non-open listings.
+- Added a backup and restore runbook with restore verification and sensitive-data handling guidance.
+
 ## Customer CRM v0.8.0
 
 - Added a persisted customer account model with lifecycle status, primary and billing contacts, address, credit limit, payment terms and relationship notes.

@@ -15,6 +15,7 @@ import type { DriverDTO } from "@/src/server/drivers/types";
 import DriverArchiveButton from "./DriverArchiveButton";
 import DriverRankBadge from "./DriverRank";
 import DriverStatusBadge from "./DriverStatusBadge";
+import { trailerLabels } from "@/src/lib/ets2-trailers";
 
 interface DriverProfileProps {
   driver: DriverDTO;
@@ -187,6 +188,10 @@ export default function DriverProfile({
             <Detail
               label="Favourite Truck"
               value={driver.favouriteTruck ?? "Not set"}
+            />
+            <Detail
+              label="Assigned ETS2 Trailer"
+              value={driver.assignedTrailer ? trailerLabels[driver.assignedTrailer] : "Not assigned"}
             />
             <Detail
               label="Last Login"

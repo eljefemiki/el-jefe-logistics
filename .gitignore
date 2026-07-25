@@ -2,6 +2,11 @@
 
 # dependencies
 /node_modules
+/.npm-cache
+/.release-localappdata
+/.release-artifacts
+/.release-server.*.log
+/.release-server.pid
 /.pnp
 .pnp.*
 .yarn/*
