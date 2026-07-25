@@ -1,6 +1,6 @@
 // =======================================================
 // JEFECORE DATABASE SCHEMA
-// Version: 0.8.0 - Customer CRM
+// Version: 0.9.0 - Finance Centre
 // El Jefe Logistics
 // =======================================================
 
@@ -103,6 +103,15 @@ enum CustomerStatus {
   ACTIVE
   ON_HOLD
   INACTIVE
+}
+
+enum InvoiceStatus {
+  DRAFT
+  SENT
+  PART_PAID
+  PAID
+  OVERDUE
+  VOID
 }
 
 // =======================================================
@@ -228,6 +237,7 @@ model Customer {
   creditLimit      Float?
   paymentTermsDays Int @default(30)
   notes            String?
+  invoices         Invoice[]
 
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
@@ -238,6 +248,40 @@ model Customer {
   @@index([status])
   @@index([email])
   @@index([archivedAt])
+}
+
+// =======================================================
+// INVOICE
+// Customer billing and payment tracking
+// =======================================================
+
+model Invoice {
+  id String @id @default(cuid())
+
+  invoiceNumber String @unique
+  customerId    String
+  customer      Customer @relation(fields: [customerId], references: [id], onDelete: Restrict)
+
+  status      InvoiceStatus @default(DRAFT)
+  description String
+  issueDate   DateTime
+  dueDate     DateTime
+  subtotal    Float
+  vatRate     Float @default(20)
+  vatAmount   Float
+  total       Float
+  amountPaid  Float @default(0)
+  paidAt      DateTime?
+  reference   String?
+  notes       String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([customerId])
+  @@index([status])
+  @@index([issueDate])
+  @@index([dueDate])
 }
 
 // =======================================================

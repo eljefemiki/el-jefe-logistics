@@ -55,6 +55,7 @@ export const ModelName = {
   Driver: 'Driver',
   Company: 'Company',
   Customer: 'Customer',
+  Invoice: 'Invoice',
   Depot: 'Depot',
   Truck: 'Truck',
   FuelEntry: 'FuelEntry',
@@ -154,6 +155,29 @@ export const CustomerScalarFieldEnum = {
 } as const
 
 export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum]
+
+
+export const InvoiceScalarFieldEnum = {
+  id: 'id',
+  invoiceNumber: 'invoiceNumber',
+  customerId: 'customerId',
+  status: 'status',
+  description: 'description',
+  issueDate: 'issueDate',
+  dueDate: 'dueDate',
+  subtotal: 'subtotal',
+  vatRate: 'vatRate',
+  vatAmount: 'vatAmount',
+  total: 'total',
+  amountPaid: 'amountPaid',
+  paidAt: 'paidAt',
+  reference: 'reference',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InvoiceScalarFieldEnum = (typeof InvoiceScalarFieldEnum)[keyof typeof InvoiceScalarFieldEnum]
 
 
 export const DepotScalarFieldEnum = {

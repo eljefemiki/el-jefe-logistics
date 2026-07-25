@@ -61,3 +61,9 @@
 - Fuel Centre provides monthly spend, volume, average unit price and transaction KPIs.
 - Users can search and filter the ledger, then create, inspect and edit transactions.
 - The newest transaction keeps each truck's odometer and reported fuel level current.
+## Finance Centre v0.9.0
+
+- JefeCore now turns customer accounts into a searchable invoice and receivables ledger.
+- Finance Centre shows invoiced, collected, outstanding and overdue value at a glance.
+- Invoice workflows calculate VAT and balances while tracking lifecycle and payment dates.
+- Customer billing identity and terms flow directly from Customer CRM.

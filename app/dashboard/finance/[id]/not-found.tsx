@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function InvoiceNotFound() { return <div className="flex min-h-[500px] items-center justify-center p-6"><div className="text-center"><h2 className="text-2xl font-bold text-white">Invoice not found</h2><p className="mt-2 text-slate-400">It may have been removed or the link is incorrect.</p><Link href="/dashboard/finance" className="mt-6 inline-block rounded-lg bg-violet-600 px-5 py-3 text-white">Return to Finance Centre</Link></div></div>; }

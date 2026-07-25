@@ -38,6 +38,11 @@ export type Company = Prisma.CompanyModel
  */
 export type Customer = Prisma.CustomerModel
 /**
+ * Model Invoice
+ * 
+ */
+export type Invoice = Prisma.InvoiceModel
+/**
  * Model Depot
  * 
  */

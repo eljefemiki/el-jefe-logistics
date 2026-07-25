@@ -1,0 +1,2 @@
+import DashboardLayout from "@/components/layout/DashboardLayout";
+export default function FinanceLoading() { return <DashboardLayout title="Finance Centre" subtitle="Loading customer billing…"><div className="mx-auto max-w-7xl animate-pulse space-y-8"><div className="h-20 rounded-xl bg-slate-900" /><div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">{Array.from({ length: 4 }).map((_, index) => <div key={index} className="h-28 rounded-xl bg-slate-900" />)}</div><div className="h-80 rounded-xl bg-slate-900" /></div></DashboardLayout>; }

@@ -1,0 +1,4 @@
+"use client";
+import { AlertTriangle, RefreshCw } from "lucide-react";
+import DashboardLayout from "@/components/layout/DashboardLayout";
+export default function FinanceError({ reset }: { error: Error; reset: () => void }) { return <DashboardLayout title="Finance Centre" subtitle="Customer billing is temporarily unavailable."><div className="mx-auto max-w-lg rounded-xl border border-red-500/20 bg-slate-900 p-8 text-center"><AlertTriangle className="mx-auto h-10 w-10 text-red-400" /><h1 className="mt-5 text-2xl font-bold text-white">Finance Centre Error</h1><p className="mt-3 text-sm text-slate-400">JefeCore could not load the invoice ledger.</p><button onClick={reset} className="mt-6 inline-flex items-center gap-2 rounded-lg bg-violet-600 px-5 py-3 text-sm font-semibold text-white"><RefreshCw className="h-4 w-4" />Try again</button></div></DashboardLayout>; }

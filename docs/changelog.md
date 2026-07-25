@@ -32,3 +32,8 @@
 - Parts inventory, purchase orders, attachments and audit-event history require dedicated persisted models.
 - Technician records are currently stored as names until a workshop staff model is introduced.
 - Automated service intervals and MOT reminders are not yet scheduled.
+## Finance Centre v0.9.0
+
+- Added a persisted customer invoice ledger with VAT and payment tracking.
+- Added Finance Centre KPIs, filters, invoice details and create/edit workflows.
+- Connected Finance Centre to active Customer CRM accounts and dashboard navigation.
