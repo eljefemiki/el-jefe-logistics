@@ -59,6 +59,7 @@ export type InvoiceMinAggregateOutputType = {
   paidAt: Date | null
   reference: string | null
   notes: string | null
+  transportJobId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -80,6 +81,7 @@ export type InvoiceMaxAggregateOutputType = {
   paidAt: Date | null
   reference: string | null
   notes: string | null
+  transportJobId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -101,6 +103,7 @@ export type InvoiceCountAggregateOutputType = {
   paidAt: number
   reference: number
   notes: number
+  transportJobId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -140,6 +143,7 @@ export type InvoiceMinAggregateInputType = {
   paidAt?: true
   reference?: true
   notes?: true
+  transportJobId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -161,6 +165,7 @@ export type InvoiceMaxAggregateInputType = {
   paidAt?: true
   reference?: true
   notes?: true
+  transportJobId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -182,6 +187,7 @@ export type InvoiceCountAggregateInputType = {
   paidAt?: true
   reference?: true
   notes?: true
+  transportJobId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -290,6 +296,7 @@ export type InvoiceGroupByOutputType = {
   paidAt: Date | null
   reference: string | null
   notes: string | null
+  transportJobId: string | null
   createdAt: Date
   updatedAt: Date
   _count: InvoiceCountAggregateOutputType | null
@@ -334,10 +341,12 @@ export type InvoiceWhereInput = {
   paidAt?: Prisma.DateTimeNullableFilter<"Invoice"> | Date | string | null
   reference?: Prisma.StringNullableFilter<"Invoice"> | string | null
   notes?: Prisma.StringNullableFilter<"Invoice"> | string | null
+  transportJobId?: Prisma.StringNullableFilter<"Invoice"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Invoice"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Invoice"> | Date | string
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
   driverPerformanceEntry?: Prisma.XOR<Prisma.DriverPerformanceEntryNullableScalarRelationFilter, Prisma.DriverPerformanceEntryWhereInput> | null
+  transportJob?: Prisma.XOR<Prisma.TransportJobNullableScalarRelationFilter, Prisma.TransportJobWhereInput> | null
 }
 
 export type InvoiceOrderByWithRelationInput = {
@@ -357,16 +366,19 @@ export type InvoiceOrderByWithRelationInput = {
   paidAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reference?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  transportJobId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   customer?: Prisma.CustomerOrderByWithRelationInput
   driverPerformanceEntry?: Prisma.DriverPerformanceEntryOrderByWithRelationInput
+  transportJob?: Prisma.TransportJobOrderByWithRelationInput
 }
 
 export type InvoiceWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   invoiceNumber?: string
   driverPerformanceEntryId?: string
+  transportJobId?: string
   AND?: Prisma.InvoiceWhereInput | Prisma.InvoiceWhereInput[]
   OR?: Prisma.InvoiceWhereInput[]
   NOT?: Prisma.InvoiceWhereInput | Prisma.InvoiceWhereInput[]
@@ -387,7 +399,8 @@ export type InvoiceWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Invoice"> | Date | string
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
   driverPerformanceEntry?: Prisma.XOR<Prisma.DriverPerformanceEntryNullableScalarRelationFilter, Prisma.DriverPerformanceEntryWhereInput> | null
-}, "id" | "invoiceNumber" | "driverPerformanceEntryId">
+  transportJob?: Prisma.XOR<Prisma.TransportJobNullableScalarRelationFilter, Prisma.TransportJobWhereInput> | null
+}, "id" | "invoiceNumber" | "driverPerformanceEntryId" | "transportJobId">
 
 export type InvoiceOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -406,6 +419,7 @@ export type InvoiceOrderByWithAggregationInput = {
   paidAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reference?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  transportJobId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.InvoiceCountOrderByAggregateInput
@@ -435,6 +449,7 @@ export type InvoiceScalarWhereWithAggregatesInput = {
   paidAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Invoice"> | Date | string | null
   reference?: Prisma.StringNullableWithAggregatesFilter<"Invoice"> | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"Invoice"> | string | null
+  transportJobId?: Prisma.StringNullableWithAggregatesFilter<"Invoice"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Invoice"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Invoice"> | Date | string
 }
@@ -458,6 +473,7 @@ export type InvoiceCreateInput = {
   updatedAt?: Date | string
   customer: Prisma.CustomerCreateNestedOneWithoutInvoicesInput
   driverPerformanceEntry?: Prisma.DriverPerformanceEntryCreateNestedOneWithoutInvoiceInput
+  transportJob?: Prisma.TransportJobCreateNestedOneWithoutInvoiceInput
 }
 
 export type InvoiceUncheckedCreateInput = {
@@ -477,6 +493,7 @@ export type InvoiceUncheckedCreateInput = {
   paidAt?: Date | string | null
   reference?: string | null
   notes?: string | null
+  transportJobId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -500,6 +517,7 @@ export type InvoiceUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customer?: Prisma.CustomerUpdateOneRequiredWithoutInvoicesNestedInput
   driverPerformanceEntry?: Prisma.DriverPerformanceEntryUpdateOneWithoutInvoiceNestedInput
+  transportJob?: Prisma.TransportJobUpdateOneWithoutInvoiceNestedInput
 }
 
 export type InvoiceUncheckedUpdateInput = {
@@ -519,6 +537,7 @@ export type InvoiceUncheckedUpdateInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transportJobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -540,6 +559,7 @@ export type InvoiceCreateManyInput = {
   paidAt?: Date | string | null
   reference?: string | null
   notes?: string | null
+  transportJobId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -580,6 +600,7 @@ export type InvoiceUncheckedUpdateManyInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transportJobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -611,6 +632,7 @@ export type InvoiceCountOrderByAggregateInput = {
   paidAt?: Prisma.SortOrder
   reference?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  transportJobId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -640,6 +662,7 @@ export type InvoiceMaxOrderByAggregateInput = {
   paidAt?: Prisma.SortOrder
   reference?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  transportJobId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -661,6 +684,7 @@ export type InvoiceMinOrderByAggregateInput = {
   paidAt?: Prisma.SortOrder
   reference?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  transportJobId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -756,6 +780,38 @@ export type InvoiceUncheckedUpdateOneWithoutDriverPerformanceEntryNestedInput = 
   update?: Prisma.XOR<Prisma.XOR<Prisma.InvoiceUpdateToOneWithWhereWithoutDriverPerformanceEntryInput, Prisma.InvoiceUpdateWithoutDriverPerformanceEntryInput>, Prisma.InvoiceUncheckedUpdateWithoutDriverPerformanceEntryInput>
 }
 
+export type InvoiceCreateNestedOneWithoutTransportJobInput = {
+  create?: Prisma.XOR<Prisma.InvoiceCreateWithoutTransportJobInput, Prisma.InvoiceUncheckedCreateWithoutTransportJobInput>
+  connectOrCreate?: Prisma.InvoiceCreateOrConnectWithoutTransportJobInput
+  connect?: Prisma.InvoiceWhereUniqueInput
+}
+
+export type InvoiceUncheckedCreateNestedOneWithoutTransportJobInput = {
+  create?: Prisma.XOR<Prisma.InvoiceCreateWithoutTransportJobInput, Prisma.InvoiceUncheckedCreateWithoutTransportJobInput>
+  connectOrCreate?: Prisma.InvoiceCreateOrConnectWithoutTransportJobInput
+  connect?: Prisma.InvoiceWhereUniqueInput
+}
+
+export type InvoiceUpdateOneWithoutTransportJobNestedInput = {
+  create?: Prisma.XOR<Prisma.InvoiceCreateWithoutTransportJobInput, Prisma.InvoiceUncheckedCreateWithoutTransportJobInput>
+  connectOrCreate?: Prisma.InvoiceCreateOrConnectWithoutTransportJobInput
+  upsert?: Prisma.InvoiceUpsertWithoutTransportJobInput
+  disconnect?: Prisma.InvoiceWhereInput | boolean
+  delete?: Prisma.InvoiceWhereInput | boolean
+  connect?: Prisma.InvoiceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InvoiceUpdateToOneWithWhereWithoutTransportJobInput, Prisma.InvoiceUpdateWithoutTransportJobInput>, Prisma.InvoiceUncheckedUpdateWithoutTransportJobInput>
+}
+
+export type InvoiceUncheckedUpdateOneWithoutTransportJobNestedInput = {
+  create?: Prisma.XOR<Prisma.InvoiceCreateWithoutTransportJobInput, Prisma.InvoiceUncheckedCreateWithoutTransportJobInput>
+  connectOrCreate?: Prisma.InvoiceCreateOrConnectWithoutTransportJobInput
+  upsert?: Prisma.InvoiceUpsertWithoutTransportJobInput
+  disconnect?: Prisma.InvoiceWhereInput | boolean
+  delete?: Prisma.InvoiceWhereInput | boolean
+  connect?: Prisma.InvoiceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InvoiceUpdateToOneWithWhereWithoutTransportJobInput, Prisma.InvoiceUpdateWithoutTransportJobInput>, Prisma.InvoiceUncheckedUpdateWithoutTransportJobInput>
+}
+
 export type InvoiceCreateWithoutCustomerInput = {
   id?: string
   invoiceNumber: string
@@ -774,6 +830,7 @@ export type InvoiceCreateWithoutCustomerInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   driverPerformanceEntry?: Prisma.DriverPerformanceEntryCreateNestedOneWithoutInvoiceInput
+  transportJob?: Prisma.TransportJobCreateNestedOneWithoutInvoiceInput
 }
 
 export type InvoiceUncheckedCreateWithoutCustomerInput = {
@@ -792,6 +849,7 @@ export type InvoiceUncheckedCreateWithoutCustomerInput = {
   paidAt?: Date | string | null
   reference?: string | null
   notes?: string | null
+  transportJobId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -842,6 +900,7 @@ export type InvoiceScalarWhereInput = {
   paidAt?: Prisma.DateTimeNullableFilter<"Invoice"> | Date | string | null
   reference?: Prisma.StringNullableFilter<"Invoice"> | string | null
   notes?: Prisma.StringNullableFilter<"Invoice"> | string | null
+  transportJobId?: Prisma.StringNullableFilter<"Invoice"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Invoice"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Invoice"> | Date | string
 }
@@ -864,6 +923,7 @@ export type InvoiceCreateWithoutDriverPerformanceEntryInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   customer: Prisma.CustomerCreateNestedOneWithoutInvoicesInput
+  transportJob?: Prisma.TransportJobCreateNestedOneWithoutInvoiceInput
 }
 
 export type InvoiceUncheckedCreateWithoutDriverPerformanceEntryInput = {
@@ -882,6 +942,7 @@ export type InvoiceUncheckedCreateWithoutDriverPerformanceEntryInput = {
   paidAt?: Date | string | null
   reference?: string | null
   notes?: string | null
+  transportJobId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -920,12 +981,114 @@ export type InvoiceUpdateWithoutDriverPerformanceEntryInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customer?: Prisma.CustomerUpdateOneRequiredWithoutInvoicesNestedInput
+  transportJob?: Prisma.TransportJobUpdateOneWithoutInvoiceNestedInput
 }
 
 export type InvoiceUncheckedUpdateWithoutDriverPerformanceEntryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subtotal?: Prisma.FloatFieldUpdateOperationsInput | number
+  vatRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  vatAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  total?: Prisma.FloatFieldUpdateOperationsInput | number
+  amountPaid?: Prisma.FloatFieldUpdateOperationsInput | number
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transportJobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type InvoiceCreateWithoutTransportJobInput = {
+  id?: string
+  invoiceNumber: string
+  status?: $Enums.InvoiceStatus
+  description: string
+  issueDate: Date | string
+  dueDate: Date | string
+  subtotal: number
+  vatRate?: number
+  vatAmount: number
+  total: number
+  amountPaid?: number
+  paidAt?: Date | string | null
+  reference?: string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  customer: Prisma.CustomerCreateNestedOneWithoutInvoicesInput
+  driverPerformanceEntry?: Prisma.DriverPerformanceEntryCreateNestedOneWithoutInvoiceInput
+}
+
+export type InvoiceUncheckedCreateWithoutTransportJobInput = {
+  id?: string
+  invoiceNumber: string
+  customerId: string
+  driverPerformanceEntryId?: string | null
+  status?: $Enums.InvoiceStatus
+  description: string
+  issueDate: Date | string
+  dueDate: Date | string
+  subtotal: number
+  vatRate?: number
+  vatAmount: number
+  total: number
+  amountPaid?: number
+  paidAt?: Date | string | null
+  reference?: string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type InvoiceCreateOrConnectWithoutTransportJobInput = {
+  where: Prisma.InvoiceWhereUniqueInput
+  create: Prisma.XOR<Prisma.InvoiceCreateWithoutTransportJobInput, Prisma.InvoiceUncheckedCreateWithoutTransportJobInput>
+}
+
+export type InvoiceUpsertWithoutTransportJobInput = {
+  update: Prisma.XOR<Prisma.InvoiceUpdateWithoutTransportJobInput, Prisma.InvoiceUncheckedUpdateWithoutTransportJobInput>
+  create: Prisma.XOR<Prisma.InvoiceCreateWithoutTransportJobInput, Prisma.InvoiceUncheckedCreateWithoutTransportJobInput>
+  where?: Prisma.InvoiceWhereInput
+}
+
+export type InvoiceUpdateToOneWithWhereWithoutTransportJobInput = {
+  where?: Prisma.InvoiceWhereInput
+  data: Prisma.XOR<Prisma.InvoiceUpdateWithoutTransportJobInput, Prisma.InvoiceUncheckedUpdateWithoutTransportJobInput>
+}
+
+export type InvoiceUpdateWithoutTransportJobInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subtotal?: Prisma.FloatFieldUpdateOperationsInput | number
+  vatRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  vatAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  total?: Prisma.FloatFieldUpdateOperationsInput | number
+  amountPaid?: Prisma.FloatFieldUpdateOperationsInput | number
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutInvoicesNestedInput
+  driverPerformanceEntry?: Prisma.DriverPerformanceEntryUpdateOneWithoutInvoiceNestedInput
+}
+
+export type InvoiceUncheckedUpdateWithoutTransportJobInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  driverPerformanceEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
   description?: Prisma.StringFieldUpdateOperationsInput | string
   issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -958,6 +1121,7 @@ export type InvoiceCreateManyCustomerInput = {
   paidAt?: Date | string | null
   reference?: string | null
   notes?: string | null
+  transportJobId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -980,6 +1144,7 @@ export type InvoiceUpdateWithoutCustomerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   driverPerformanceEntry?: Prisma.DriverPerformanceEntryUpdateOneWithoutInvoiceNestedInput
+  transportJob?: Prisma.TransportJobUpdateOneWithoutInvoiceNestedInput
 }
 
 export type InvoiceUncheckedUpdateWithoutCustomerInput = {
@@ -998,6 +1163,7 @@ export type InvoiceUncheckedUpdateWithoutCustomerInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transportJobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1018,6 +1184,7 @@ export type InvoiceUncheckedUpdateManyWithoutCustomerInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transportJobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1041,10 +1208,12 @@ export type InvoiceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   paidAt?: boolean
   reference?: boolean
   notes?: boolean
+  transportJobId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   driverPerformanceEntry?: boolean | Prisma.Invoice$driverPerformanceEntryArgs<ExtArgs>
+  transportJob?: boolean | Prisma.Invoice$transportJobArgs<ExtArgs>
 }, ExtArgs["result"]["invoice"]>
 
 export type InvoiceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1064,10 +1233,12 @@ export type InvoiceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   paidAt?: boolean
   reference?: boolean
   notes?: boolean
+  transportJobId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   driverPerformanceEntry?: boolean | Prisma.Invoice$driverPerformanceEntryArgs<ExtArgs>
+  transportJob?: boolean | Prisma.Invoice$transportJobArgs<ExtArgs>
 }, ExtArgs["result"]["invoice"]>
 
 export type InvoiceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1087,10 +1258,12 @@ export type InvoiceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   paidAt?: boolean
   reference?: boolean
   notes?: boolean
+  transportJobId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   driverPerformanceEntry?: boolean | Prisma.Invoice$driverPerformanceEntryArgs<ExtArgs>
+  transportJob?: boolean | Prisma.Invoice$transportJobArgs<ExtArgs>
 }, ExtArgs["result"]["invoice"]>
 
 export type InvoiceSelectScalar = {
@@ -1110,22 +1283,26 @@ export type InvoiceSelectScalar = {
   paidAt?: boolean
   reference?: boolean
   notes?: boolean
+  transportJobId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type InvoiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "invoiceNumber" | "customerId" | "driverPerformanceEntryId" | "status" | "description" | "issueDate" | "dueDate" | "subtotal" | "vatRate" | "vatAmount" | "total" | "amountPaid" | "paidAt" | "reference" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["invoice"]>
+export type InvoiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "invoiceNumber" | "customerId" | "driverPerformanceEntryId" | "status" | "description" | "issueDate" | "dueDate" | "subtotal" | "vatRate" | "vatAmount" | "total" | "amountPaid" | "paidAt" | "reference" | "notes" | "transportJobId" | "createdAt" | "updatedAt", ExtArgs["result"]["invoice"]>
 export type InvoiceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   driverPerformanceEntry?: boolean | Prisma.Invoice$driverPerformanceEntryArgs<ExtArgs>
+  transportJob?: boolean | Prisma.Invoice$transportJobArgs<ExtArgs>
 }
 export type InvoiceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   driverPerformanceEntry?: boolean | Prisma.Invoice$driverPerformanceEntryArgs<ExtArgs>
+  transportJob?: boolean | Prisma.Invoice$transportJobArgs<ExtArgs>
 }
 export type InvoiceIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   driverPerformanceEntry?: boolean | Prisma.Invoice$driverPerformanceEntryArgs<ExtArgs>
+  transportJob?: boolean | Prisma.Invoice$transportJobArgs<ExtArgs>
 }
 
 export type $InvoicePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1133,6 +1310,7 @@ export type $InvoicePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     customer: Prisma.$CustomerPayload<ExtArgs>
     driverPerformanceEntry: Prisma.$DriverPerformanceEntryPayload<ExtArgs> | null
+    transportJob: Prisma.$TransportJobPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1151,6 +1329,7 @@ export type $InvoicePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     paidAt: Date | null
     reference: string | null
     notes: string | null
+    transportJobId: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["invoice"]>
@@ -1549,6 +1728,7 @@ export interface Prisma__InvoiceClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   customer<T extends Prisma.CustomerDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerDefaultArgs<ExtArgs>>): Prisma.Prisma__CustomerClient<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   driverPerformanceEntry<T extends Prisma.Invoice$driverPerformanceEntryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Invoice$driverPerformanceEntryArgs<ExtArgs>>): Prisma.Prisma__DriverPerformanceEntryClient<runtime.Types.Result.GetResult<Prisma.$DriverPerformanceEntryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  transportJob<T extends Prisma.Invoice$transportJobArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Invoice$transportJobArgs<ExtArgs>>): Prisma.Prisma__TransportJobClient<runtime.Types.Result.GetResult<Prisma.$TransportJobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1594,6 +1774,7 @@ export interface InvoiceFieldRefs {
   readonly paidAt: Prisma.FieldRef<"Invoice", 'DateTime'>
   readonly reference: Prisma.FieldRef<"Invoice", 'String'>
   readonly notes: Prisma.FieldRef<"Invoice", 'String'>
+  readonly transportJobId: Prisma.FieldRef<"Invoice", 'String'>
   readonly createdAt: Prisma.FieldRef<"Invoice", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Invoice", 'DateTime'>
 }
@@ -2013,6 +2194,25 @@ export type Invoice$driverPerformanceEntryArgs<ExtArgs extends runtime.Types.Ext
    */
   include?: Prisma.DriverPerformanceEntryInclude<ExtArgs> | null
   where?: Prisma.DriverPerformanceEntryWhereInput
+}
+
+/**
+ * Invoice.transportJob
+ */
+export type Invoice$transportJobArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TransportJob
+   */
+  select?: Prisma.TransportJobSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TransportJob
+   */
+  omit?: Prisma.TransportJobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TransportJobInclude<ExtArgs> | null
+  where?: Prisma.TransportJobWhereInput
 }
 
 /**

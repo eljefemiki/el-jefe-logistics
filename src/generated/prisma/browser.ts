@@ -88,6 +88,26 @@ export type CompanySettings = Prisma.CompanySettingsModel
  */
 export type Truck = Prisma.TruckModel
 /**
+ * Model TransportJob
+ * 
+ */
+export type TransportJob = Prisma.TransportJobModel
+/**
+ * Model VehicleIssue
+ * 
+ */
+export type VehicleIssue = Prisma.VehicleIssueModel
+/**
+ * Model TruckyEvent
+ * 
+ */
+export type TruckyEvent = Prisma.TruckyEventModel
+/**
+ * Model TruckySyncState
+ * 
+ */
+export type TruckySyncState = Prisma.TruckySyncStateModel
+/**
  * Model FuelEntry
  * 
  */

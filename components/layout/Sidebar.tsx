@@ -24,6 +24,7 @@ import {
   Store,
   X,
   UserCircle,
+  Route,
 } from "lucide-react";
 import type { UserRole } from "@/src/generated/prisma/enums";
 import { hasPermission, type Permission } from "@/src/lib/permissions";
@@ -62,6 +63,12 @@ const navigation: NavItem[] = [
     name: "Dispatch",
     href: "/dashboard/dispatch",
     icon: Briefcase,
+    permission: "dispatch:view",
+  },
+  {
+    name: "Trucky Jobs",
+    href: "/dashboard/jobs",
+    icon: Route,
     permission: "dispatch:view",
   },
   {

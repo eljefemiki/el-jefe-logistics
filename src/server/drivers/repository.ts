@@ -35,6 +35,15 @@ const driverInclude = {
       fleetNumber: "asc",
     },
   },
+  transportJobs: {
+    where: { status: "COMPLETED" },
+    select: {
+      id: true, truckyJobId: true, cargo: true, sourceCity: true, destinationCity: true,
+      drivenDistanceKm: true, revenue: true, profit: true, currency: true, completedAt: true,
+    },
+    orderBy: { completedAt: "desc" as const },
+    take: 25,
+  },
 } as const;
 
 export async function findAllDrivers(

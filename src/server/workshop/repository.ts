@@ -38,6 +38,15 @@ export function findWorkshopTrucks(currentTruckId?: string) {
   });
 }
 
+export function findVehicleIssues() {
+  return prisma.vehicleIssue.findMany({
+    where: { status: { in: ["OPEN", "SCHEDULED", "IN_PROGRESS"] } },
+    include: { truck: { select: { id: true, fleetNumber: true, registration: true } } },
+    orderBy: [{ severity: "desc" }, { reportedAt: "desc" }],
+    take: 100,
+  });
+}
+
 export async function insertMaintenanceJob(jobNumber: string, data: MaintenanceJobInput) {
   return prisma.$transaction(async (tx) => {
     const job = await tx.maintenanceJob.create({ data: { ...data, jobNumber }, include: jobInclude });

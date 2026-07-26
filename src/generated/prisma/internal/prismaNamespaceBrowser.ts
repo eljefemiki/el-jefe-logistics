@@ -65,6 +65,10 @@ export const ModelName = {
   AuditEvent: 'AuditEvent',
   CompanySettings: 'CompanySettings',
   Truck: 'Truck',
+  TransportJob: 'TransportJob',
+  VehicleIssue: 'VehicleIssue',
+  TruckyEvent: 'TruckyEvent',
+  TruckySyncState: 'TruckySyncState',
   FuelEntry: 'FuelEntry',
   MaintenanceJob: 'MaintenanceJob'
 } as const
@@ -126,6 +130,10 @@ export const DriverScalarFieldEnum = {
   totalConvoys: 'totalConvoys',
   favouriteTruck: 'favouriteTruck',
   assignedTrailer: 'assignedTrailer',
+  truckyUserId: 'truckyUserId',
+  steamId: 'steamId',
+  truckyUsername: 'truckyUsername',
+  lastTruckySyncAt: 'lastTruckySyncAt',
   joinedAt: 'joinedAt',
   notes: 'notes',
   createdAt: 'createdAt',
@@ -192,6 +200,7 @@ export const InvoiceScalarFieldEnum = {
   paidAt: 'paidAt',
   reference: 'reference',
   notes: 'notes',
+  transportJobId: 'transportJobId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -386,12 +395,106 @@ export const TruckScalarFieldEnum = {
   ownershipType: 'ownershipType',
   leaseStartDate: 'leaseStartDate',
   leaseTermMonths: 'leaseTermMonths',
+  truckyVehicleId: 'truckyVehicleId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   archivedAt: 'archivedAt'
 } as const
 
 export type TruckScalarFieldEnum = (typeof TruckScalarFieldEnum)[keyof typeof TruckScalarFieldEnum]
+
+
+export const TransportJobScalarFieldEnum = {
+  id: 'id',
+  truckyJobId: 'truckyJobId',
+  status: 'status',
+  game: 'game',
+  driverId: 'driverId',
+  truckId: 'truckId',
+  sourceCity: 'sourceCity',
+  sourceCompany: 'sourceCompany',
+  destinationCity: 'destinationCity',
+  destinationCompany: 'destinationCompany',
+  cargo: 'cargo',
+  cargoMassKg: 'cargoMassKg',
+  distanceKm: 'distanceKm',
+  drivenDistanceKm: 'drivenDistanceKm',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  cancelledAt: 'cancelledAt',
+  revenue: 'revenue',
+  fuelCost: 'fuelCost',
+  tollCost: 'tollCost',
+  ferryCost: 'ferryCost',
+  damageCost: 'damageCost',
+  otherCosts: 'otherCosts',
+  profit: 'profit',
+  currency: 'currency',
+  damagePercent: 'damagePercent',
+  truckWearPercent: 'truckWearPercent',
+  trailerWearPercent: 'trailerWearPercent',
+  fuelUsedLitres: 'fuelUsedLitres',
+  averageFuelConsumption: 'averageFuelConsumption',
+  rawPayload: 'rawPayload',
+  lastEventAt: 'lastEventAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TransportJobScalarFieldEnum = (typeof TransportJobScalarFieldEnum)[keyof typeof TransportJobScalarFieldEnum]
+
+
+export const VehicleIssueScalarFieldEnum = {
+  id: 'id',
+  externalKey: 'externalKey',
+  truckId: 'truckId',
+  transportJobId: 'transportJobId',
+  kind: 'kind',
+  status: 'status',
+  component: 'component',
+  title: 'title',
+  description: 'description',
+  severity: 'severity',
+  wearPercent: 'wearPercent',
+  damagePercent: 'damagePercent',
+  reportedAt: 'reportedAt',
+  scheduledFor: 'scheduledFor',
+  resolvedAt: 'resolvedAt',
+  rawPayload: 'rawPayload',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VehicleIssueScalarFieldEnum = (typeof VehicleIssueScalarFieldEnum)[keyof typeof VehicleIssueScalarFieldEnum]
+
+
+export const TruckyEventScalarFieldEnum = {
+  id: 'id',
+  fingerprint: 'fingerprint',
+  eventType: 'eventType',
+  externalId: 'externalId',
+  payload: 'payload',
+  receivedAt: 'receivedAt',
+  processedAt: 'processedAt',
+  error: 'error'
+} as const
+
+export type TruckyEventScalarFieldEnum = (typeof TruckyEventScalarFieldEnum)[keyof typeof TruckyEventScalarFieldEnum]
+
+
+export const TruckySyncStateScalarFieldEnum = {
+  id: 'id',
+  lastStartedAt: 'lastStartedAt',
+  lastCompletedAt: 'lastCompletedAt',
+  lastSuccessfulAt: 'lastSuccessfulAt',
+  cursor: 'cursor',
+  imported: 'imported',
+  failed: 'failed',
+  lastError: 'lastError',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TruckySyncStateScalarFieldEnum = (typeof TruckySyncStateScalarFieldEnum)[keyof typeof TruckySyncStateScalarFieldEnum]
 
 
 export const FuelEntryScalarFieldEnum = {
@@ -456,6 +559,13 @@ export const NullableJsonNullValueInput = {
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {

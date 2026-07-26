@@ -198,6 +198,27 @@ enum CargoCategory {
   LIVESTOCK
 }
 
+enum TransportJobStatus {
+  STARTED
+  COMPLETED
+  CANCELLED
+  DELETED
+}
+
+enum VehicleIssueKind {
+  WEAR
+  DAMAGE
+  SERVICE
+}
+
+enum VehicleIssueStatus {
+  OPEN
+  SCHEDULED
+  IN_PROGRESS
+  RESOLVED
+  DISMISSED
+}
+
 // =======================================================
 // ACCOUNT
 // Authentication & Website Access
@@ -275,10 +296,15 @@ model Driver {
   assignedTrailer    Ets2TrailerType?
   contractBids       ContractBid[]
   performanceEntries DriverPerformanceEntry[]
+  truckyUserId       String?                  @unique
+  steamId            String?                  @unique
+  truckyUsername     String?
+  lastTruckySyncAt   DateTime?
 
   // Current truck relationships.
   // This will later be replaced/expanded with DriverAssignment history.
-  trucks Truck[]
+  trucks        Truck[]
+  transportJobs TransportJob[]
 
   joinedAt DateTime @default(now())
 
@@ -366,24 +392,26 @@ model Customer {
 model Invoice {
   id String @id @default(cuid())
 
-  invoiceNumber String   @unique
-  customerId    String
-  customer      Customer @relation(fields: [customerId], references: [id], onDelete: Restrict)
-  driverPerformanceEntryId String? @unique
-  driverPerformanceEntry DriverPerformanceEntry? @relation(fields: [driverPerformanceEntryId], references: [id], onDelete: SetNull)
+  invoiceNumber            String                  @unique
+  customerId               String
+  customer                 Customer                @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  driverPerformanceEntryId String?                 @unique
+  driverPerformanceEntry   DriverPerformanceEntry? @relation(fields: [driverPerformanceEntryId], references: [id], onDelete: SetNull)
 
-  status      InvoiceStatus @default(DRAFT)
-  description String
-  issueDate   DateTime
-  dueDate     DateTime
-  subtotal    Float
-  vatRate     Float         @default(20)
-  vatAmount   Float
-  total       Float
-  amountPaid  Float         @default(0)
-  paidAt      DateTime?
-  reference   String?
-  notes       String?
+  status         InvoiceStatus @default(DRAFT)
+  description    String
+  issueDate      DateTime
+  dueDate        DateTime
+  subtotal       Float
+  vatRate        Float         @default(20)
+  vatAmount      Float
+  total          Float
+  amountPaid     Float         @default(0)
+  paidAt         DateTime?
+  reference      String?
+  notes          String?
+  transportJobId String?       @unique
+  transportJob   TransportJob? @relation(fields: [transportJobId], references: [id], onDelete: SetNull)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -457,16 +485,16 @@ model DriverPerformanceEntry {
   cargoTonnes     Float
   income          Float
   expenditure     Float
-  repairCosts     Float @default(0)
-  damageCosts     Float @default(0)
-  otherCosts      Float @default(0)
+  repairCosts     Float    @default(0)
+  damageCosts     Float    @default(0)
+  otherCosts      Float    @default(0)
   reputationScore Float
   completedAt     DateTime
   notes           String?
 
   recordedById String
-  recordedBy   Account @relation("PerformanceEntryRecorder", fields: [recordedById], references: [id], onDelete: Restrict)
-  invoice Invoice?
+  recordedBy   Account  @relation("PerformanceEntryRecorder", fields: [recordedById], references: [id], onDelete: Restrict)
+  invoice      Invoice?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -675,16 +703,19 @@ model Truck {
   ownershipType   TruckOwnershipType @default(OWNED)
   leaseStartDate  DateTime?
   leaseTermMonths Int?
+  truckyVehicleId String?            @unique
 
   maintenanceJobs MaintenanceJob[]
   fuelEntries     FuelEntry[]
+  transportJobs   TransportJob[]
+  vehicleIssues   VehicleIssue[]
 
   // =====================================================
   // AUDIT FIELDS
   // =====================================================
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
   archivedAt DateTime?
 
   @@index([fleetNumber])
@@ -699,6 +730,112 @@ model Truck {
 enum TruckOwnershipType {
   OWNED
   LEASED
+}
+
+model TransportJob {
+  id String @id @default(cuid())
+
+  truckyJobId String             @unique
+  status      TransportJobStatus @default(STARTED)
+  game        String?
+
+  driverId String?
+  driver   Driver? @relation(fields: [driverId], references: [id], onDelete: SetNull)
+  truckId  String?
+  truck    Truck?  @relation(fields: [truckId], references: [id], onDelete: SetNull)
+
+  sourceCity         String?
+  sourceCompany      String?
+  destinationCity    String?
+  destinationCompany String?
+  cargo              String?
+  cargoMassKg        Float?
+  distanceKm         Int?
+  drivenDistanceKm   Int?
+  startedAt          DateTime?
+  completedAt        DateTime?
+  cancelledAt        DateTime?
+
+  revenue    Float?
+  fuelCost   Float?
+  tollCost   Float?
+  ferryCost  Float?
+  damageCost Float?
+  otherCosts Float?
+  profit     Float?
+  currency   String @default("EUR")
+
+  damagePercent          Float?
+  truckWearPercent       Float?
+  trailerWearPercent     Float?
+  fuelUsedLitres         Float?
+  averageFuelConsumption Float?
+
+  rawPayload  Json
+  lastEventAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  invoice       Invoice?
+  vehicleIssues VehicleIssue[]
+
+  @@index([driverId, completedAt])
+  @@index([truckId, completedAt])
+  @@index([status, completedAt])
+}
+
+model VehicleIssue {
+  id String @id @default(cuid())
+
+  externalKey    String?            @unique
+  truckId        String
+  truck          Truck              @relation(fields: [truckId], references: [id], onDelete: Cascade)
+  transportJobId String?
+  transportJob   TransportJob?      @relation(fields: [transportJobId], references: [id], onDelete: SetNull)
+  kind           VehicleIssueKind
+  status         VehicleIssueStatus @default(OPEN)
+  component      String
+  title          String
+  description    String?
+  severity       Int                @default(1)
+  wearPercent    Float?
+  damagePercent  Float?
+  reportedAt     DateTime           @default(now())
+  scheduledFor   DateTime?
+  resolvedAt     DateTime?
+  rawPayload     Json?
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  @@index([truckId, status])
+  @@index([kind, status])
+  @@index([scheduledFor])
+}
+
+model TruckyEvent {
+  id          String    @id @default(cuid())
+  fingerprint String    @unique
+  eventType   String
+  externalId  String?
+  payload     Json
+  receivedAt  DateTime  @default(now())
+  processedAt DateTime?
+  error       String?
+
+  @@index([eventType, receivedAt])
+  @@index([externalId])
+}
+
+model TruckySyncState {
+  id               String    @id @default("company")
+  lastStartedAt    DateTime?
+  lastCompletedAt  DateTime?
+  lastSuccessfulAt DateTime?
+  cursor           String?
+  imported         Int       @default(0)
+  failed           Int       @default(0)
+  lastError        String?
+  updatedAt        DateTime  @updatedAt
 }
 
 // =======================================================

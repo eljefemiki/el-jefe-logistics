@@ -247,6 +247,36 @@ export const CargoCategory = {
 export type CargoCategory = (typeof CargoCategory)[keyof typeof CargoCategory]
 
 
+export const TransportJobStatus = {
+  STARTED: 'STARTED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED',
+  DELETED: 'DELETED'
+} as const
+
+export type TransportJobStatus = (typeof TransportJobStatus)[keyof typeof TransportJobStatus]
+
+
+export const VehicleIssueKind = {
+  WEAR: 'WEAR',
+  DAMAGE: 'DAMAGE',
+  SERVICE: 'SERVICE'
+} as const
+
+export type VehicleIssueKind = (typeof VehicleIssueKind)[keyof typeof VehicleIssueKind]
+
+
+export const VehicleIssueStatus = {
+  OPEN: 'OPEN',
+  SCHEDULED: 'SCHEDULED',
+  IN_PROGRESS: 'IN_PROGRESS',
+  RESOLVED: 'RESOLVED',
+  DISMISSED: 'DISMISSED'
+} as const
+
+export type VehicleIssueStatus = (typeof VehicleIssueStatus)[keyof typeof VehicleIssueStatus]
+
+
 export const TruckOwnershipType = {
   OWNED: 'OWNED',
   LEASED: 'LEASED'

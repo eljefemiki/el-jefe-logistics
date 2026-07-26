@@ -42,6 +42,18 @@ interface DriverRecord {
     model: string;
     status: string;
   }[];
+  transportJobs: {
+    id: string;
+    truckyJobId: string;
+    cargo: string | null;
+    sourceCity: string | null;
+    destinationCity: string | null;
+    drivenDistanceKm: number | null;
+    revenue: number | null;
+    profit: number | null;
+    currency: string;
+    completedAt: Date | null;
+  }[];
 }
 
 export function mapDriverToDTO(
@@ -70,5 +82,6 @@ export function mapDriverToDTO(
       role: driver.account.role as AccountRole,
     },
     trucks: driver.trucks,
+    transportJobs: driver.transportJobs,
   };
 }

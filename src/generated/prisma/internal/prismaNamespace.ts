@@ -411,6 +411,10 @@ export const ModelName = {
   AuditEvent: 'AuditEvent',
   CompanySettings: 'CompanySettings',
   Truck: 'Truck',
+  TransportJob: 'TransportJob',
+  VehicleIssue: 'VehicleIssue',
+  TruckyEvent: 'TruckyEvent',
+  TruckySyncState: 'TruckySyncState',
   FuelEntry: 'FuelEntry',
   MaintenanceJob: 'MaintenanceJob'
 } as const
@@ -428,7 +432,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "driver" | "company" | "customer" | "invoice" | "contractListing" | "driverPerformanceEntry" | "contractBid" | "depot" | "notification" | "document" | "auditEvent" | "companySettings" | "truck" | "fuelEntry" | "maintenanceJob"
+    modelProps: "account" | "driver" | "company" | "customer" | "invoice" | "contractListing" | "driverPerformanceEntry" | "contractBid" | "depot" | "notification" | "document" | "auditEvent" | "companySettings" | "truck" | "transportJob" | "vehicleIssue" | "truckyEvent" | "truckySyncState" | "fuelEntry" | "maintenanceJob"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1468,6 +1472,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TransportJob: {
+      payload: Prisma.$TransportJobPayload<ExtArgs>
+      fields: Prisma.TransportJobFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TransportJobFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransportJobPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TransportJobFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransportJobPayload>
+        }
+        findFirst: {
+          args: Prisma.TransportJobFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransportJobPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TransportJobFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransportJobPayload>
+        }
+        findMany: {
+          args: Prisma.TransportJobFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransportJobPayload>[]
+        }
+        create: {
+          args: Prisma.TransportJobCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransportJobPayload>
+        }
+        createMany: {
+          args: Prisma.TransportJobCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TransportJobCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransportJobPayload>[]
+        }
+        delete: {
+          args: Prisma.TransportJobDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransportJobPayload>
+        }
+        update: {
+          args: Prisma.TransportJobUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransportJobPayload>
+        }
+        deleteMany: {
+          args: Prisma.TransportJobDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TransportJobUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TransportJobUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransportJobPayload>[]
+        }
+        upsert: {
+          args: Prisma.TransportJobUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransportJobPayload>
+        }
+        aggregate: {
+          args: Prisma.TransportJobAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTransportJob>
+        }
+        groupBy: {
+          args: Prisma.TransportJobGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TransportJobGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TransportJobCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TransportJobCountAggregateOutputType> | number
+        }
+      }
+    }
+    VehicleIssue: {
+      payload: Prisma.$VehicleIssuePayload<ExtArgs>
+      fields: Prisma.VehicleIssueFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.VehicleIssueFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleIssuePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.VehicleIssueFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleIssuePayload>
+        }
+        findFirst: {
+          args: Prisma.VehicleIssueFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleIssuePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.VehicleIssueFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleIssuePayload>
+        }
+        findMany: {
+          args: Prisma.VehicleIssueFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleIssuePayload>[]
+        }
+        create: {
+          args: Prisma.VehicleIssueCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleIssuePayload>
+        }
+        createMany: {
+          args: Prisma.VehicleIssueCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.VehicleIssueCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleIssuePayload>[]
+        }
+        delete: {
+          args: Prisma.VehicleIssueDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleIssuePayload>
+        }
+        update: {
+          args: Prisma.VehicleIssueUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleIssuePayload>
+        }
+        deleteMany: {
+          args: Prisma.VehicleIssueDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.VehicleIssueUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.VehicleIssueUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleIssuePayload>[]
+        }
+        upsert: {
+          args: Prisma.VehicleIssueUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleIssuePayload>
+        }
+        aggregate: {
+          args: Prisma.VehicleIssueAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateVehicleIssue>
+        }
+        groupBy: {
+          args: Prisma.VehicleIssueGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VehicleIssueGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.VehicleIssueCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VehicleIssueCountAggregateOutputType> | number
+        }
+      }
+    }
+    TruckyEvent: {
+      payload: Prisma.$TruckyEventPayload<ExtArgs>
+      fields: Prisma.TruckyEventFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TruckyEventFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckyEventPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TruckyEventFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckyEventPayload>
+        }
+        findFirst: {
+          args: Prisma.TruckyEventFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckyEventPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TruckyEventFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckyEventPayload>
+        }
+        findMany: {
+          args: Prisma.TruckyEventFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckyEventPayload>[]
+        }
+        create: {
+          args: Prisma.TruckyEventCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckyEventPayload>
+        }
+        createMany: {
+          args: Prisma.TruckyEventCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TruckyEventCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckyEventPayload>[]
+        }
+        delete: {
+          args: Prisma.TruckyEventDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckyEventPayload>
+        }
+        update: {
+          args: Prisma.TruckyEventUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckyEventPayload>
+        }
+        deleteMany: {
+          args: Prisma.TruckyEventDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TruckyEventUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TruckyEventUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckyEventPayload>[]
+        }
+        upsert: {
+          args: Prisma.TruckyEventUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckyEventPayload>
+        }
+        aggregate: {
+          args: Prisma.TruckyEventAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTruckyEvent>
+        }
+        groupBy: {
+          args: Prisma.TruckyEventGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TruckyEventGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TruckyEventCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TruckyEventCountAggregateOutputType> | number
+        }
+      }
+    }
+    TruckySyncState: {
+      payload: Prisma.$TruckySyncStatePayload<ExtArgs>
+      fields: Prisma.TruckySyncStateFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TruckySyncStateFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckySyncStatePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TruckySyncStateFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckySyncStatePayload>
+        }
+        findFirst: {
+          args: Prisma.TruckySyncStateFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckySyncStatePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TruckySyncStateFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckySyncStatePayload>
+        }
+        findMany: {
+          args: Prisma.TruckySyncStateFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckySyncStatePayload>[]
+        }
+        create: {
+          args: Prisma.TruckySyncStateCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckySyncStatePayload>
+        }
+        createMany: {
+          args: Prisma.TruckySyncStateCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TruckySyncStateCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckySyncStatePayload>[]
+        }
+        delete: {
+          args: Prisma.TruckySyncStateDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckySyncStatePayload>
+        }
+        update: {
+          args: Prisma.TruckySyncStateUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckySyncStatePayload>
+        }
+        deleteMany: {
+          args: Prisma.TruckySyncStateDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TruckySyncStateUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TruckySyncStateUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckySyncStatePayload>[]
+        }
+        upsert: {
+          args: Prisma.TruckySyncStateUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckySyncStatePayload>
+        }
+        aggregate: {
+          args: Prisma.TruckySyncStateAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTruckySyncState>
+        }
+        groupBy: {
+          args: Prisma.TruckySyncStateGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TruckySyncStateGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TruckySyncStateCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TruckySyncStateCountAggregateOutputType> | number
+        }
+      }
+    }
     FuelEntry: {
       payload: Prisma.$FuelEntryPayload<ExtArgs>
       fields: Prisma.FuelEntryFieldRefs
@@ -1696,6 +1996,10 @@ export const DriverScalarFieldEnum = {
   totalConvoys: 'totalConvoys',
   favouriteTruck: 'favouriteTruck',
   assignedTrailer: 'assignedTrailer',
+  truckyUserId: 'truckyUserId',
+  steamId: 'steamId',
+  truckyUsername: 'truckyUsername',
+  lastTruckySyncAt: 'lastTruckySyncAt',
   joinedAt: 'joinedAt',
   notes: 'notes',
   createdAt: 'createdAt',
@@ -1762,6 +2066,7 @@ export const InvoiceScalarFieldEnum = {
   paidAt: 'paidAt',
   reference: 'reference',
   notes: 'notes',
+  transportJobId: 'transportJobId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1956,12 +2261,106 @@ export const TruckScalarFieldEnum = {
   ownershipType: 'ownershipType',
   leaseStartDate: 'leaseStartDate',
   leaseTermMonths: 'leaseTermMonths',
+  truckyVehicleId: 'truckyVehicleId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   archivedAt: 'archivedAt'
 } as const
 
 export type TruckScalarFieldEnum = (typeof TruckScalarFieldEnum)[keyof typeof TruckScalarFieldEnum]
+
+
+export const TransportJobScalarFieldEnum = {
+  id: 'id',
+  truckyJobId: 'truckyJobId',
+  status: 'status',
+  game: 'game',
+  driverId: 'driverId',
+  truckId: 'truckId',
+  sourceCity: 'sourceCity',
+  sourceCompany: 'sourceCompany',
+  destinationCity: 'destinationCity',
+  destinationCompany: 'destinationCompany',
+  cargo: 'cargo',
+  cargoMassKg: 'cargoMassKg',
+  distanceKm: 'distanceKm',
+  drivenDistanceKm: 'drivenDistanceKm',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  cancelledAt: 'cancelledAt',
+  revenue: 'revenue',
+  fuelCost: 'fuelCost',
+  tollCost: 'tollCost',
+  ferryCost: 'ferryCost',
+  damageCost: 'damageCost',
+  otherCosts: 'otherCosts',
+  profit: 'profit',
+  currency: 'currency',
+  damagePercent: 'damagePercent',
+  truckWearPercent: 'truckWearPercent',
+  trailerWearPercent: 'trailerWearPercent',
+  fuelUsedLitres: 'fuelUsedLitres',
+  averageFuelConsumption: 'averageFuelConsumption',
+  rawPayload: 'rawPayload',
+  lastEventAt: 'lastEventAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TransportJobScalarFieldEnum = (typeof TransportJobScalarFieldEnum)[keyof typeof TransportJobScalarFieldEnum]
+
+
+export const VehicleIssueScalarFieldEnum = {
+  id: 'id',
+  externalKey: 'externalKey',
+  truckId: 'truckId',
+  transportJobId: 'transportJobId',
+  kind: 'kind',
+  status: 'status',
+  component: 'component',
+  title: 'title',
+  description: 'description',
+  severity: 'severity',
+  wearPercent: 'wearPercent',
+  damagePercent: 'damagePercent',
+  reportedAt: 'reportedAt',
+  scheduledFor: 'scheduledFor',
+  resolvedAt: 'resolvedAt',
+  rawPayload: 'rawPayload',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VehicleIssueScalarFieldEnum = (typeof VehicleIssueScalarFieldEnum)[keyof typeof VehicleIssueScalarFieldEnum]
+
+
+export const TruckyEventScalarFieldEnum = {
+  id: 'id',
+  fingerprint: 'fingerprint',
+  eventType: 'eventType',
+  externalId: 'externalId',
+  payload: 'payload',
+  receivedAt: 'receivedAt',
+  processedAt: 'processedAt',
+  error: 'error'
+} as const
+
+export type TruckyEventScalarFieldEnum = (typeof TruckyEventScalarFieldEnum)[keyof typeof TruckyEventScalarFieldEnum]
+
+
+export const TruckySyncStateScalarFieldEnum = {
+  id: 'id',
+  lastStartedAt: 'lastStartedAt',
+  lastCompletedAt: 'lastCompletedAt',
+  lastSuccessfulAt: 'lastSuccessfulAt',
+  cursor: 'cursor',
+  imported: 'imported',
+  failed: 'failed',
+  lastError: 'lastError',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TruckySyncStateScalarFieldEnum = (typeof TruckySyncStateScalarFieldEnum)[keyof typeof TruckySyncStateScalarFieldEnum]
 
 
 export const FuelEntryScalarFieldEnum = {
@@ -2026,6 +2425,13 @@ export const NullableJsonNullValueInput = {
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -2375,6 +2781,48 @@ export type ListEnumTruckOwnershipTypeFieldRefInput<$PrismaModel> = FieldRefInpu
 
 
 /**
+ * Reference to a field of type 'TransportJobStatus'
+ */
+export type EnumTransportJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransportJobStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'TransportJobStatus[]'
+ */
+export type ListEnumTransportJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransportJobStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'VehicleIssueKind'
+ */
+export type EnumVehicleIssueKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VehicleIssueKind'>
+    
+
+
+/**
+ * Reference to a field of type 'VehicleIssueKind[]'
+ */
+export type ListEnumVehicleIssueKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VehicleIssueKind[]'>
+    
+
+
+/**
+ * Reference to a field of type 'VehicleIssueStatus'
+ */
+export type EnumVehicleIssueStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VehicleIssueStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'VehicleIssueStatus[]'
+ */
+export type ListEnumVehicleIssueStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VehicleIssueStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'FuelType'
  */
 export type EnumFuelTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FuelType'>
@@ -2594,6 +3042,10 @@ export type GlobalOmitConfig = {
   auditEvent?: Prisma.AuditEventOmit
   companySettings?: Prisma.CompanySettingsOmit
   truck?: Prisma.TruckOmit
+  transportJob?: Prisma.TransportJobOmit
+  vehicleIssue?: Prisma.VehicleIssueOmit
+  truckyEvent?: Prisma.TruckyEventOmit
+  truckySyncState?: Prisma.TruckySyncStateOmit
   fuelEntry?: Prisma.FuelEntryOmit
   maintenanceJob?: Prisma.MaintenanceJobOmit
 }

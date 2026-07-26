@@ -235,6 +235,29 @@ export default function DriverProfile({
       </div>
 
       <section className="rounded-xl border border-slate-800 bg-slate-900 p-6">
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="text-xl font-semibold text-white">Recent Trucky Jobs</h2>
+          <Link href={`/dashboard/jobs?driver=${driver.id}`} className="text-sm font-medium text-blue-400 hover:text-blue-300">View all</Link>
+        </div>
+        {driver.transportJobs.length ? (
+          <div className="mt-4 overflow-x-auto">
+            <table className="min-w-full text-sm">
+              <thead className="border-b border-slate-800 text-left text-slate-500"><tr><th className="py-3 pr-4">Route</th><th className="py-3 pr-4">Cargo</th><th className="py-3 pr-4">Distance</th><th className="py-3 pr-4">Revenue</th><th className="py-3">Completed</th></tr></thead>
+              <tbody className="divide-y divide-slate-800">
+                {driver.transportJobs.map((job) => <tr key={job.id} className="text-slate-300">
+                  <td className="py-3 pr-4">{job.sourceCity ?? "?"} → {job.destinationCity ?? "?"}</td>
+                  <td className="py-3 pr-4">{job.cargo ?? "—"}</td>
+                  <td className="py-3 pr-4">{(job.drivenDistanceKm ?? 0).toLocaleString()} km</td>
+                  <td className="py-3 pr-4">{new Intl.NumberFormat("en-GB", { style: "currency", currency: job.currency }).format(job.revenue ?? 0)}</td>
+                  <td className="py-3">{formatDate(job.completedAt)}</td>
+                </tr>)}
+              </tbody>
+            </table>
+          </div>
+        ) : <p className="mt-4 text-sm text-slate-400">No completed Trucky jobs are linked to this driver yet.</p>}
+      </section>
+
+      <section className="rounded-xl border border-slate-800 bg-slate-900 p-6">
         <h2 className="text-xl font-semibold text-white">
           Notes
         </h2>

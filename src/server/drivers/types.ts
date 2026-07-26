@@ -59,6 +59,18 @@ export interface DriverDTO {
     archivedAt: Date | null;
   };
   trucks: DriverTruckDTO[];
+  transportJobs: {
+    id: string;
+    truckyJobId: string;
+    cargo: string | null;
+    sourceCity: string | null;
+    destinationCity: string | null;
+    drivenDistanceKm: number | null;
+    revenue: number | null;
+    profit: number | null;
+    currency: string;
+    completedAt: Date | null;
+  }[];
 }
 
 export interface DriverFilters {
