@@ -1,0 +1,17 @@
+[Unit]
+Description=JefeCore Trucky reconciliation sync
+After=network-online.target jefecore.service
+Wants=network-online.target
+Requires=jefecore.service
+
+[Service]
+Type=oneshot
+User=jefecore
+Group=jefecore
+WorkingDirectory=/opt/jefecore/current
+EnvironmentFile=/etc/jefecore/jefecore.env
+ExecStart=/usr/bin/node scripts/trucky-sync-runner.mjs
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full

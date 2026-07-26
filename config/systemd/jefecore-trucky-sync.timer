@@ -1,0 +1,12 @@
+[Unit]
+Description=Run JefeCore Trucky reconciliation every 15 minutes
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=15min
+RandomizedDelaySec=1min
+Persistent=true
+Unit=jefecore-trucky-sync.service
+
+[Install]
+WantedBy=timers.target
