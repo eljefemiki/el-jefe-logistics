@@ -347,6 +347,18 @@ export default function DriverForm({
         </div>
       </section>
 
+      <section className="overflow-hidden rounded-xl border border-slate-800 bg-slate-900">
+        <div className="border-b border-slate-800 px-6 py-5">
+          <h2 className="text-lg font-semibold text-white">Trucky mapping</h2>
+          <p className="mt-1 text-sm text-slate-400">Use the stable Trucky user ID and/or the driver&apos;s 17-digit Steam ID. Discord ID is not required.</p>
+        </div>
+        <div className="grid gap-6 p-6 md:grid-cols-2">
+          <div><label htmlFor="truckyUserId" className={labelClasses}>Trucky user ID</label><input id="truckyUserId" name="truckyUserId" defaultValue={driver.truckyUserId ?? undefined} className={inputClasses} /><FieldError errors={state.fieldErrors?.truckyUserId} /></div>
+          <div><label htmlFor="steamId" className={labelClasses}>Steam ID</label><input id="steamId" name="steamId" inputMode="numeric" pattern="[0-9]{17}" defaultValue={driver.steamId ?? undefined} className={inputClasses} /><FieldError errors={state.fieldErrors?.steamId} /></div>
+          <div className="md:col-span-2"><label htmlFor="truckyUsername" className={labelClasses}>Trucky username</label><input id="truckyUsername" name="truckyUsername" defaultValue={driver.truckyUsername ?? undefined} className={inputClasses} /><FieldError errors={state.fieldErrors?.truckyUsername} /></div>
+        </div>
+      </section>
+
       {state.message && (
         <div
           className={`flex items-start gap-3 rounded-lg border p-4 ${

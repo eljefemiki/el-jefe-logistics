@@ -17,7 +17,9 @@ export async function POST(request: Request) {
   try {
     return NextResponse.json(await synchronizeJobs());
   } catch (error) {
-    console.error("Trucky sync failed", error);
-    return NextResponse.json({ error: error instanceof Error ? error.message : "Synchronization failed." }, { status: 502 });
+    console.error("Trucky sync failed", {
+      message: error instanceof Error ? error.message : "Unknown synchronization error",
+    });
+    return NextResponse.json({ error: "Synchronization failed." }, { status: 502 });
   }
 }

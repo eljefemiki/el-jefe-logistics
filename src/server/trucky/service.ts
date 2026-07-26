@@ -1,22 +1,14 @@
 import "server-only";
-import { createHmac, timingSafeEqual } from "node:crypto";
 import { prisma } from "@/src/lib/prisma";
 import { fetchCompanyJobs, getTruckyConfiguration } from "./client";
 import { eventFingerprint, normalizeJob } from "./normalize";
+import { verifyHmacSha256 } from "./signature";
 import type { ImportResult, NormalizedJob } from "./types";
 
-function safeSignature(rawBody: string, supplied: string | null) {
-  const secret = getTruckyConfiguration().webhookSecret;
-  if (!secret || !supplied) return false;
-  const expected = createHmac("sha256", secret).update(rawBody).digest("hex");
-  const left = Buffer.from(expected, "utf8");
-  const right = Buffer.from(supplied.trim().toLowerCase(), "utf8");
-  return left.length === right.length && timingSafeEqual(left, right);
-}
-
 export function verifyWebhook(rawBody: string, signature: string | null) {
-  if (!getTruckyConfiguration().webhookSecret) throw new Error("TRUCKY_WEBHOOK_SECRET must be configured.");
-  return safeSignature(rawBody, signature);
+  const secret = getTruckyConfiguration().webhookSecret;
+  if (!secret) throw new Error("TRUCKY_WEBHOOK_SECRET must be configured.");
+  return verifyHmacSha256(rawBody, signature, secret);
 }
 
 async function matchDriver(job: NormalizedJob) {

@@ -42,6 +42,10 @@ export interface DriverDTO {
   totalConvoys: number;
   favouriteTruck: string | null;
   assignedTrailer: import("@/src/lib/ets2-trailers").Ets2TrailerType | null;
+  truckyUserId: string | null;
+  steamId: string | null;
+  truckyUsername: string | null;
+  lastTruckySyncAt: Date | null;
   joinedAt: Date;
   notes: string | null;
   createdAt: Date;
@@ -109,6 +113,9 @@ export interface UpdateDriverInput {
   totalConvoys?: number;
   favouriteTruck?: string;
   assignedTrailer?: import("@/src/lib/ets2-trailers").Ets2TrailerType | null;
+  truckyUserId?: string;
+  steamId?: string;
+  truckyUsername?: string;
   joinedAt?: Date;
   notes?: string;
   isActive?: boolean;

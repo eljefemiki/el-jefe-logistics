@@ -9,6 +9,9 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit --incremental false",
     "test": "node --test --experimental-strip-types tests/*.test.mjs",
+    "preflight:trucky:local": "node scripts/trucky-preflight.mjs local",
+    "preflight:trucky:production": "node scripts/trucky-preflight.mjs production",
+    "audit:trucky:database": "node scripts/trucky-db-audit.mjs",
     "test:integration": "tsx --test tests/database-workflows.integration.mjs",
     "test:acceptance": "tsx --test tests/api-authorization.acceptance.mjs"
   },

@@ -72,6 +72,12 @@ const navigation: NavItem[] = [
     permission: "dispatch:view",
   },
   {
+    name: "Trucky Health",
+    href: "/dashboard/settings/integrations/trucky",
+    icon: ShieldCheck,
+    permission: "settings:view",
+  },
+  {
     name: "Customers",
     href: "/dashboard/customers",
     icon: ContactRound,

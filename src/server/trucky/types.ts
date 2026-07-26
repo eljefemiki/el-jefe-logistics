@@ -35,7 +35,7 @@ export type NormalizedJob = {
   trailerWearPercent?: number;
   fuelUsedLitres?: number;
   averageFuelConsumption?: number;
-  eventAt?: Date;
+  lastEventAt?: Date;
   rawPayload: Prisma.InputJsonValue;
 };
 

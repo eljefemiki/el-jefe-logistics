@@ -12,6 +12,16 @@ The integration imports Trucky jobs into JefeCore, updates driver delivery total
 6. Run the Prisma migration during deployment.
 7. Perform an initial backfill by sending an authenticated `POST` to `/api/integrations/trucky/sync` while signed in as a dispatch manager, or use `Authorization: Bearer <TRUCKY_SYNC_SECRET>` from a scheduler.
 
+## Pre-flight checks
+
+Run `npm run preflight:trucky:local` before starting locally. On the production
+server, run `npm run preflight:trucky:production` after loading its environment
+file and before restarting the application. These read-only checks validate the
+required variables, database/schema access, and Trucky company credentials.
+
+Run `npm run audit:trucky:database` for aggregate synchronization, webhook, job,
+and mapping health. It never prints secrets or source payloads.
+
 ## Driver and vehicle matching
 
 Jobs are linked to existing records by `Driver.truckyUserId` or `Driver.steamId`, and by `Truck.truckyVehicleId` or registration. The stable IDs should be added during driver and fleet onboarding. Unmatched jobs are retained and visible in Trucky Jobs so they can be reconciled without losing data.

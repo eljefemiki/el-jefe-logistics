@@ -79,6 +79,12 @@ export async function updateDriverAction(
       optionalString(formData.get("favouriteTruck")),
     assignedTrailer:
       optionalString(formData.get("assignedTrailer")) ?? null,
+    truckyUserId:
+      optionalString(formData.get("truckyUserId")),
+    steamId:
+      optionalString(formData.get("steamId")),
+    truckyUsername:
+      optionalString(formData.get("truckyUsername")),
     joinedAt:
       optionalDate(formData.get("joinedAt")),
     notes:

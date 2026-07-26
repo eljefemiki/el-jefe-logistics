@@ -6,7 +6,11 @@ const object = (value: unknown): JsonObject =>
 const pick = (source: JsonObject, ...keys: string[]) => {
   for (const key of keys) if (source[key] !== undefined && source[key] !== null) return source[key];
 };
-const text = (value: unknown) => typeof value === "string" && value.trim() ? value.trim() : undefined;
+const text = (value: unknown) => {
+  if (typeof value === "string" && value.trim()) return value.trim();
+  if (typeof value === "number" && Number.isFinite(value)) return String(value);
+  return undefined;
+};
 const number = (value: unknown) => {
   const parsed = typeof value === "number" ? value : typeof value === "string" ? Number(value) : NaN;
   return Number.isFinite(parsed) ? parsed : undefined;
@@ -53,19 +57,20 @@ export function normalizeJob(input: unknown, eventType = "job_completed"): Norma
   return {
     truckyJobId: externalId,
     status: eventStatus,
-    truckyUserId: text(pick(user, "id", "_id", "user_id", "userId")),
+    truckyUserId: text(pick(user, "id", "_id", "user_id", "userId")) ?? text(pick(data, "user_id", "userId")),
     steamId: text(pick(steam, "steam_id", "steamId")) ?? text(pick(user, "steam_id", "steamId")),
     truckyUsername: text(pick(steam, "steam_username", "username")) ?? text(pick(user, "username", "name")),
-    truckyVehicleId: text(pick(vehicle, "id", "_id", "vehicle_id", "vehicleId")),
+    truckyVehicleId: text(pick(vehicle, "id", "_id", "vehicle_id", "vehicleId")) ?? text(pick(data, "vehicle_id", "vehicleId")),
     registration: text(pick(vehicle, "registration", "license_plate", "plate")),
-    game: text(pick(data, "game", "game_name", "gameName")),
-    sourceCity: text(pick(source, "city", "city_name", "cityName")) ?? text(pick(data, "source_city", "sourceCity")),
-    sourceCompany: text(pick(source, "company", "company_name", "companyName")) ?? text(pick(data, "source_company", "sourceCompany")),
-    destinationCity: text(pick(destination, "city", "city_name", "cityName")) ?? text(pick(data, "destination_city", "destinationCity")),
-    destinationCompany: text(pick(destination, "company", "company_name", "companyName")) ?? text(pick(data, "destination_company", "destinationCompany")),
+    game: text(pick(object(data.game), "code", "name")) ?? text(pick(data, "game", "game_name", "gameName", "game_id")),
+    sourceCity: text(pick(source, "city", "city_name", "cityName")) ?? text(pick(data, "source_city_name", "source_city", "sourceCity")),
+    sourceCompany: text(pick(source, "company", "company_name", "companyName")) ?? text(pick(data, "source_company_name", "source_company", "sourceCompany")),
+    destinationCity: text(pick(destination, "city", "city_name", "cityName")) ?? text(pick(data, "destination_city_name", "destination_city", "destinationCity")),
+    destinationCompany: text(pick(destination, "company", "company_name", "companyName")) ?? text(pick(data, "destination_company_name", "destination_company", "destinationCompany")),
     cargo: text(pick(data, "cargo", "cargo_name", "cargoName")),
-    cargoMassKg: number(pick(data, "cargo_mass_kg", "cargoMassKg", "cargo_weight")),
-    distanceKm: integer(pick(data, "distance", "distance_km", "planned_distance")) ?? integer(pick(telemetry, "distance", "distance_km")),
+    cargoMassKg: number(pick(data, "cargo_mass_kg", "cargoMassKg", "cargo_weight"))
+      ?? (number(pick(data, "cargo_mass_t")) === undefined ? undefined : number(pick(data, "cargo_mass_t"))! * 1_000),
+    distanceKm: integer(pick(data, "distance", "distance_km", "planned_distance_km", "planned_distance")) ?? integer(pick(telemetry, "distance", "distance_km")),
     drivenDistanceKm: integer(pick(data, "driven_distance", "drivenDistance", "driven_distance_km")) ?? integer(pick(telemetry, "driven_distance", "distance")),
     startedAt: date(pick(data, "started_at", "startedAt", "start_time")),
     completedAt: eventStatus === "COMPLETED" ? date(pick(data, "completed_at", "completedAt", "finish_time")) ?? new Date() : undefined,
@@ -73,12 +78,12 @@ export function normalizeJob(input: unknown, eventType = "job_completed"): Norma
     revenue, fuelCost, tollCost, ferryCost, damageCost, otherCosts,
     profit: number(pick(data, "profit")) ?? number(pick(economy, "profit")) ?? calculatedProfit,
     currency: text(pick(data, "currency")) ?? text(pick(economy, "currency")) ?? "EUR",
-    damagePercent: number(pick(data, "damage", "damage_percent", "damagePercent")) ?? number(pick(telemetry, "damage", "damage_percent")),
+    damagePercent: number(pick(data, "damage", "damage_percent", "damagePercent", "vehicle_damage", "total_damage")) ?? number(pick(telemetry, "damage", "damage_percent")),
     truckWearPercent: number(pick(data, "truck_wear", "truckWear", "wear_percent")) ?? number(pick(telemetry, "truck_wear", "wear")),
     trailerWearPercent: number(pick(data, "trailer_wear", "trailerWear")) ?? number(pick(telemetry, "trailer_wear")),
-    fuelUsedLitres: number(pick(data, "fuel_used", "fuelUsed", "fuel_litres")) ?? number(pick(telemetry, "fuel_used")),
-    averageFuelConsumption: number(pick(data, "average_fuel_consumption", "averageFuelConsumption")) ?? number(pick(telemetry, "average_fuel_consumption")),
-    eventAt: date(pick(data, "updated_at", "updatedAt", "completed_at", "created_at")) ?? new Date(),
+    fuelUsedLitres: number(pick(data, "fuel_used_l", "fuel_used", "fuelUsed", "fuel_litres")) ?? number(pick(telemetry, "fuel_used")),
+    averageFuelConsumption: number(pick(data, "fuel_economy_l100km", "average_fuel_consumption", "averageFuelConsumption")) ?? number(pick(telemetry, "average_fuel_consumption")),
+    lastEventAt: date(pick(data, "updated_at", "updatedAt", "completed_at", "created_at")) ?? new Date(),
     rawPayload: JSON.parse(JSON.stringify(data)),
   };
 }

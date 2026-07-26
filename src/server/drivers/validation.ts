@@ -85,6 +85,9 @@ export const updateDriverSchema = z.object({
     .optional(),
 
   assignedTrailer: z.enum(ets2TrailerTypes).nullable().optional(),
+  truckyUserId: z.string().trim().max(120, "Trucky user ID is too long").optional(),
+  steamId: z.string().trim().regex(/^\d{17}$/, "Steam ID must contain exactly 17 digits").optional(),
+  truckyUsername: z.string().trim().max(120, "Trucky username is too long").optional(),
 
   joinedAt: z
     .date()

@@ -37,3 +37,40 @@ test("webhook fingerprints are deterministic and payload-sensitive", () => {
 test("Trucky payloads without a stable job id are rejected", () => {
   assert.throws(() => normalizeJob({ data: { cargo: "Logs" } }), /stable job id/);
 });
+
+test("real Trucky API job shape accepts numeric IDs and flat route fields", () => {
+  const job = normalizeJob({
+    id: 12345,
+    user_id: 88,
+    vehicle_id: 42,
+    source_city_name: "Madrid",
+    source_company_name: "Transinet",
+    destination_city_name: "London",
+    destination_company_name: "SellPlan",
+    cargo_name: "Medical equipment",
+    cargo_mass_t: 18.5,
+    planned_distance_km: 1900,
+    driven_distance_km: 1925,
+    vehicle_damage: 2.4,
+    fuel_used_l: 612,
+    fuel_economy_l100km: 31.8,
+    revenue: 7500,
+    completed_at: "2026-07-26T12:00:00.000Z",
+    updated_at: "2026-07-26T12:01:00.000Z",
+    driver: { id: 88, name: "El Jefe" },
+    game: { id: 1, code: "ETS2", name: "Euro Truck Simulator 2" },
+  });
+  assert.equal(job.truckyJobId, "12345");
+  assert.equal(job.truckyUserId, "88");
+  assert.equal(job.truckyVehicleId, "42");
+  assert.equal(job.game, "ETS2");
+  assert.equal(job.sourceCity, "Madrid");
+  assert.equal(job.destinationCity, "London");
+  assert.equal(job.cargoMassKg, 18500);
+  assert.equal(job.distanceKm, 1900);
+  assert.equal(job.drivenDistanceKm, 1925);
+  assert.equal(job.damagePercent, 2.4);
+  assert.equal(job.fuelUsedLitres, 612);
+  assert.equal(job.averageFuelConsumption, 31.8);
+  assert.equal(job.lastEventAt.toISOString(), "2026-07-26T12:01:00.000Z");
+});

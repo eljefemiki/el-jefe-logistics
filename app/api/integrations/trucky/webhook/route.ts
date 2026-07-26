@@ -9,9 +9,18 @@ export async function POST(request: Request) {
     if (!verifyWebhook(rawBody, request.headers.get("x-signature-sha256"))) {
       return NextResponse.json({ error: "Invalid Trucky signature." }, { status: 401 });
     }
+  } catch (error) {
+    console.error("Trucky webhook verification unavailable", {
+      message: error instanceof Error ? error.message : "Unknown verification error",
+    });
+    return NextResponse.json({ error: "Webhook verification unavailable." }, { status: 503 });
+  }
+  try {
     return NextResponse.json(await processWebhook(rawBody), { status: 202 });
   } catch (error) {
-    console.error("Trucky webhook failed", error);
-    return NextResponse.json({ error: error instanceof Error ? error.message : "Webhook processing failed." }, { status: 400 });
+    console.error("Trucky webhook processing failed", {
+      message: error instanceof Error ? error.message : "Unknown processing error",
+    });
+    return NextResponse.json({ error: "Webhook processing failed." }, { status: 500 });
   }
 }
