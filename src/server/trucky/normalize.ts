@@ -6,7 +6,6 @@ const object = (value: unknown): JsonObject =>
 const pick = (source: JsonObject, ...keys: string[]) => {
   for (const key of keys) if (source[key] !== undefined && source[key] !== null) return source[key];
 };
-const nested = (source: JsonObject, key: string) => object(source[key]);
 const text = (value: unknown) => typeof value === "string" && value.trim() ? value.trim() : undefined;
 const number = (value: unknown) => {
   const parsed = typeof value === "number" ? value : typeof value === "string" ? Number(value) : NaN;

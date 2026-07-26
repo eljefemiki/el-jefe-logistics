@@ -10,7 +10,7 @@ export default function FleetAlerts({ alerts }: { alerts: FleetAlertDTO[] }) {
 
       <div className="space-y-4">
 
-        {alerts.map((alert, index) => (
+        {alerts.map((alert) => (
 
           <div
             key={alert.id}
