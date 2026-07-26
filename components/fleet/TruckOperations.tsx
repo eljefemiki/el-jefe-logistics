@@ -6,35 +6,37 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-const modules = [
+function getModules(truckId: string) { return [
   {
     title: "Maintenance",
     description:
       "Open and manage persisted inspections, service work and repair jobs in the Workshop Centre.",
     icon: Wrench,
-    href: "/dashboard/maintenance",
+    href: `/dashboard/maintenance/new?truckId=${truckId}`,
   },
   {
     title: "Fuel",
     description:
-      "Fuel logs can be connected here once the app has a persisted fuel entry model.",
+      "Record a persisted fuel transaction against this truck.",
     icon: Fuel,
+    href: `/dashboard/fuel/new?truckId=${truckId}`,
   },
   {
     title: "Documents",
     description:
-      "V5C, insurance, MOT and operating documents are reserved for the document model.",
+      "Open document metadata and external file links associated with fleet records.",
     icon: FileText,
+    href: `/dashboard/documents?entityType=Truck&entityId=${truckId}`,
   },
   {
     title: "Archive",
     description:
-      "Archive is pending a Truck archivedAt field. Delete is available today from the profile header.",
+      "Use Archive in the profile header to remove this truck from active totals while retaining its full history.",
     icon: ShieldAlert,
   },
-];
+];}
 
-export default function TruckOperations() {
+export default function TruckOperations({ truckId }: { truckId: string }) {
   return (
     <section className="rounded-xl border border-slate-800 bg-slate-900 p-6">
       <h2 className="text-xl font-semibold text-white">
@@ -42,7 +44,7 @@ export default function TruckOperations() {
       </h2>
 
       <div className="mt-5 grid gap-4 md:grid-cols-2">
-        {modules.map((module) => {
+        {getModules(truckId).map((module) => {
           const Icon = module.icon;
 
           return (
@@ -65,7 +67,7 @@ export default function TruckOperations() {
               </p>
               {module.href && (
                 <Link href={module.href} className="mt-4 inline-block text-sm font-medium text-blue-400 hover:text-blue-300">
-                  Open Workshop Centre
+                  Open module
                 </Link>
               )}
             </div>

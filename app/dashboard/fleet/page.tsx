@@ -6,6 +6,7 @@ import FleetHealth from "@/components/fleet/FleetHealth";
 import FleetQuickActions from "@/components/fleet/FleetQuickActions";
 import FleetStats from "@/components/fleet/FleetStats";
 import TruckTable from "@/components/fleet/TruckTable";
+import FleetAlerts from "@/components/fleet/FleetAlerts";
 
 import { getFleet } from "@/src/server/fleet/service";
 import { getFleetDashboard } from "@/src/server/fleet/dashboard";
@@ -143,6 +144,7 @@ export default async function FleetPage({
         <FleetFilters />
 
         <TruckTable trucks={trucks} />
+        <FleetAlerts alerts={dashboard.alerts} />
       </div>
     </DashboardLayout>
   );

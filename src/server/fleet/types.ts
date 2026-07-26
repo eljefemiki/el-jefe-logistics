@@ -62,6 +62,7 @@ export interface FleetTruckDTO {
 
   createdAt: Date;
   updatedAt: Date;
+  archivedAt: Date | null;
 }
 
 export interface FleetFilters {
@@ -74,6 +75,7 @@ export interface FleetFilters {
   depotId?: string;
 
   driverId?: string;
+  includeArchived?: boolean;
 }
 
 export interface FleetDashboardDTO {

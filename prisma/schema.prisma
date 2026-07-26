@@ -678,6 +678,7 @@ model Truck {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  archivedAt DateTime?
 
   @@index([fleetNumber])
   @@index([registration])
@@ -685,6 +686,7 @@ model Truck {
   @@index([manufacturer])
   @@index([depotId])
   @@index([driverId])
+  @@index([archivedAt])
 }
 
 enum TruckOwnershipType {

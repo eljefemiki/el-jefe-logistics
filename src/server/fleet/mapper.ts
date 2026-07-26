@@ -34,6 +34,7 @@ interface TruckRecord {
 
   createdAt: Date;
   updatedAt: Date;
+  archivedAt: Date | null;
 
   depot: {
     id: string;
@@ -131,5 +132,7 @@ export function mapTruckToDTO(
 
     updatedAt:
       truck.updatedAt,
+    archivedAt:
+      truck.archivedAt,
   };
 }

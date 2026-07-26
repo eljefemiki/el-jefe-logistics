@@ -3,8 +3,14 @@ import { ChevronLeft, Truck } from "lucide-react";
 
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import TruckForm from "@/components/fleet/TruckForm";
+import { prisma } from "@/src/lib/prisma";
 
-export default function NewTruckPage() {
+export default async function NewTruckPage() {
+  const [depots, driverRows] = await Promise.all([
+    prisma.depot.findMany({ select: { id: true, name: true, city: true }, orderBy: { name: "asc" } }),
+    prisma.driver.findMany({ where: { status: { not: "SUSPENDED" } }, select: { id: true, employeeNumber: true, account: { select: { firstName: true, lastName: true } } }, orderBy: { employeeNumber: "asc" } }),
+  ]);
+  const drivers = driverRows.map((driver) => ({ id: driver.id, employeeNumber: driver.employeeNumber, name: `${driver.account.firstName} ${driver.account.lastName}` }));
   return (
     <DashboardLayout>
       <div className="mx-auto max-w-6xl space-y-8">
@@ -41,7 +47,7 @@ export default function NewTruckPage() {
           </div>
         </div>
 
-        <TruckForm />
+        <TruckForm depots={depots} drivers={drivers} />
 
         <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-5">
           <p className="text-sm text-slate-400">

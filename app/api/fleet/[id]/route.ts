@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getCurrentAccount } from "@/src/lib/session";
 import { hasPermission } from "@/src/lib/permissions";
+import { getTruck } from "@/src/server/fleet/service";
 
 export async function GET(
   request: Request,
@@ -15,8 +16,7 @@ export async function GET(
   if (!hasPermission(account.role, "fleet:view")) return NextResponse.json({ error: "Forbidden." }, { status: 403 });
   const { id } = await context.params;
 
-  return NextResponse.json({
-    id,
-    message: "Fleet truck route ready.",
-  });
+  const truck = await getTruck(id);
+  if (!truck) return NextResponse.json({ error: "Truck not found." }, { status: 404 });
+  return NextResponse.json(truck);
 }

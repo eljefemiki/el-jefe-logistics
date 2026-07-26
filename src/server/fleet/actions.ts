@@ -6,6 +6,7 @@ import {
   createTruck,
   removeTruck,
   updateTruck,
+  archiveTruck,
 } from "./service";
 import {
   createTruckSchema,
@@ -270,5 +271,17 @@ export async function deleteTruckAction(
           ? error.message
           : "Unable to delete the truck.",
     };
+  }
+}
+
+export async function archiveTruckAction(id: string, archived: boolean) {
+  await authorize("fleet:manage");
+  try {
+    await archiveTruck(id, archived);
+    revalidatePath("/dashboard/fleet");
+    revalidatePath(`/dashboard/fleet/${id}`);
+    return { success: true, message: archived ? "Truck archived safely." : "Truck restored to the active fleet." };
+  } catch (error) {
+    return { success: false, message: error instanceof Error ? error.message : "Unable to update archive status." };
   }
 }

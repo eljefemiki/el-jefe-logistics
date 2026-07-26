@@ -1953,7 +1953,8 @@ export const TruckScalarFieldEnum = {
   leaseStartDate: 'leaseStartDate',
   leaseTermMonths: 'leaseTermMonths',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  archivedAt: 'archivedAt'
 } as const
 
 export type TruckScalarFieldEnum = (typeof TruckScalarFieldEnum)[keyof typeof TruckScalarFieldEnum]
@@ -2086,14 +2087,14 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
  * Reference to a field of type 'Bytes'
  */
 export type BytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes'>
-
+    
 
 
 /**
  * Reference to a field of type 'Bytes[]'
  */
 export type ListBytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes[]'>
-
+    
 
 
 /**
@@ -2177,14 +2178,14 @@ export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
  * Reference to a field of type 'Ets2TrailerType'
  */
 export type EnumEts2TrailerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Ets2TrailerType'>
-
+    
 
 
 /**
  * Reference to a field of type 'Ets2TrailerType[]'
  */
 export type ListEnumEts2TrailerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Ets2TrailerType[]'>
-
+    
 
 
 /**
@@ -2219,14 +2220,14 @@ export type ListEnumInvoiceStatusFieldRefInput<$PrismaModel> = FieldRefInputType
  * Reference to a field of type 'CargoCategory'
  */
 export type EnumCargoCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CargoCategory'>
-
+    
 
 
 /**
  * Reference to a field of type 'CargoCategory[]'
  */
 export type ListEnumCargoCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CargoCategory[]'>
-
+    
 
 
 /**
@@ -2359,14 +2360,14 @@ export type ListEnumTruckStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$
  * Reference to a field of type 'TruckOwnershipType'
  */
 export type EnumTruckOwnershipTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TruckOwnershipType'>
-
+    
 
 
 /**
  * Reference to a field of type 'TruckOwnershipType[]'
  */
 export type ListEnumTruckOwnershipTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TruckOwnershipType[]'>
-
+    
 
 
 /**
@@ -2653,3 +2654,4 @@ export type PrismaAction =
  * `PrismaClient` proxy available in interactive transactions.
  */
 export type TransactionClient = Omit<DefaultPrismaClient, runtime.ITXClientDenyList>
+

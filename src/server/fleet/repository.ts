@@ -41,10 +41,12 @@ export async function findAllTrucks(
     manufacturer,
     depotId,
     driverId,
+    includeArchived,
   } = filters;
 
   return prisma.truck.findMany({
     where: {
+      ...(!includeArchived ? { archivedAt: null } : {}),
       ...(status
         ? {
             status,
@@ -248,8 +250,19 @@ export async function deleteTruck(
   });
 }
 
+export async function setTruckArchived(id: string, archived: boolean) {
+  return prisma.truck.update({
+    where: { id },
+    data: {
+      archivedAt: archived ? new Date() : null,
+      ...(archived ? { status: "OUT_OF_SERVICE" as const, driverId: null } : {}),
+    },
+    include: truckInclude,
+  });
+}
+
 export async function countAllTrucks() {
-  return prisma.truck.count();
+  return prisma.truck.count({ where: { archivedAt: null } });
 }
 
 export async function countTrucksByStatus(
@@ -262,12 +275,14 @@ export async function countTrucksByStatus(
   return prisma.truck.count({
     where: {
       status,
+      archivedAt: null,
     },
   });
 }
 
 export async function getFleetAggregates() {
   return prisma.truck.aggregate({
+    where: { archivedAt: null },
     _sum: {
       currentValue: true,
     },

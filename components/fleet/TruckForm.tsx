@@ -50,6 +50,8 @@ const labelClasses =
 
 interface TruckFormProps {
   truck?: FleetTruckDTO;
+  depots?: { id: string; name: string; city: string }[];
+  drivers?: { id: string; employeeNumber: string; name: string }[];
 }
 
 function formatDateInput(value: Date | null | undefined) {
@@ -62,6 +64,8 @@ function formatDateInput(value: Date | null | undefined) {
 
 export default function TruckForm({
   truck,
+  depots = [],
+  drivers = [],
 }: TruckFormProps) {
   const router = useRouter();
   const isEditing = Boolean(truck);
@@ -375,6 +379,29 @@ export default function TruckForm({
         </div>
       </section>
 
+      <section className="overflow-hidden rounded-xl border border-slate-800 bg-slate-900">
+        <div className="border-b border-slate-800 px-6 py-5">
+          <h2 className="text-lg font-semibold text-white">Fleet Assignment</h2>
+          <p className="mt-1 text-sm text-slate-400">Assign the current depot and driver. Either can be changed later.</p>
+        </div>
+        <div className="grid gap-6 p-6 md:grid-cols-2">
+          <div>
+            <label htmlFor="depotId" className={labelClasses}>Depot</label>
+            <select id="depotId" name="depotId" defaultValue={truck?.depot?.id ?? ""} className={inputClasses}>
+              <option value="">Unassigned</option>
+              {depots.map((depot) => <option key={depot.id} value={depot.id}>{depot.name} · {depot.city}</option>)}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="driverId" className={labelClasses}>Driver</label>
+            <select id="driverId" name="driverId" defaultValue={truck?.driver?.id ?? ""} className={inputClasses}>
+              <option value="">Unassigned</option>
+              {drivers.map((driver) => <option key={driver.id} value={driver.id}>{driver.employeeNumber} · {driver.name}</option>)}
+            </select>
+          </div>
+        </div>
+      </section>
+
       {/* Operating Data */}
       <section className="overflow-hidden rounded-xl border border-slate-800 bg-slate-900">
         <div className="border-b border-slate-800 px-6 py-5">
@@ -393,7 +420,7 @@ export default function TruckForm({
               htmlFor="mileage"
               className={labelClasses}
             >
-              Current Mileage
+              Current Odometer (km)
             </label>
 
             <input

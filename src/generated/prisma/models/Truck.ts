@@ -66,6 +66,7 @@ export type TruckMinAggregateOutputType = {
   leaseTermMonths: number | null
   createdAt: Date | null
   updatedAt: Date | null
+  archivedAt: Date | null
 }
 
 export type TruckMaxAggregateOutputType = {
@@ -90,6 +91,7 @@ export type TruckMaxAggregateOutputType = {
   leaseTermMonths: number | null
   createdAt: Date | null
   updatedAt: Date | null
+  archivedAt: Date | null
 }
 
 export type TruckCountAggregateOutputType = {
@@ -114,6 +116,7 @@ export type TruckCountAggregateOutputType = {
   leaseTermMonths: number
   createdAt: number
   updatedAt: number
+  archivedAt: number
   _all: number
 }
 
@@ -158,6 +161,7 @@ export type TruckMinAggregateInputType = {
   leaseTermMonths?: true
   createdAt?: true
   updatedAt?: true
+  archivedAt?: true
 }
 
 export type TruckMaxAggregateInputType = {
@@ -182,6 +186,7 @@ export type TruckMaxAggregateInputType = {
   leaseTermMonths?: true
   createdAt?: true
   updatedAt?: true
+  archivedAt?: true
 }
 
 export type TruckCountAggregateInputType = {
@@ -206,6 +211,7 @@ export type TruckCountAggregateInputType = {
   leaseTermMonths?: true
   createdAt?: true
   updatedAt?: true
+  archivedAt?: true
   _all?: true
 }
 
@@ -317,6 +323,7 @@ export type TruckGroupByOutputType = {
   leaseTermMonths: number | null
   createdAt: Date
   updatedAt: Date
+  archivedAt: Date | null
   _count: TruckCountAggregateOutputType | null
   _avg: TruckAvgAggregateOutputType | null
   _sum: TruckSumAggregateOutputType | null
@@ -364,6 +371,7 @@ export type TruckWhereInput = {
   leaseTermMonths?: Prisma.IntNullableFilter<"Truck"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Truck"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Truck"> | Date | string
+  archivedAt?: Prisma.DateTimeNullableFilter<"Truck"> | Date | string | null
   depot?: Prisma.XOR<Prisma.DepotNullableScalarRelationFilter, Prisma.DepotWhereInput> | null
   driver?: Prisma.XOR<Prisma.DriverNullableScalarRelationFilter, Prisma.DriverWhereInput> | null
   maintenanceJobs?: Prisma.MaintenanceJobListRelationFilter
@@ -392,6 +400,7 @@ export type TruckOrderByWithRelationInput = {
   leaseTermMonths?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   depot?: Prisma.DepotOrderByWithRelationInput
   driver?: Prisma.DriverOrderByWithRelationInput
   maintenanceJobs?: Prisma.MaintenanceJobOrderByRelationAggregateInput
@@ -423,6 +432,7 @@ export type TruckWhereUniqueInput = Prisma.AtLeast<{
   leaseTermMonths?: Prisma.IntNullableFilter<"Truck"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Truck"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Truck"> | Date | string
+  archivedAt?: Prisma.DateTimeNullableFilter<"Truck"> | Date | string | null
   depot?: Prisma.XOR<Prisma.DepotNullableScalarRelationFilter, Prisma.DepotWhereInput> | null
   driver?: Prisma.XOR<Prisma.DriverNullableScalarRelationFilter, Prisma.DriverWhereInput> | null
   maintenanceJobs?: Prisma.MaintenanceJobListRelationFilter
@@ -451,6 +461,7 @@ export type TruckOrderByWithAggregationInput = {
   leaseTermMonths?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.TruckCountOrderByAggregateInput
   _avg?: Prisma.TruckAvgOrderByAggregateInput
   _max?: Prisma.TruckMaxOrderByAggregateInput
@@ -483,6 +494,7 @@ export type TruckScalarWhereWithAggregatesInput = {
   leaseTermMonths?: Prisma.IntNullableWithAggregatesFilter<"Truck"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Truck"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Truck"> | Date | string
+  archivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Truck"> | Date | string | null
 }
 
 export type TruckCreateInput = {
@@ -505,6 +517,7 @@ export type TruckCreateInput = {
   leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  archivedAt?: Date | string | null
   depot?: Prisma.DepotCreateNestedOneWithoutTrucksInput
   driver?: Prisma.DriverCreateNestedOneWithoutTrucksInput
   maintenanceJobs?: Prisma.MaintenanceJobCreateNestedManyWithoutTruckInput
@@ -533,6 +546,7 @@ export type TruckUncheckedCreateInput = {
   leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  archivedAt?: Date | string | null
   maintenanceJobs?: Prisma.MaintenanceJobUncheckedCreateNestedManyWithoutTruckInput
   fuelEntries?: Prisma.FuelEntryUncheckedCreateNestedManyWithoutTruckInput
 }
@@ -557,6 +571,7 @@ export type TruckUpdateInput = {
   leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   depot?: Prisma.DepotUpdateOneWithoutTrucksNestedInput
   driver?: Prisma.DriverUpdateOneWithoutTrucksNestedInput
   maintenanceJobs?: Prisma.MaintenanceJobUpdateManyWithoutTruckNestedInput
@@ -585,6 +600,7 @@ export type TruckUncheckedUpdateInput = {
   leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maintenanceJobs?: Prisma.MaintenanceJobUncheckedUpdateManyWithoutTruckNestedInput
   fuelEntries?: Prisma.FuelEntryUncheckedUpdateManyWithoutTruckNestedInput
 }
@@ -611,6 +627,7 @@ export type TruckCreateManyInput = {
   leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  archivedAt?: Date | string | null
 }
 
 export type TruckUpdateManyMutationInput = {
@@ -633,6 +650,7 @@ export type TruckUpdateManyMutationInput = {
   leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type TruckUncheckedUpdateManyInput = {
@@ -657,6 +675,7 @@ export type TruckUncheckedUpdateManyInput = {
   leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type TruckListRelationFilter = {
@@ -691,6 +710,7 @@ export type TruckCountOrderByAggregateInput = {
   leaseTermMonths?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
 }
 
 export type TruckAvgOrderByAggregateInput = {
@@ -724,6 +744,7 @@ export type TruckMaxOrderByAggregateInput = {
   leaseTermMonths?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
 }
 
 export type TruckMinOrderByAggregateInput = {
@@ -748,6 +769,7 @@ export type TruckMinOrderByAggregateInput = {
   leaseTermMonths?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
 }
 
 export type TruckSumOrderByAggregateInput = {
@@ -912,6 +934,7 @@ export type TruckCreateWithoutDriverInput = {
   leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  archivedAt?: Date | string | null
   depot?: Prisma.DepotCreateNestedOneWithoutTrucksInput
   maintenanceJobs?: Prisma.MaintenanceJobCreateNestedManyWithoutTruckInput
   fuelEntries?: Prisma.FuelEntryCreateNestedManyWithoutTruckInput
@@ -938,6 +961,7 @@ export type TruckUncheckedCreateWithoutDriverInput = {
   leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  archivedAt?: Date | string | null
   maintenanceJobs?: Prisma.MaintenanceJobUncheckedCreateNestedManyWithoutTruckInput
   fuelEntries?: Prisma.FuelEntryUncheckedCreateNestedManyWithoutTruckInput
 }
@@ -993,6 +1017,7 @@ export type TruckScalarWhereInput = {
   leaseTermMonths?: Prisma.IntNullableFilter<"Truck"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Truck"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Truck"> | Date | string
+  archivedAt?: Prisma.DateTimeNullableFilter<"Truck"> | Date | string | null
 }
 
 export type TruckCreateWithoutDepotInput = {
@@ -1015,6 +1040,7 @@ export type TruckCreateWithoutDepotInput = {
   leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  archivedAt?: Date | string | null
   driver?: Prisma.DriverCreateNestedOneWithoutTrucksInput
   maintenanceJobs?: Prisma.MaintenanceJobCreateNestedManyWithoutTruckInput
   fuelEntries?: Prisma.FuelEntryCreateNestedManyWithoutTruckInput
@@ -1041,6 +1067,7 @@ export type TruckUncheckedCreateWithoutDepotInput = {
   leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  archivedAt?: Date | string | null
   maintenanceJobs?: Prisma.MaintenanceJobUncheckedCreateNestedManyWithoutTruckInput
   fuelEntries?: Prisma.FuelEntryUncheckedCreateNestedManyWithoutTruckInput
 }
@@ -1091,6 +1118,7 @@ export type TruckCreateWithoutFuelEntriesInput = {
   leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  archivedAt?: Date | string | null
   depot?: Prisma.DepotCreateNestedOneWithoutTrucksInput
   driver?: Prisma.DriverCreateNestedOneWithoutTrucksInput
   maintenanceJobs?: Prisma.MaintenanceJobCreateNestedManyWithoutTruckInput
@@ -1118,6 +1146,7 @@ export type TruckUncheckedCreateWithoutFuelEntriesInput = {
   leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  archivedAt?: Date | string | null
   maintenanceJobs?: Prisma.MaintenanceJobUncheckedCreateNestedManyWithoutTruckInput
 }
 
@@ -1157,6 +1186,7 @@ export type TruckUpdateWithoutFuelEntriesInput = {
   leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   depot?: Prisma.DepotUpdateOneWithoutTrucksNestedInput
   driver?: Prisma.DriverUpdateOneWithoutTrucksNestedInput
   maintenanceJobs?: Prisma.MaintenanceJobUpdateManyWithoutTruckNestedInput
@@ -1184,6 +1214,7 @@ export type TruckUncheckedUpdateWithoutFuelEntriesInput = {
   leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maintenanceJobs?: Prisma.MaintenanceJobUncheckedUpdateManyWithoutTruckNestedInput
 }
 
@@ -1207,6 +1238,7 @@ export type TruckCreateWithoutMaintenanceJobsInput = {
   leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  archivedAt?: Date | string | null
   depot?: Prisma.DepotCreateNestedOneWithoutTrucksInput
   driver?: Prisma.DriverCreateNestedOneWithoutTrucksInput
   fuelEntries?: Prisma.FuelEntryCreateNestedManyWithoutTruckInput
@@ -1234,6 +1266,7 @@ export type TruckUncheckedCreateWithoutMaintenanceJobsInput = {
   leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  archivedAt?: Date | string | null
   fuelEntries?: Prisma.FuelEntryUncheckedCreateNestedManyWithoutTruckInput
 }
 
@@ -1273,6 +1306,7 @@ export type TruckUpdateWithoutMaintenanceJobsInput = {
   leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   depot?: Prisma.DepotUpdateOneWithoutTrucksNestedInput
   driver?: Prisma.DriverUpdateOneWithoutTrucksNestedInput
   fuelEntries?: Prisma.FuelEntryUpdateManyWithoutTruckNestedInput
@@ -1300,6 +1334,7 @@ export type TruckUncheckedUpdateWithoutMaintenanceJobsInput = {
   leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fuelEntries?: Prisma.FuelEntryUncheckedUpdateManyWithoutTruckNestedInput
 }
 
@@ -1324,6 +1359,7 @@ export type TruckCreateManyDriverInput = {
   leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  archivedAt?: Date | string | null
 }
 
 export type TruckUpdateWithoutDriverInput = {
@@ -1346,6 +1382,7 @@ export type TruckUpdateWithoutDriverInput = {
   leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   depot?: Prisma.DepotUpdateOneWithoutTrucksNestedInput
   maintenanceJobs?: Prisma.MaintenanceJobUpdateManyWithoutTruckNestedInput
   fuelEntries?: Prisma.FuelEntryUpdateManyWithoutTruckNestedInput
@@ -1372,6 +1409,7 @@ export type TruckUncheckedUpdateWithoutDriverInput = {
   leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maintenanceJobs?: Prisma.MaintenanceJobUncheckedUpdateManyWithoutTruckNestedInput
   fuelEntries?: Prisma.FuelEntryUncheckedUpdateManyWithoutTruckNestedInput
 }
@@ -1397,6 +1435,7 @@ export type TruckUncheckedUpdateManyWithoutDriverInput = {
   leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type TruckCreateManyDepotInput = {
@@ -1420,6 +1459,7 @@ export type TruckCreateManyDepotInput = {
   leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  archivedAt?: Date | string | null
 }
 
 export type TruckUpdateWithoutDepotInput = {
@@ -1442,6 +1482,7 @@ export type TruckUpdateWithoutDepotInput = {
   leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driver?: Prisma.DriverUpdateOneWithoutTrucksNestedInput
   maintenanceJobs?: Prisma.MaintenanceJobUpdateManyWithoutTruckNestedInput
   fuelEntries?: Prisma.FuelEntryUpdateManyWithoutTruckNestedInput
@@ -1468,6 +1509,7 @@ export type TruckUncheckedUpdateWithoutDepotInput = {
   leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maintenanceJobs?: Prisma.MaintenanceJobUncheckedUpdateManyWithoutTruckNestedInput
   fuelEntries?: Prisma.FuelEntryUncheckedUpdateManyWithoutTruckNestedInput
 }
@@ -1493,6 +1535,7 @@ export type TruckUncheckedUpdateManyWithoutDepotInput = {
   leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -1557,6 +1600,7 @@ export type TruckSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   leaseTermMonths?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  archivedAt?: boolean
   depot?: boolean | Prisma.Truck$depotArgs<ExtArgs>
   driver?: boolean | Prisma.Truck$driverArgs<ExtArgs>
   maintenanceJobs?: boolean | Prisma.Truck$maintenanceJobsArgs<ExtArgs>
@@ -1586,6 +1630,7 @@ export type TruckSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   leaseTermMonths?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  archivedAt?: boolean
   depot?: boolean | Prisma.Truck$depotArgs<ExtArgs>
   driver?: boolean | Prisma.Truck$driverArgs<ExtArgs>
 }, ExtArgs["result"]["truck"]>
@@ -1612,6 +1657,7 @@ export type TruckSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   leaseTermMonths?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  archivedAt?: boolean
   depot?: boolean | Prisma.Truck$depotArgs<ExtArgs>
   driver?: boolean | Prisma.Truck$driverArgs<ExtArgs>
 }, ExtArgs["result"]["truck"]>
@@ -1638,9 +1684,10 @@ export type TruckSelectScalar = {
   leaseTermMonths?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  archivedAt?: boolean
 }
 
-export type TruckOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fleetNumber" | "registration" | "manufacturer" | "model" | "type" | "year" | "colour" | "mileage" | "fuelLevel" | "status" | "depotId" | "driverId" | "purchaseDate" | "purchasePrice" | "currentValue" | "ownershipType" | "leaseStartDate" | "leaseTermMonths" | "createdAt" | "updatedAt", ExtArgs["result"]["truck"]>
+export type TruckOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fleetNumber" | "registration" | "manufacturer" | "model" | "type" | "year" | "colour" | "mileage" | "fuelLevel" | "status" | "depotId" | "driverId" | "purchaseDate" | "purchasePrice" | "currentValue" | "ownershipType" | "leaseStartDate" | "leaseTermMonths" | "createdAt" | "updatedAt" | "archivedAt", ExtArgs["result"]["truck"]>
 export type TruckInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   depot?: boolean | Prisma.Truck$depotArgs<ExtArgs>
   driver?: boolean | Prisma.Truck$driverArgs<ExtArgs>
@@ -1687,6 +1734,7 @@ export type $TruckPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     leaseTermMonths: number | null
     createdAt: Date
     updatedAt: Date
+    archivedAt: Date | null
   }, ExtArgs["result"]["truck"]>
   composites: {}
 }
@@ -2135,6 +2183,7 @@ export interface TruckFieldRefs {
   readonly leaseTermMonths: Prisma.FieldRef<"Truck", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Truck", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Truck", 'DateTime'>
+  readonly archivedAt: Prisma.FieldRef<"Truck", 'DateTime'>
 }
     
 

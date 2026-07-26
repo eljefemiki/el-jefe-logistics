@@ -76,6 +76,7 @@ export default function TruckHeader({
           <TruckDeleteButton
             id={truck.id}
             fleetNumber={truck.fleetNumber}
+            archived={Boolean(truck.archivedAt)}
           />
         </div>
       </div>

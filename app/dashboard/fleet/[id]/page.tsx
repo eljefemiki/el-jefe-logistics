@@ -32,7 +32,7 @@ export default async function TruckProfilePage({
         <TruckHeader truck={truck} />
         <TruckStats truck={truck} />
         <TruckDetails truck={truck} />
-        <TruckOperations />
+        <TruckOperations truckId={truck.id} />
       </div>
     </DashboardLayout>
   );

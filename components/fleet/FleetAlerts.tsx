@@ -1,22 +1,6 @@
-"use client";
+import type { FleetAlertDTO } from "@/src/server/fleet/types";
 
-export default function FleetAlerts() {
-
-  const alerts = [
-    {
-      level: "Critical",
-      message: "Truck EJL-007 requires immediate service",
-    },
-    {
-      level: "Warning",
-      message: "2 MOT inspections due this week",
-    },
-    {
-      level: "Info",
-      message: "5 trucks are below 25% fuel",
-    },
-  ];
-
+export default function FleetAlerts({ alerts }: { alerts: FleetAlertDTO[] }) {
   return (
     <div className="rounded-xl border border-slate-800 bg-slate-900 p-6">
 
@@ -29,12 +13,12 @@ export default function FleetAlerts() {
         {alerts.map((alert, index) => (
 
           <div
-            key={index}
+            key={alert.id}
             className="rounded-lg border border-slate-800 bg-slate-800/50 p-4"
           >
 
             <p className="font-semibold text-white">
-              {alert.level}
+              {alert.level.charAt(0) + alert.level.slice(1).toLowerCase()} · {alert.title}
             </p>
 
             <p className="mt-1 text-sm text-slate-400">

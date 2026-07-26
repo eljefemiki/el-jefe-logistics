@@ -11,6 +11,7 @@ import {
   findTruckById,
   findTruckByRegistration,
   updateTruck as updateTruckRecord,
+  setTruckArchived,
 } from "./repository";
 
 import {
@@ -157,4 +158,10 @@ export async function removeTruck(
   return {
     success: true,
   };
+}
+
+export async function archiveTruck(id: string, archived: boolean) {
+  const existing = await findTruckById(id);
+  if (!existing) throw new Error("Truck not found.");
+  return mapTruckToDTO(await setTruckArchived(id, archived));
 }

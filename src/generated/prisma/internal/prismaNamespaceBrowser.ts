@@ -383,7 +383,8 @@ export const TruckScalarFieldEnum = {
   leaseStartDate: 'leaseStartDate',
   leaseTermMonths: 'leaseTermMonths',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  archivedAt: 'archivedAt'
 } as const
 
 export type TruckScalarFieldEnum = (typeof TruckScalarFieldEnum)[keyof typeof TruckScalarFieldEnum]

@@ -9,6 +9,7 @@ import DashboardLayout from "@/components/layout/DashboardLayout";
 import TruckForm from "@/components/fleet/TruckForm";
 
 import { getTruck } from "@/src/server/fleet/service";
+import { prisma } from "@/src/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +23,11 @@ export default async function EditTruckPage({
   params,
 }: EditTruckPageProps) {
   const { id } = await params;
-  const truck = await getTruck(id);
+  const [truck, depots, driverRows] = await Promise.all([
+    getTruck(id),
+    prisma.depot.findMany({ select: { id: true, name: true, city: true }, orderBy: { name: "asc" } }),
+    prisma.driver.findMany({ where: { status: { not: "SUSPENDED" } }, select: { id: true, employeeNumber: true, account: { select: { firstName: true, lastName: true } } }, orderBy: { employeeNumber: "asc" } }),
+  ]);
 
   if (!truck) {
     notFound();
@@ -63,7 +68,7 @@ export default async function EditTruckPage({
           </div>
         </div>
 
-        <TruckForm truck={truck} />
+        <TruckForm truck={truck} depots={depots} drivers={driverRows.map((driver) => ({ id: driver.id, employeeNumber: driver.employeeNumber, name: `${driver.account.firstName} ${driver.account.lastName}` }))} />
       </div>
     </DashboardLayout>
   );
