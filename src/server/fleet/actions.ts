@@ -7,12 +7,14 @@ import {
   removeTruck,
   updateTruck,
   archiveTruck,
+  getTruck,
 } from "./service";
 import {
   createTruckSchema,
   updateTruckSchema,
 } from "./validation";
 import { authorize } from "@/src/lib/auth";
+import { recordAudit } from "@/src/server/platform/audit";
 
 export interface CreateTruckActionState {
   success: boolean;
@@ -128,6 +130,7 @@ export async function createTruckAction(
 
   try {
     const truck = await createTruck(validationResult.data);
+    await recordAudit({ action: "CREATE", entityType: "Truck", entityId: truck.id, summary: `Created truck ${truck.fleetNumber}`, after: truck });
 
     revalidatePath("/dashboard/fleet");
 
@@ -225,10 +228,12 @@ export async function updateTruckAction(
   }
 
   try {
+    const before = await getTruck(id);
     const truck = await updateTruck(
       id,
       validationResult.data,
     );
+    await recordAudit({ action: "UPDATE", entityType: "Truck", entityId: truck.id, summary: `Updated truck ${truck.fleetNumber}`, before, after: truck });
 
     revalidatePath("/dashboard/fleet");
     revalidatePath(`/dashboard/fleet/${id}`);
@@ -255,7 +260,9 @@ export async function deleteTruckAction(
 ) {
   await authorize("fleet:manage");
   try {
+    const before = await getTruck(id);
     await removeTruck(id);
+    await recordAudit({ action: "DELETE", entityType: "Truck", entityId: id, summary: `Deleted truck ${before?.fleetNumber ?? id}`, before });
 
     revalidatePath("/dashboard/fleet");
 
@@ -277,7 +284,9 @@ export async function deleteTruckAction(
 export async function archiveTruckAction(id: string, archived: boolean) {
   await authorize("fleet:manage");
   try {
-    await archiveTruck(id, archived);
+    const before = await getTruck(id);
+    const truck = await archiveTruck(id, archived);
+    await recordAudit({ action: archived ? "ARCHIVE" : "RESTORE", entityType: "Truck", entityId: id, summary: `${archived ? "Archived" : "Restored"} truck ${truck.fleetNumber}`, before, after: truck });
     revalidatePath("/dashboard/fleet");
     revalidatePath(`/dashboard/fleet/${id}`);
     return { success: true, message: archived ? "Truck archived safely." : "Truck restored to the active fleet." };

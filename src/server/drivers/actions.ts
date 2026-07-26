@@ -6,9 +6,11 @@ import {
   archiveDriver,
   restoreDriver,
   updateDriver,
+  getDriver,
 } from "./service";
 import { updateDriverSchema } from "./validation";
 import { authorize } from "@/src/lib/auth";
+import { recordAudit } from "@/src/server/platform/audit";
 
 export interface UpdateDriverActionState {
   success: boolean;
@@ -97,10 +99,12 @@ export async function updateDriverAction(
   }
 
   try {
+    const before = await getDriver(id);
     const driver = await updateDriver(
       id,
       validationResult.data,
     );
+    await recordAudit({ action: "UPDATE", entityType: "Driver", entityId: id, summary: `Updated driver ${driver.employeeNumber}`, before, after: driver });
 
     revalidatePath("/dashboard/drivers");
     revalidatePath(`/dashboard/drivers/${id}`);
@@ -128,6 +132,7 @@ export async function archiveDriverAction(
   await authorize("drivers:manage");
   try {
     const driver = await archiveDriver(id);
+    await recordAudit({ action: "ARCHIVE", entityType: "Driver", entityId: id, summary: `Archived driver ${driver.employeeNumber}`, after: driver });
 
     revalidatePath("/dashboard/drivers");
     revalidatePath(`/dashboard/drivers/${id}`);
@@ -154,6 +159,7 @@ export async function restoreDriverAction(
   await authorize("drivers:manage");
   try {
     const driver = await restoreDriver(id);
+    await recordAudit({ action: "RESTORE", entityType: "Driver", entityId: id, summary: `Restored driver ${driver.employeeNumber}`, after: driver });
 
     revalidatePath("/dashboard/drivers");
     revalidatePath(`/dashboard/drivers/${id}`);
