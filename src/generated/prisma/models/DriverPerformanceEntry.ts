@@ -31,6 +31,9 @@ export type DriverPerformanceEntryAvgAggregateOutputType = {
   cargoTonnes: number | null
   income: number | null
   expenditure: number | null
+  repairCosts: number | null
+  damageCosts: number | null
+  otherCosts: number | null
   reputationScore: number | null
 }
 
@@ -39,6 +42,9 @@ export type DriverPerformanceEntrySumAggregateOutputType = {
   cargoTonnes: number | null
   income: number | null
   expenditure: number | null
+  repairCosts: number | null
+  damageCosts: number | null
+  otherCosts: number | null
   reputationScore: number | null
 }
 
@@ -51,6 +57,9 @@ export type DriverPerformanceEntryMinAggregateOutputType = {
   cargoTonnes: number | null
   income: number | null
   expenditure: number | null
+  repairCosts: number | null
+  damageCosts: number | null
+  otherCosts: number | null
   reputationScore: number | null
   completedAt: Date | null
   notes: string | null
@@ -68,6 +77,9 @@ export type DriverPerformanceEntryMaxAggregateOutputType = {
   cargoTonnes: number | null
   income: number | null
   expenditure: number | null
+  repairCosts: number | null
+  damageCosts: number | null
+  otherCosts: number | null
   reputationScore: number | null
   completedAt: Date | null
   notes: string | null
@@ -85,6 +97,9 @@ export type DriverPerformanceEntryCountAggregateOutputType = {
   cargoTonnes: number
   income: number
   expenditure: number
+  repairCosts: number
+  damageCosts: number
+  otherCosts: number
   reputationScore: number
   completedAt: number
   notes: number
@@ -100,6 +115,9 @@ export type DriverPerformanceEntryAvgAggregateInputType = {
   cargoTonnes?: true
   income?: true
   expenditure?: true
+  repairCosts?: true
+  damageCosts?: true
+  otherCosts?: true
   reputationScore?: true
 }
 
@@ -108,6 +126,9 @@ export type DriverPerformanceEntrySumAggregateInputType = {
   cargoTonnes?: true
   income?: true
   expenditure?: true
+  repairCosts?: true
+  damageCosts?: true
+  otherCosts?: true
   reputationScore?: true
 }
 
@@ -120,6 +141,9 @@ export type DriverPerformanceEntryMinAggregateInputType = {
   cargoTonnes?: true
   income?: true
   expenditure?: true
+  repairCosts?: true
+  damageCosts?: true
+  otherCosts?: true
   reputationScore?: true
   completedAt?: true
   notes?: true
@@ -137,6 +161,9 @@ export type DriverPerformanceEntryMaxAggregateInputType = {
   cargoTonnes?: true
   income?: true
   expenditure?: true
+  repairCosts?: true
+  damageCosts?: true
+  otherCosts?: true
   reputationScore?: true
   completedAt?: true
   notes?: true
@@ -154,6 +181,9 @@ export type DriverPerformanceEntryCountAggregateInputType = {
   cargoTonnes?: true
   income?: true
   expenditure?: true
+  repairCosts?: true
+  damageCosts?: true
+  otherCosts?: true
   reputationScore?: true
   completedAt?: true
   notes?: true
@@ -258,6 +288,9 @@ export type DriverPerformanceEntryGroupByOutputType = {
   cargoTonnes: number
   income: number
   expenditure: number
+  repairCosts: number
+  damageCosts: number
+  otherCosts: number
   reputationScore: number
   completedAt: Date
   notes: string | null
@@ -298,6 +331,9 @@ export type DriverPerformanceEntryWhereInput = {
   cargoTonnes?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
   income?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
   expenditure?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
+  repairCosts?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
+  damageCosts?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
+  otherCosts?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
   reputationScore?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
   completedAt?: Prisma.DateTimeFilter<"DriverPerformanceEntry"> | Date | string
   notes?: Prisma.StringNullableFilter<"DriverPerformanceEntry"> | string | null
@@ -308,6 +344,7 @@ export type DriverPerformanceEntryWhereInput = {
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
   contractListing?: Prisma.XOR<Prisma.ContractListingNullableScalarRelationFilter, Prisma.ContractListingWhereInput> | null
   recordedBy?: Prisma.XOR<Prisma.AccountScalarRelationFilter, Prisma.AccountWhereInput>
+  invoice?: Prisma.XOR<Prisma.InvoiceNullableScalarRelationFilter, Prisma.InvoiceWhereInput> | null
 }
 
 export type DriverPerformanceEntryOrderByWithRelationInput = {
@@ -319,6 +356,9 @@ export type DriverPerformanceEntryOrderByWithRelationInput = {
   cargoTonnes?: Prisma.SortOrder
   income?: Prisma.SortOrder
   expenditure?: Prisma.SortOrder
+  repairCosts?: Prisma.SortOrder
+  damageCosts?: Prisma.SortOrder
+  otherCosts?: Prisma.SortOrder
   reputationScore?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -329,6 +369,7 @@ export type DriverPerformanceEntryOrderByWithRelationInput = {
   customer?: Prisma.CustomerOrderByWithRelationInput
   contractListing?: Prisma.ContractListingOrderByWithRelationInput
   recordedBy?: Prisma.AccountOrderByWithRelationInput
+  invoice?: Prisma.InvoiceOrderByWithRelationInput
 }
 
 export type DriverPerformanceEntryWhereUniqueInput = Prisma.AtLeast<{
@@ -343,6 +384,9 @@ export type DriverPerformanceEntryWhereUniqueInput = Prisma.AtLeast<{
   cargoTonnes?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
   income?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
   expenditure?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
+  repairCosts?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
+  damageCosts?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
+  otherCosts?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
   reputationScore?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
   completedAt?: Prisma.DateTimeFilter<"DriverPerformanceEntry"> | Date | string
   notes?: Prisma.StringNullableFilter<"DriverPerformanceEntry"> | string | null
@@ -353,6 +397,7 @@ export type DriverPerformanceEntryWhereUniqueInput = Prisma.AtLeast<{
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
   contractListing?: Prisma.XOR<Prisma.ContractListingNullableScalarRelationFilter, Prisma.ContractListingWhereInput> | null
   recordedBy?: Prisma.XOR<Prisma.AccountScalarRelationFilter, Prisma.AccountWhereInput>
+  invoice?: Prisma.XOR<Prisma.InvoiceNullableScalarRelationFilter, Prisma.InvoiceWhereInput> | null
 }, "id" | "contractListingId">
 
 export type DriverPerformanceEntryOrderByWithAggregationInput = {
@@ -364,6 +409,9 @@ export type DriverPerformanceEntryOrderByWithAggregationInput = {
   cargoTonnes?: Prisma.SortOrder
   income?: Prisma.SortOrder
   expenditure?: Prisma.SortOrder
+  repairCosts?: Prisma.SortOrder
+  damageCosts?: Prisma.SortOrder
+  otherCosts?: Prisma.SortOrder
   reputationScore?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -389,6 +437,9 @@ export type DriverPerformanceEntryScalarWhereWithAggregatesInput = {
   cargoTonnes?: Prisma.FloatWithAggregatesFilter<"DriverPerformanceEntry"> | number
   income?: Prisma.FloatWithAggregatesFilter<"DriverPerformanceEntry"> | number
   expenditure?: Prisma.FloatWithAggregatesFilter<"DriverPerformanceEntry"> | number
+  repairCosts?: Prisma.FloatWithAggregatesFilter<"DriverPerformanceEntry"> | number
+  damageCosts?: Prisma.FloatWithAggregatesFilter<"DriverPerformanceEntry"> | number
+  otherCosts?: Prisma.FloatWithAggregatesFilter<"DriverPerformanceEntry"> | number
   reputationScore?: Prisma.FloatWithAggregatesFilter<"DriverPerformanceEntry"> | number
   completedAt?: Prisma.DateTimeWithAggregatesFilter<"DriverPerformanceEntry"> | Date | string
   notes?: Prisma.StringNullableWithAggregatesFilter<"DriverPerformanceEntry"> | string | null
@@ -403,6 +454,9 @@ export type DriverPerformanceEntryCreateInput = {
   cargoTonnes: number
   income: number
   expenditure: number
+  repairCosts?: number
+  damageCosts?: number
+  otherCosts?: number
   reputationScore: number
   completedAt: Date | string
   notes?: string | null
@@ -412,6 +466,7 @@ export type DriverPerformanceEntryCreateInput = {
   customer: Prisma.CustomerCreateNestedOneWithoutDriverPerformanceEntriesInput
   contractListing?: Prisma.ContractListingCreateNestedOneWithoutPerformanceEntryInput
   recordedBy: Prisma.AccountCreateNestedOneWithoutRecordedDriverPerformanceEntriesInput
+  invoice?: Prisma.InvoiceCreateNestedOneWithoutDriverPerformanceEntryInput
 }
 
 export type DriverPerformanceEntryUncheckedCreateInput = {
@@ -423,12 +478,16 @@ export type DriverPerformanceEntryUncheckedCreateInput = {
   cargoTonnes: number
   income: number
   expenditure: number
+  repairCosts?: number
+  damageCosts?: number
+  otherCosts?: number
   reputationScore: number
   completedAt: Date | string
   notes?: string | null
   recordedById: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutDriverPerformanceEntryInput
 }
 
 export type DriverPerformanceEntryUpdateInput = {
@@ -437,6 +496,9 @@ export type DriverPerformanceEntryUpdateInput = {
   cargoTonnes?: Prisma.FloatFieldUpdateOperationsInput | number
   income?: Prisma.FloatFieldUpdateOperationsInput | number
   expenditure?: Prisma.FloatFieldUpdateOperationsInput | number
+  repairCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  damageCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  otherCosts?: Prisma.FloatFieldUpdateOperationsInput | number
   reputationScore?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -446,6 +508,7 @@ export type DriverPerformanceEntryUpdateInput = {
   customer?: Prisma.CustomerUpdateOneRequiredWithoutDriverPerformanceEntriesNestedInput
   contractListing?: Prisma.ContractListingUpdateOneWithoutPerformanceEntryNestedInput
   recordedBy?: Prisma.AccountUpdateOneRequiredWithoutRecordedDriverPerformanceEntriesNestedInput
+  invoice?: Prisma.InvoiceUpdateOneWithoutDriverPerformanceEntryNestedInput
 }
 
 export type DriverPerformanceEntryUncheckedUpdateInput = {
@@ -457,12 +520,16 @@ export type DriverPerformanceEntryUncheckedUpdateInput = {
   cargoTonnes?: Prisma.FloatFieldUpdateOperationsInput | number
   income?: Prisma.FloatFieldUpdateOperationsInput | number
   expenditure?: Prisma.FloatFieldUpdateOperationsInput | number
+  repairCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  damageCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  otherCosts?: Prisma.FloatFieldUpdateOperationsInput | number
   reputationScore?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutDriverPerformanceEntryNestedInput
 }
 
 export type DriverPerformanceEntryCreateManyInput = {
@@ -474,6 +541,9 @@ export type DriverPerformanceEntryCreateManyInput = {
   cargoTonnes: number
   income: number
   expenditure: number
+  repairCosts?: number
+  damageCosts?: number
+  otherCosts?: number
   reputationScore: number
   completedAt: Date | string
   notes?: string | null
@@ -488,6 +558,9 @@ export type DriverPerformanceEntryUpdateManyMutationInput = {
   cargoTonnes?: Prisma.FloatFieldUpdateOperationsInput | number
   income?: Prisma.FloatFieldUpdateOperationsInput | number
   expenditure?: Prisma.FloatFieldUpdateOperationsInput | number
+  repairCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  damageCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  otherCosts?: Prisma.FloatFieldUpdateOperationsInput | number
   reputationScore?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -504,6 +577,9 @@ export type DriverPerformanceEntryUncheckedUpdateManyInput = {
   cargoTonnes?: Prisma.FloatFieldUpdateOperationsInput | number
   income?: Prisma.FloatFieldUpdateOperationsInput | number
   expenditure?: Prisma.FloatFieldUpdateOperationsInput | number
+  repairCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  damageCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  otherCosts?: Prisma.FloatFieldUpdateOperationsInput | number
   reputationScore?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -536,6 +612,9 @@ export type DriverPerformanceEntryCountOrderByAggregateInput = {
   cargoTonnes?: Prisma.SortOrder
   income?: Prisma.SortOrder
   expenditure?: Prisma.SortOrder
+  repairCosts?: Prisma.SortOrder
+  damageCosts?: Prisma.SortOrder
+  otherCosts?: Prisma.SortOrder
   reputationScore?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -549,6 +628,9 @@ export type DriverPerformanceEntryAvgOrderByAggregateInput = {
   cargoTonnes?: Prisma.SortOrder
   income?: Prisma.SortOrder
   expenditure?: Prisma.SortOrder
+  repairCosts?: Prisma.SortOrder
+  damageCosts?: Prisma.SortOrder
+  otherCosts?: Prisma.SortOrder
   reputationScore?: Prisma.SortOrder
 }
 
@@ -561,6 +643,9 @@ export type DriverPerformanceEntryMaxOrderByAggregateInput = {
   cargoTonnes?: Prisma.SortOrder
   income?: Prisma.SortOrder
   expenditure?: Prisma.SortOrder
+  repairCosts?: Prisma.SortOrder
+  damageCosts?: Prisma.SortOrder
+  otherCosts?: Prisma.SortOrder
   reputationScore?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -578,6 +663,9 @@ export type DriverPerformanceEntryMinOrderByAggregateInput = {
   cargoTonnes?: Prisma.SortOrder
   income?: Prisma.SortOrder
   expenditure?: Prisma.SortOrder
+  repairCosts?: Prisma.SortOrder
+  damageCosts?: Prisma.SortOrder
+  otherCosts?: Prisma.SortOrder
   reputationScore?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -591,6 +679,9 @@ export type DriverPerformanceEntrySumOrderByAggregateInput = {
   cargoTonnes?: Prisma.SortOrder
   income?: Prisma.SortOrder
   expenditure?: Prisma.SortOrder
+  repairCosts?: Prisma.SortOrder
+  damageCosts?: Prisma.SortOrder
+  otherCosts?: Prisma.SortOrder
   reputationScore?: Prisma.SortOrder
 }
 
@@ -720,6 +811,22 @@ export type DriverPerformanceEntryUncheckedUpdateManyWithoutCustomerNestedInput 
   deleteMany?: Prisma.DriverPerformanceEntryScalarWhereInput | Prisma.DriverPerformanceEntryScalarWhereInput[]
 }
 
+export type DriverPerformanceEntryCreateNestedOneWithoutInvoiceInput = {
+  create?: Prisma.XOR<Prisma.DriverPerformanceEntryCreateWithoutInvoiceInput, Prisma.DriverPerformanceEntryUncheckedCreateWithoutInvoiceInput>
+  connectOrCreate?: Prisma.DriverPerformanceEntryCreateOrConnectWithoutInvoiceInput
+  connect?: Prisma.DriverPerformanceEntryWhereUniqueInput
+}
+
+export type DriverPerformanceEntryUpdateOneWithoutInvoiceNestedInput = {
+  create?: Prisma.XOR<Prisma.DriverPerformanceEntryCreateWithoutInvoiceInput, Prisma.DriverPerformanceEntryUncheckedCreateWithoutInvoiceInput>
+  connectOrCreate?: Prisma.DriverPerformanceEntryCreateOrConnectWithoutInvoiceInput
+  upsert?: Prisma.DriverPerformanceEntryUpsertWithoutInvoiceInput
+  disconnect?: Prisma.DriverPerformanceEntryWhereInput | boolean
+  delete?: Prisma.DriverPerformanceEntryWhereInput | boolean
+  connect?: Prisma.DriverPerformanceEntryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DriverPerformanceEntryUpdateToOneWithWhereWithoutInvoiceInput, Prisma.DriverPerformanceEntryUpdateWithoutInvoiceInput>, Prisma.DriverPerformanceEntryUncheckedUpdateWithoutInvoiceInput>
+}
+
 export type DriverPerformanceEntryCreateNestedOneWithoutContractListingInput = {
   create?: Prisma.XOR<Prisma.DriverPerformanceEntryCreateWithoutContractListingInput, Prisma.DriverPerformanceEntryUncheckedCreateWithoutContractListingInput>
   connectOrCreate?: Prisma.DriverPerformanceEntryCreateOrConnectWithoutContractListingInput
@@ -758,6 +865,9 @@ export type DriverPerformanceEntryCreateWithoutRecordedByInput = {
   cargoTonnes: number
   income: number
   expenditure: number
+  repairCosts?: number
+  damageCosts?: number
+  otherCosts?: number
   reputationScore: number
   completedAt: Date | string
   notes?: string | null
@@ -766,6 +876,7 @@ export type DriverPerformanceEntryCreateWithoutRecordedByInput = {
   driver: Prisma.DriverCreateNestedOneWithoutPerformanceEntriesInput
   customer: Prisma.CustomerCreateNestedOneWithoutDriverPerformanceEntriesInput
   contractListing?: Prisma.ContractListingCreateNestedOneWithoutPerformanceEntryInput
+  invoice?: Prisma.InvoiceCreateNestedOneWithoutDriverPerformanceEntryInput
 }
 
 export type DriverPerformanceEntryUncheckedCreateWithoutRecordedByInput = {
@@ -777,11 +888,15 @@ export type DriverPerformanceEntryUncheckedCreateWithoutRecordedByInput = {
   cargoTonnes: number
   income: number
   expenditure: number
+  repairCosts?: number
+  damageCosts?: number
+  otherCosts?: number
   reputationScore: number
   completedAt: Date | string
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutDriverPerformanceEntryInput
 }
 
 export type DriverPerformanceEntryCreateOrConnectWithoutRecordedByInput = {
@@ -822,6 +937,9 @@ export type DriverPerformanceEntryScalarWhereInput = {
   cargoTonnes?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
   income?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
   expenditure?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
+  repairCosts?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
+  damageCosts?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
+  otherCosts?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
   reputationScore?: Prisma.FloatFilter<"DriverPerformanceEntry"> | number
   completedAt?: Prisma.DateTimeFilter<"DriverPerformanceEntry"> | Date | string
   notes?: Prisma.StringNullableFilter<"DriverPerformanceEntry"> | string | null
@@ -836,6 +954,9 @@ export type DriverPerformanceEntryCreateWithoutDriverInput = {
   cargoTonnes: number
   income: number
   expenditure: number
+  repairCosts?: number
+  damageCosts?: number
+  otherCosts?: number
   reputationScore: number
   completedAt: Date | string
   notes?: string | null
@@ -844,6 +965,7 @@ export type DriverPerformanceEntryCreateWithoutDriverInput = {
   customer: Prisma.CustomerCreateNestedOneWithoutDriverPerformanceEntriesInput
   contractListing?: Prisma.ContractListingCreateNestedOneWithoutPerformanceEntryInput
   recordedBy: Prisma.AccountCreateNestedOneWithoutRecordedDriverPerformanceEntriesInput
+  invoice?: Prisma.InvoiceCreateNestedOneWithoutDriverPerformanceEntryInput
 }
 
 export type DriverPerformanceEntryUncheckedCreateWithoutDriverInput = {
@@ -854,12 +976,16 @@ export type DriverPerformanceEntryUncheckedCreateWithoutDriverInput = {
   cargoTonnes: number
   income: number
   expenditure: number
+  repairCosts?: number
+  damageCosts?: number
+  otherCosts?: number
   reputationScore: number
   completedAt: Date | string
   notes?: string | null
   recordedById: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutDriverPerformanceEntryInput
 }
 
 export type DriverPerformanceEntryCreateOrConnectWithoutDriverInput = {
@@ -894,6 +1020,9 @@ export type DriverPerformanceEntryCreateWithoutCustomerInput = {
   cargoTonnes: number
   income: number
   expenditure: number
+  repairCosts?: number
+  damageCosts?: number
+  otherCosts?: number
   reputationScore: number
   completedAt: Date | string
   notes?: string | null
@@ -902,6 +1031,7 @@ export type DriverPerformanceEntryCreateWithoutCustomerInput = {
   driver: Prisma.DriverCreateNestedOneWithoutPerformanceEntriesInput
   contractListing?: Prisma.ContractListingCreateNestedOneWithoutPerformanceEntryInput
   recordedBy: Prisma.AccountCreateNestedOneWithoutRecordedDriverPerformanceEntriesInput
+  invoice?: Prisma.InvoiceCreateNestedOneWithoutDriverPerformanceEntryInput
 }
 
 export type DriverPerformanceEntryUncheckedCreateWithoutCustomerInput = {
@@ -912,12 +1042,16 @@ export type DriverPerformanceEntryUncheckedCreateWithoutCustomerInput = {
   cargoTonnes: number
   income: number
   expenditure: number
+  repairCosts?: number
+  damageCosts?: number
+  otherCosts?: number
   reputationScore: number
   completedAt: Date | string
   notes?: string | null
   recordedById: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutDriverPerformanceEntryInput
 }
 
 export type DriverPerformanceEntryCreateOrConnectWithoutCustomerInput = {
@@ -946,12 +1080,111 @@ export type DriverPerformanceEntryUpdateManyWithWhereWithoutCustomerInput = {
   data: Prisma.XOR<Prisma.DriverPerformanceEntryUpdateManyMutationInput, Prisma.DriverPerformanceEntryUncheckedUpdateManyWithoutCustomerInput>
 }
 
+export type DriverPerformanceEntryCreateWithoutInvoiceInput = {
+  id?: string
+  distanceKm: number
+  cargoTonnes: number
+  income: number
+  expenditure: number
+  repairCosts?: number
+  damageCosts?: number
+  otherCosts?: number
+  reputationScore: number
+  completedAt: Date | string
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  driver: Prisma.DriverCreateNestedOneWithoutPerformanceEntriesInput
+  customer: Prisma.CustomerCreateNestedOneWithoutDriverPerformanceEntriesInput
+  contractListing?: Prisma.ContractListingCreateNestedOneWithoutPerformanceEntryInput
+  recordedBy: Prisma.AccountCreateNestedOneWithoutRecordedDriverPerformanceEntriesInput
+}
+
+export type DriverPerformanceEntryUncheckedCreateWithoutInvoiceInput = {
+  id?: string
+  driverId: string
+  customerId: string
+  contractListingId?: string | null
+  distanceKm: number
+  cargoTonnes: number
+  income: number
+  expenditure: number
+  repairCosts?: number
+  damageCosts?: number
+  otherCosts?: number
+  reputationScore: number
+  completedAt: Date | string
+  notes?: string | null
+  recordedById: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type DriverPerformanceEntryCreateOrConnectWithoutInvoiceInput = {
+  where: Prisma.DriverPerformanceEntryWhereUniqueInput
+  create: Prisma.XOR<Prisma.DriverPerformanceEntryCreateWithoutInvoiceInput, Prisma.DriverPerformanceEntryUncheckedCreateWithoutInvoiceInput>
+}
+
+export type DriverPerformanceEntryUpsertWithoutInvoiceInput = {
+  update: Prisma.XOR<Prisma.DriverPerformanceEntryUpdateWithoutInvoiceInput, Prisma.DriverPerformanceEntryUncheckedUpdateWithoutInvoiceInput>
+  create: Prisma.XOR<Prisma.DriverPerformanceEntryCreateWithoutInvoiceInput, Prisma.DriverPerformanceEntryUncheckedCreateWithoutInvoiceInput>
+  where?: Prisma.DriverPerformanceEntryWhereInput
+}
+
+export type DriverPerformanceEntryUpdateToOneWithWhereWithoutInvoiceInput = {
+  where?: Prisma.DriverPerformanceEntryWhereInput
+  data: Prisma.XOR<Prisma.DriverPerformanceEntryUpdateWithoutInvoiceInput, Prisma.DriverPerformanceEntryUncheckedUpdateWithoutInvoiceInput>
+}
+
+export type DriverPerformanceEntryUpdateWithoutInvoiceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  distanceKm?: Prisma.IntFieldUpdateOperationsInput | number
+  cargoTonnes?: Prisma.FloatFieldUpdateOperationsInput | number
+  income?: Prisma.FloatFieldUpdateOperationsInput | number
+  expenditure?: Prisma.FloatFieldUpdateOperationsInput | number
+  repairCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  damageCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  otherCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  reputationScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  completedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  driver?: Prisma.DriverUpdateOneRequiredWithoutPerformanceEntriesNestedInput
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutDriverPerformanceEntriesNestedInput
+  contractListing?: Prisma.ContractListingUpdateOneWithoutPerformanceEntryNestedInput
+  recordedBy?: Prisma.AccountUpdateOneRequiredWithoutRecordedDriverPerformanceEntriesNestedInput
+}
+
+export type DriverPerformanceEntryUncheckedUpdateWithoutInvoiceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  driverId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  contractListingId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distanceKm?: Prisma.IntFieldUpdateOperationsInput | number
+  cargoTonnes?: Prisma.FloatFieldUpdateOperationsInput | number
+  income?: Prisma.FloatFieldUpdateOperationsInput | number
+  expenditure?: Prisma.FloatFieldUpdateOperationsInput | number
+  repairCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  damageCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  otherCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  reputationScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  completedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recordedById?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type DriverPerformanceEntryCreateWithoutContractListingInput = {
   id?: string
   distanceKm: number
   cargoTonnes: number
   income: number
   expenditure: number
+  repairCosts?: number
+  damageCosts?: number
+  otherCosts?: number
   reputationScore: number
   completedAt: Date | string
   notes?: string | null
@@ -960,6 +1193,7 @@ export type DriverPerformanceEntryCreateWithoutContractListingInput = {
   driver: Prisma.DriverCreateNestedOneWithoutPerformanceEntriesInput
   customer: Prisma.CustomerCreateNestedOneWithoutDriverPerformanceEntriesInput
   recordedBy: Prisma.AccountCreateNestedOneWithoutRecordedDriverPerformanceEntriesInput
+  invoice?: Prisma.InvoiceCreateNestedOneWithoutDriverPerformanceEntryInput
 }
 
 export type DriverPerformanceEntryUncheckedCreateWithoutContractListingInput = {
@@ -970,12 +1204,16 @@ export type DriverPerformanceEntryUncheckedCreateWithoutContractListingInput = {
   cargoTonnes: number
   income: number
   expenditure: number
+  repairCosts?: number
+  damageCosts?: number
+  otherCosts?: number
   reputationScore: number
   completedAt: Date | string
   notes?: string | null
   recordedById: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutDriverPerformanceEntryInput
 }
 
 export type DriverPerformanceEntryCreateOrConnectWithoutContractListingInput = {
@@ -1000,6 +1238,9 @@ export type DriverPerformanceEntryUpdateWithoutContractListingInput = {
   cargoTonnes?: Prisma.FloatFieldUpdateOperationsInput | number
   income?: Prisma.FloatFieldUpdateOperationsInput | number
   expenditure?: Prisma.FloatFieldUpdateOperationsInput | number
+  repairCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  damageCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  otherCosts?: Prisma.FloatFieldUpdateOperationsInput | number
   reputationScore?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1008,6 +1249,7 @@ export type DriverPerformanceEntryUpdateWithoutContractListingInput = {
   driver?: Prisma.DriverUpdateOneRequiredWithoutPerformanceEntriesNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutDriverPerformanceEntriesNestedInput
   recordedBy?: Prisma.AccountUpdateOneRequiredWithoutRecordedDriverPerformanceEntriesNestedInput
+  invoice?: Prisma.InvoiceUpdateOneWithoutDriverPerformanceEntryNestedInput
 }
 
 export type DriverPerformanceEntryUncheckedUpdateWithoutContractListingInput = {
@@ -1018,12 +1260,16 @@ export type DriverPerformanceEntryUncheckedUpdateWithoutContractListingInput = {
   cargoTonnes?: Prisma.FloatFieldUpdateOperationsInput | number
   income?: Prisma.FloatFieldUpdateOperationsInput | number
   expenditure?: Prisma.FloatFieldUpdateOperationsInput | number
+  repairCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  damageCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  otherCosts?: Prisma.FloatFieldUpdateOperationsInput | number
   reputationScore?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutDriverPerformanceEntryNestedInput
 }
 
 export type DriverPerformanceEntryCreateManyRecordedByInput = {
@@ -1035,6 +1281,9 @@ export type DriverPerformanceEntryCreateManyRecordedByInput = {
   cargoTonnes: number
   income: number
   expenditure: number
+  repairCosts?: number
+  damageCosts?: number
+  otherCosts?: number
   reputationScore: number
   completedAt: Date | string
   notes?: string | null
@@ -1048,6 +1297,9 @@ export type DriverPerformanceEntryUpdateWithoutRecordedByInput = {
   cargoTonnes?: Prisma.FloatFieldUpdateOperationsInput | number
   income?: Prisma.FloatFieldUpdateOperationsInput | number
   expenditure?: Prisma.FloatFieldUpdateOperationsInput | number
+  repairCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  damageCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  otherCosts?: Prisma.FloatFieldUpdateOperationsInput | number
   reputationScore?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1056,6 +1308,7 @@ export type DriverPerformanceEntryUpdateWithoutRecordedByInput = {
   driver?: Prisma.DriverUpdateOneRequiredWithoutPerformanceEntriesNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutDriverPerformanceEntriesNestedInput
   contractListing?: Prisma.ContractListingUpdateOneWithoutPerformanceEntryNestedInput
+  invoice?: Prisma.InvoiceUpdateOneWithoutDriverPerformanceEntryNestedInput
 }
 
 export type DriverPerformanceEntryUncheckedUpdateWithoutRecordedByInput = {
@@ -1067,11 +1320,15 @@ export type DriverPerformanceEntryUncheckedUpdateWithoutRecordedByInput = {
   cargoTonnes?: Prisma.FloatFieldUpdateOperationsInput | number
   income?: Prisma.FloatFieldUpdateOperationsInput | number
   expenditure?: Prisma.FloatFieldUpdateOperationsInput | number
+  repairCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  damageCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  otherCosts?: Prisma.FloatFieldUpdateOperationsInput | number
   reputationScore?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutDriverPerformanceEntryNestedInput
 }
 
 export type DriverPerformanceEntryUncheckedUpdateManyWithoutRecordedByInput = {
@@ -1083,6 +1340,9 @@ export type DriverPerformanceEntryUncheckedUpdateManyWithoutRecordedByInput = {
   cargoTonnes?: Prisma.FloatFieldUpdateOperationsInput | number
   income?: Prisma.FloatFieldUpdateOperationsInput | number
   expenditure?: Prisma.FloatFieldUpdateOperationsInput | number
+  repairCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  damageCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  otherCosts?: Prisma.FloatFieldUpdateOperationsInput | number
   reputationScore?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1098,6 +1358,9 @@ export type DriverPerformanceEntryCreateManyDriverInput = {
   cargoTonnes: number
   income: number
   expenditure: number
+  repairCosts?: number
+  damageCosts?: number
+  otherCosts?: number
   reputationScore: number
   completedAt: Date | string
   notes?: string | null
@@ -1112,6 +1375,9 @@ export type DriverPerformanceEntryUpdateWithoutDriverInput = {
   cargoTonnes?: Prisma.FloatFieldUpdateOperationsInput | number
   income?: Prisma.FloatFieldUpdateOperationsInput | number
   expenditure?: Prisma.FloatFieldUpdateOperationsInput | number
+  repairCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  damageCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  otherCosts?: Prisma.FloatFieldUpdateOperationsInput | number
   reputationScore?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1120,6 +1386,7 @@ export type DriverPerformanceEntryUpdateWithoutDriverInput = {
   customer?: Prisma.CustomerUpdateOneRequiredWithoutDriverPerformanceEntriesNestedInput
   contractListing?: Prisma.ContractListingUpdateOneWithoutPerformanceEntryNestedInput
   recordedBy?: Prisma.AccountUpdateOneRequiredWithoutRecordedDriverPerformanceEntriesNestedInput
+  invoice?: Prisma.InvoiceUpdateOneWithoutDriverPerformanceEntryNestedInput
 }
 
 export type DriverPerformanceEntryUncheckedUpdateWithoutDriverInput = {
@@ -1130,12 +1397,16 @@ export type DriverPerformanceEntryUncheckedUpdateWithoutDriverInput = {
   cargoTonnes?: Prisma.FloatFieldUpdateOperationsInput | number
   income?: Prisma.FloatFieldUpdateOperationsInput | number
   expenditure?: Prisma.FloatFieldUpdateOperationsInput | number
+  repairCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  damageCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  otherCosts?: Prisma.FloatFieldUpdateOperationsInput | number
   reputationScore?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutDriverPerformanceEntryNestedInput
 }
 
 export type DriverPerformanceEntryUncheckedUpdateManyWithoutDriverInput = {
@@ -1146,6 +1417,9 @@ export type DriverPerformanceEntryUncheckedUpdateManyWithoutDriverInput = {
   cargoTonnes?: Prisma.FloatFieldUpdateOperationsInput | number
   income?: Prisma.FloatFieldUpdateOperationsInput | number
   expenditure?: Prisma.FloatFieldUpdateOperationsInput | number
+  repairCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  damageCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  otherCosts?: Prisma.FloatFieldUpdateOperationsInput | number
   reputationScore?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1162,6 +1436,9 @@ export type DriverPerformanceEntryCreateManyCustomerInput = {
   cargoTonnes: number
   income: number
   expenditure: number
+  repairCosts?: number
+  damageCosts?: number
+  otherCosts?: number
   reputationScore: number
   completedAt: Date | string
   notes?: string | null
@@ -1176,6 +1453,9 @@ export type DriverPerformanceEntryUpdateWithoutCustomerInput = {
   cargoTonnes?: Prisma.FloatFieldUpdateOperationsInput | number
   income?: Prisma.FloatFieldUpdateOperationsInput | number
   expenditure?: Prisma.FloatFieldUpdateOperationsInput | number
+  repairCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  damageCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  otherCosts?: Prisma.FloatFieldUpdateOperationsInput | number
   reputationScore?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1184,6 +1464,7 @@ export type DriverPerformanceEntryUpdateWithoutCustomerInput = {
   driver?: Prisma.DriverUpdateOneRequiredWithoutPerformanceEntriesNestedInput
   contractListing?: Prisma.ContractListingUpdateOneWithoutPerformanceEntryNestedInput
   recordedBy?: Prisma.AccountUpdateOneRequiredWithoutRecordedDriverPerformanceEntriesNestedInput
+  invoice?: Prisma.InvoiceUpdateOneWithoutDriverPerformanceEntryNestedInput
 }
 
 export type DriverPerformanceEntryUncheckedUpdateWithoutCustomerInput = {
@@ -1194,12 +1475,16 @@ export type DriverPerformanceEntryUncheckedUpdateWithoutCustomerInput = {
   cargoTonnes?: Prisma.FloatFieldUpdateOperationsInput | number
   income?: Prisma.FloatFieldUpdateOperationsInput | number
   expenditure?: Prisma.FloatFieldUpdateOperationsInput | number
+  repairCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  damageCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  otherCosts?: Prisma.FloatFieldUpdateOperationsInput | number
   reputationScore?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutDriverPerformanceEntryNestedInput
 }
 
 export type DriverPerformanceEntryUncheckedUpdateManyWithoutCustomerInput = {
@@ -1210,6 +1495,9 @@ export type DriverPerformanceEntryUncheckedUpdateManyWithoutCustomerInput = {
   cargoTonnes?: Prisma.FloatFieldUpdateOperationsInput | number
   income?: Prisma.FloatFieldUpdateOperationsInput | number
   expenditure?: Prisma.FloatFieldUpdateOperationsInput | number
+  repairCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  damageCosts?: Prisma.FloatFieldUpdateOperationsInput | number
+  otherCosts?: Prisma.FloatFieldUpdateOperationsInput | number
   reputationScore?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1229,6 +1517,9 @@ export type DriverPerformanceEntrySelect<ExtArgs extends runtime.Types.Extension
   cargoTonnes?: boolean
   income?: boolean
   expenditure?: boolean
+  repairCosts?: boolean
+  damageCosts?: boolean
+  otherCosts?: boolean
   reputationScore?: boolean
   completedAt?: boolean
   notes?: boolean
@@ -1239,6 +1530,7 @@ export type DriverPerformanceEntrySelect<ExtArgs extends runtime.Types.Extension
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   contractListing?: boolean | Prisma.DriverPerformanceEntry$contractListingArgs<ExtArgs>
   recordedBy?: boolean | Prisma.AccountDefaultArgs<ExtArgs>
+  invoice?: boolean | Prisma.DriverPerformanceEntry$invoiceArgs<ExtArgs>
 }, ExtArgs["result"]["driverPerformanceEntry"]>
 
 export type DriverPerformanceEntrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1250,6 +1542,9 @@ export type DriverPerformanceEntrySelectCreateManyAndReturn<ExtArgs extends runt
   cargoTonnes?: boolean
   income?: boolean
   expenditure?: boolean
+  repairCosts?: boolean
+  damageCosts?: boolean
+  otherCosts?: boolean
   reputationScore?: boolean
   completedAt?: boolean
   notes?: boolean
@@ -1271,6 +1566,9 @@ export type DriverPerformanceEntrySelectUpdateManyAndReturn<ExtArgs extends runt
   cargoTonnes?: boolean
   income?: boolean
   expenditure?: boolean
+  repairCosts?: boolean
+  damageCosts?: boolean
+  otherCosts?: boolean
   reputationScore?: boolean
   completedAt?: boolean
   notes?: boolean
@@ -1292,6 +1590,9 @@ export type DriverPerformanceEntrySelectScalar = {
   cargoTonnes?: boolean
   income?: boolean
   expenditure?: boolean
+  repairCosts?: boolean
+  damageCosts?: boolean
+  otherCosts?: boolean
   reputationScore?: boolean
   completedAt?: boolean
   notes?: boolean
@@ -1300,12 +1601,13 @@ export type DriverPerformanceEntrySelectScalar = {
   updatedAt?: boolean
 }
 
-export type DriverPerformanceEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "driverId" | "customerId" | "contractListingId" | "distanceKm" | "cargoTonnes" | "income" | "expenditure" | "reputationScore" | "completedAt" | "notes" | "recordedById" | "createdAt" | "updatedAt", ExtArgs["result"]["driverPerformanceEntry"]>
+export type DriverPerformanceEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "driverId" | "customerId" | "contractListingId" | "distanceKm" | "cargoTonnes" | "income" | "expenditure" | "repairCosts" | "damageCosts" | "otherCosts" | "reputationScore" | "completedAt" | "notes" | "recordedById" | "createdAt" | "updatedAt", ExtArgs["result"]["driverPerformanceEntry"]>
 export type DriverPerformanceEntryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   contractListing?: boolean | Prisma.DriverPerformanceEntry$contractListingArgs<ExtArgs>
   recordedBy?: boolean | Prisma.AccountDefaultArgs<ExtArgs>
+  invoice?: boolean | Prisma.DriverPerformanceEntry$invoiceArgs<ExtArgs>
 }
 export type DriverPerformanceEntryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   driver?: boolean | Prisma.DriverDefaultArgs<ExtArgs>
@@ -1327,6 +1629,7 @@ export type $DriverPerformanceEntryPayload<ExtArgs extends runtime.Types.Extensi
     customer: Prisma.$CustomerPayload<ExtArgs>
     contractListing: Prisma.$ContractListingPayload<ExtArgs> | null
     recordedBy: Prisma.$AccountPayload<ExtArgs>
+    invoice: Prisma.$InvoicePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1337,6 +1640,9 @@ export type $DriverPerformanceEntryPayload<ExtArgs extends runtime.Types.Extensi
     cargoTonnes: number
     income: number
     expenditure: number
+    repairCosts: number
+    damageCosts: number
+    otherCosts: number
     reputationScore: number
     completedAt: Date
     notes: string | null
@@ -1741,6 +2047,7 @@ export interface Prisma__DriverPerformanceEntryClient<T, Null = never, ExtArgs e
   customer<T extends Prisma.CustomerDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerDefaultArgs<ExtArgs>>): Prisma.Prisma__CustomerClient<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   contractListing<T extends Prisma.DriverPerformanceEntry$contractListingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DriverPerformanceEntry$contractListingArgs<ExtArgs>>): Prisma.Prisma__ContractListingClient<runtime.Types.Result.GetResult<Prisma.$ContractListingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   recordedBy<T extends Prisma.AccountDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AccountDefaultArgs<ExtArgs>>): Prisma.Prisma__AccountClient<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  invoice<T extends Prisma.DriverPerformanceEntry$invoiceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DriverPerformanceEntry$invoiceArgs<ExtArgs>>): Prisma.Prisma__InvoiceClient<runtime.Types.Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1778,6 +2085,9 @@ export interface DriverPerformanceEntryFieldRefs {
   readonly cargoTonnes: Prisma.FieldRef<"DriverPerformanceEntry", 'Float'>
   readonly income: Prisma.FieldRef<"DriverPerformanceEntry", 'Float'>
   readonly expenditure: Prisma.FieldRef<"DriverPerformanceEntry", 'Float'>
+  readonly repairCosts: Prisma.FieldRef<"DriverPerformanceEntry", 'Float'>
+  readonly damageCosts: Prisma.FieldRef<"DriverPerformanceEntry", 'Float'>
+  readonly otherCosts: Prisma.FieldRef<"DriverPerformanceEntry", 'Float'>
   readonly reputationScore: Prisma.FieldRef<"DriverPerformanceEntry", 'Float'>
   readonly completedAt: Prisma.FieldRef<"DriverPerformanceEntry", 'DateTime'>
   readonly notes: Prisma.FieldRef<"DriverPerformanceEntry", 'String'>
@@ -2201,6 +2511,25 @@ export type DriverPerformanceEntry$contractListingArgs<ExtArgs extends runtime.T
    */
   include?: Prisma.ContractListingInclude<ExtArgs> | null
   where?: Prisma.ContractListingWhereInput
+}
+
+/**
+ * DriverPerformanceEntry.invoice
+ */
+export type DriverPerformanceEntry$invoiceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Invoice
+   */
+  select?: Prisma.InvoiceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Invoice
+   */
+  omit?: Prisma.InvoiceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InvoiceInclude<ExtArgs> | null
+  where?: Prisma.InvoiceWhereInput
 }
 
 /**

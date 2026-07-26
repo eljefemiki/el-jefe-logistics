@@ -103,6 +103,43 @@ test("database-backed marketplace award is atomic and owner-scoped", { skip: !en
     awarded.bids.map(({ status }) => status).sort(),
     ["ACCEPTED", "REJECTED"],
   );
+  const { recordDriverPerformanceEntry } = await import(
+    "../src/server/driver-performance/repository.ts"
+  );
+  const completed = await recordDriverPerformanceEntry(owner.id, {
+    driverId: winningBid.driverId,
+    customerId: customer.id,
+    contractListingId: listing.id,
+    distanceKm: 350,
+    cargoTonnes: 22,
+    income: 2500,
+    repairCosts: 150,
+    damageCosts: 75,
+    otherCosts: 125,
+    expenditure: 350,
+    reputationScore: 96,
+    completedAt: new Date(),
+  });
+  assert.equal(completed.invoice.subtotal, 2500);
+  assert.equal(completed.invoice.driverPerformanceEntryId, completed.entry.id);
+  const closedListing = await prisma.contractListing.findUniqueOrThrow({ where: { id: listing.id } });
+  assert.equal(closedListing.status, "CLOSED");
+  await assert.rejects(
+    recordDriverPerformanceEntry(owner.id, {
+      driverId: winningBid.driverId,
+      customerId: customer.id,
+      contractListingId: listing.id,
+      distanceKm: 350,
+      cargoTonnes: 22,
+      income: 2500,
+      repairCosts: 0,
+      damageCosts: 0,
+      otherCosts: 0,
+      expenditure: 0,
+      reputationScore: 96,
+      completedAt: new Date(),
+    }),
+  );
   await prisma.$disconnect();
 });
 
@@ -234,6 +271,9 @@ test("database-backed driver performance updates lifetime totals atomically", { 
     distanceKm: 750,
     cargoTonnes: 18.5,
     income: 2200,
+    repairCosts: 200,
+    damageCosts: 100,
+    otherCosts: 300,
     expenditure: 600,
     reputationScore: 94,
     completedAt: new Date("2026-07-20T12:00:00Z"),
@@ -243,6 +283,8 @@ test("database-backed driver performance updates lifetime totals atomically", { 
   assert.equal(result.driver.totalDeliveries, 3);
   assert.equal(result.driver.reputation, 94);
   assert.equal(result.entry.income - result.entry.expenditure, 1600);
+  assert.equal(result.invoice.subtotal, 2200);
+  assert.equal(result.invoice.driverPerformanceEntryId, result.entry.id);
   await prisma.$disconnect();
 });
 

@@ -46,6 +46,7 @@ export type InvoiceMinAggregateOutputType = {
   id: string | null
   invoiceNumber: string | null
   customerId: string | null
+  driverPerformanceEntryId: string | null
   status: $Enums.InvoiceStatus | null
   description: string | null
   issueDate: Date | null
@@ -66,6 +67,7 @@ export type InvoiceMaxAggregateOutputType = {
   id: string | null
   invoiceNumber: string | null
   customerId: string | null
+  driverPerformanceEntryId: string | null
   status: $Enums.InvoiceStatus | null
   description: string | null
   issueDate: Date | null
@@ -86,6 +88,7 @@ export type InvoiceCountAggregateOutputType = {
   id: number
   invoiceNumber: number
   customerId: number
+  driverPerformanceEntryId: number
   status: number
   description: number
   issueDate: number
@@ -124,6 +127,7 @@ export type InvoiceMinAggregateInputType = {
   id?: true
   invoiceNumber?: true
   customerId?: true
+  driverPerformanceEntryId?: true
   status?: true
   description?: true
   issueDate?: true
@@ -144,6 +148,7 @@ export type InvoiceMaxAggregateInputType = {
   id?: true
   invoiceNumber?: true
   customerId?: true
+  driverPerformanceEntryId?: true
   status?: true
   description?: true
   issueDate?: true
@@ -164,6 +169,7 @@ export type InvoiceCountAggregateInputType = {
   id?: true
   invoiceNumber?: true
   customerId?: true
+  driverPerformanceEntryId?: true
   status?: true
   description?: true
   issueDate?: true
@@ -271,6 +277,7 @@ export type InvoiceGroupByOutputType = {
   id: string
   invoiceNumber: string
   customerId: string
+  driverPerformanceEntryId: string | null
   status: $Enums.InvoiceStatus
   description: string
   issueDate: Date
@@ -314,6 +321,7 @@ export type InvoiceWhereInput = {
   id?: Prisma.StringFilter<"Invoice"> | string
   invoiceNumber?: Prisma.StringFilter<"Invoice"> | string
   customerId?: Prisma.StringFilter<"Invoice"> | string
+  driverPerformanceEntryId?: Prisma.StringNullableFilter<"Invoice"> | string | null
   status?: Prisma.EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
   description?: Prisma.StringFilter<"Invoice"> | string
   issueDate?: Prisma.DateTimeFilter<"Invoice"> | Date | string
@@ -329,12 +337,14 @@ export type InvoiceWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Invoice"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Invoice"> | Date | string
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
+  driverPerformanceEntry?: Prisma.XOR<Prisma.DriverPerformanceEntryNullableScalarRelationFilter, Prisma.DriverPerformanceEntryWhereInput> | null
 }
 
 export type InvoiceOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   invoiceNumber?: Prisma.SortOrder
   customerId?: Prisma.SortOrder
+  driverPerformanceEntryId?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   description?: Prisma.SortOrder
   issueDate?: Prisma.SortOrder
@@ -350,11 +360,13 @@ export type InvoiceOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   customer?: Prisma.CustomerOrderByWithRelationInput
+  driverPerformanceEntry?: Prisma.DriverPerformanceEntryOrderByWithRelationInput
 }
 
 export type InvoiceWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   invoiceNumber?: string
+  driverPerformanceEntryId?: string
   AND?: Prisma.InvoiceWhereInput | Prisma.InvoiceWhereInput[]
   OR?: Prisma.InvoiceWhereInput[]
   NOT?: Prisma.InvoiceWhereInput | Prisma.InvoiceWhereInput[]
@@ -374,12 +386,14 @@ export type InvoiceWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Invoice"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Invoice"> | Date | string
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
-}, "id" | "invoiceNumber">
+  driverPerformanceEntry?: Prisma.XOR<Prisma.DriverPerformanceEntryNullableScalarRelationFilter, Prisma.DriverPerformanceEntryWhereInput> | null
+}, "id" | "invoiceNumber" | "driverPerformanceEntryId">
 
 export type InvoiceOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   invoiceNumber?: Prisma.SortOrder
   customerId?: Prisma.SortOrder
+  driverPerformanceEntryId?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   description?: Prisma.SortOrder
   issueDate?: Prisma.SortOrder
@@ -408,6 +422,7 @@ export type InvoiceScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Invoice"> | string
   invoiceNumber?: Prisma.StringWithAggregatesFilter<"Invoice"> | string
   customerId?: Prisma.StringWithAggregatesFilter<"Invoice"> | string
+  driverPerformanceEntryId?: Prisma.StringNullableWithAggregatesFilter<"Invoice"> | string | null
   status?: Prisma.EnumInvoiceStatusWithAggregatesFilter<"Invoice"> | $Enums.InvoiceStatus
   description?: Prisma.StringWithAggregatesFilter<"Invoice"> | string
   issueDate?: Prisma.DateTimeWithAggregatesFilter<"Invoice"> | Date | string
@@ -442,12 +457,14 @@ export type InvoiceCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   customer: Prisma.CustomerCreateNestedOneWithoutInvoicesInput
+  driverPerformanceEntry?: Prisma.DriverPerformanceEntryCreateNestedOneWithoutInvoiceInput
 }
 
 export type InvoiceUncheckedCreateInput = {
   id?: string
   invoiceNumber: string
   customerId: string
+  driverPerformanceEntryId?: string | null
   status?: $Enums.InvoiceStatus
   description: string
   issueDate: Date | string
@@ -482,12 +499,14 @@ export type InvoiceUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customer?: Prisma.CustomerUpdateOneRequiredWithoutInvoicesNestedInput
+  driverPerformanceEntry?: Prisma.DriverPerformanceEntryUpdateOneWithoutInvoiceNestedInput
 }
 
 export type InvoiceUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  driverPerformanceEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
   description?: Prisma.StringFieldUpdateOperationsInput | string
   issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -508,6 +527,7 @@ export type InvoiceCreateManyInput = {
   id?: string
   invoiceNumber: string
   customerId: string
+  driverPerformanceEntryId?: string | null
   status?: $Enums.InvoiceStatus
   description: string
   issueDate: Date | string
@@ -547,6 +567,7 @@ export type InvoiceUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  driverPerformanceEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
   description?: Prisma.StringFieldUpdateOperationsInput | string
   issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -577,6 +598,7 @@ export type InvoiceCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   invoiceNumber?: Prisma.SortOrder
   customerId?: Prisma.SortOrder
+  driverPerformanceEntryId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   description?: Prisma.SortOrder
   issueDate?: Prisma.SortOrder
@@ -605,6 +627,7 @@ export type InvoiceMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   invoiceNumber?: Prisma.SortOrder
   customerId?: Prisma.SortOrder
+  driverPerformanceEntryId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   description?: Prisma.SortOrder
   issueDate?: Prisma.SortOrder
@@ -625,6 +648,7 @@ export type InvoiceMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   invoiceNumber?: Prisma.SortOrder
   customerId?: Prisma.SortOrder
+  driverPerformanceEntryId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   description?: Prisma.SortOrder
   issueDate?: Prisma.SortOrder
@@ -647,6 +671,11 @@ export type InvoiceSumOrderByAggregateInput = {
   vatAmount?: Prisma.SortOrder
   total?: Prisma.SortOrder
   amountPaid?: Prisma.SortOrder
+}
+
+export type InvoiceNullableScalarRelationFilter = {
+  is?: Prisma.InvoiceWhereInput | null
+  isNot?: Prisma.InvoiceWhereInput | null
 }
 
 export type InvoiceCreateNestedManyWithoutCustomerInput = {
@@ -695,6 +724,38 @@ export type EnumInvoiceStatusFieldUpdateOperationsInput = {
   set?: $Enums.InvoiceStatus
 }
 
+export type InvoiceCreateNestedOneWithoutDriverPerformanceEntryInput = {
+  create?: Prisma.XOR<Prisma.InvoiceCreateWithoutDriverPerformanceEntryInput, Prisma.InvoiceUncheckedCreateWithoutDriverPerformanceEntryInput>
+  connectOrCreate?: Prisma.InvoiceCreateOrConnectWithoutDriverPerformanceEntryInput
+  connect?: Prisma.InvoiceWhereUniqueInput
+}
+
+export type InvoiceUncheckedCreateNestedOneWithoutDriverPerformanceEntryInput = {
+  create?: Prisma.XOR<Prisma.InvoiceCreateWithoutDriverPerformanceEntryInput, Prisma.InvoiceUncheckedCreateWithoutDriverPerformanceEntryInput>
+  connectOrCreate?: Prisma.InvoiceCreateOrConnectWithoutDriverPerformanceEntryInput
+  connect?: Prisma.InvoiceWhereUniqueInput
+}
+
+export type InvoiceUpdateOneWithoutDriverPerformanceEntryNestedInput = {
+  create?: Prisma.XOR<Prisma.InvoiceCreateWithoutDriverPerformanceEntryInput, Prisma.InvoiceUncheckedCreateWithoutDriverPerformanceEntryInput>
+  connectOrCreate?: Prisma.InvoiceCreateOrConnectWithoutDriverPerformanceEntryInput
+  upsert?: Prisma.InvoiceUpsertWithoutDriverPerformanceEntryInput
+  disconnect?: Prisma.InvoiceWhereInput | boolean
+  delete?: Prisma.InvoiceWhereInput | boolean
+  connect?: Prisma.InvoiceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InvoiceUpdateToOneWithWhereWithoutDriverPerformanceEntryInput, Prisma.InvoiceUpdateWithoutDriverPerformanceEntryInput>, Prisma.InvoiceUncheckedUpdateWithoutDriverPerformanceEntryInput>
+}
+
+export type InvoiceUncheckedUpdateOneWithoutDriverPerformanceEntryNestedInput = {
+  create?: Prisma.XOR<Prisma.InvoiceCreateWithoutDriverPerformanceEntryInput, Prisma.InvoiceUncheckedCreateWithoutDriverPerformanceEntryInput>
+  connectOrCreate?: Prisma.InvoiceCreateOrConnectWithoutDriverPerformanceEntryInput
+  upsert?: Prisma.InvoiceUpsertWithoutDriverPerformanceEntryInput
+  disconnect?: Prisma.InvoiceWhereInput | boolean
+  delete?: Prisma.InvoiceWhereInput | boolean
+  connect?: Prisma.InvoiceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InvoiceUpdateToOneWithWhereWithoutDriverPerformanceEntryInput, Prisma.InvoiceUpdateWithoutDriverPerformanceEntryInput>, Prisma.InvoiceUncheckedUpdateWithoutDriverPerformanceEntryInput>
+}
+
 export type InvoiceCreateWithoutCustomerInput = {
   id?: string
   invoiceNumber: string
@@ -712,11 +773,13 @@ export type InvoiceCreateWithoutCustomerInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  driverPerformanceEntry?: Prisma.DriverPerformanceEntryCreateNestedOneWithoutInvoiceInput
 }
 
 export type InvoiceUncheckedCreateWithoutCustomerInput = {
   id?: string
   invoiceNumber: string
+  driverPerformanceEntryId?: string | null
   status?: $Enums.InvoiceStatus
   description: string
   issueDate: Date | string
@@ -766,6 +829,7 @@ export type InvoiceScalarWhereInput = {
   id?: Prisma.StringFilter<"Invoice"> | string
   invoiceNumber?: Prisma.StringFilter<"Invoice"> | string
   customerId?: Prisma.StringFilter<"Invoice"> | string
+  driverPerformanceEntryId?: Prisma.StringNullableFilter<"Invoice"> | string | null
   status?: Prisma.EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
   description?: Prisma.StringFilter<"Invoice"> | string
   issueDate?: Prisma.DateTimeFilter<"Invoice"> | Date | string
@@ -782,9 +846,106 @@ export type InvoiceScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Invoice"> | Date | string
 }
 
+export type InvoiceCreateWithoutDriverPerformanceEntryInput = {
+  id?: string
+  invoiceNumber: string
+  status?: $Enums.InvoiceStatus
+  description: string
+  issueDate: Date | string
+  dueDate: Date | string
+  subtotal: number
+  vatRate?: number
+  vatAmount: number
+  total: number
+  amountPaid?: number
+  paidAt?: Date | string | null
+  reference?: string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  customer: Prisma.CustomerCreateNestedOneWithoutInvoicesInput
+}
+
+export type InvoiceUncheckedCreateWithoutDriverPerformanceEntryInput = {
+  id?: string
+  invoiceNumber: string
+  customerId: string
+  status?: $Enums.InvoiceStatus
+  description: string
+  issueDate: Date | string
+  dueDate: Date | string
+  subtotal: number
+  vatRate?: number
+  vatAmount: number
+  total: number
+  amountPaid?: number
+  paidAt?: Date | string | null
+  reference?: string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type InvoiceCreateOrConnectWithoutDriverPerformanceEntryInput = {
+  where: Prisma.InvoiceWhereUniqueInput
+  create: Prisma.XOR<Prisma.InvoiceCreateWithoutDriverPerformanceEntryInput, Prisma.InvoiceUncheckedCreateWithoutDriverPerformanceEntryInput>
+}
+
+export type InvoiceUpsertWithoutDriverPerformanceEntryInput = {
+  update: Prisma.XOR<Prisma.InvoiceUpdateWithoutDriverPerformanceEntryInput, Prisma.InvoiceUncheckedUpdateWithoutDriverPerformanceEntryInput>
+  create: Prisma.XOR<Prisma.InvoiceCreateWithoutDriverPerformanceEntryInput, Prisma.InvoiceUncheckedCreateWithoutDriverPerformanceEntryInput>
+  where?: Prisma.InvoiceWhereInput
+}
+
+export type InvoiceUpdateToOneWithWhereWithoutDriverPerformanceEntryInput = {
+  where?: Prisma.InvoiceWhereInput
+  data: Prisma.XOR<Prisma.InvoiceUpdateWithoutDriverPerformanceEntryInput, Prisma.InvoiceUncheckedUpdateWithoutDriverPerformanceEntryInput>
+}
+
+export type InvoiceUpdateWithoutDriverPerformanceEntryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subtotal?: Prisma.FloatFieldUpdateOperationsInput | number
+  vatRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  vatAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  total?: Prisma.FloatFieldUpdateOperationsInput | number
+  amountPaid?: Prisma.FloatFieldUpdateOperationsInput | number
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutInvoicesNestedInput
+}
+
+export type InvoiceUncheckedUpdateWithoutDriverPerformanceEntryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subtotal?: Prisma.FloatFieldUpdateOperationsInput | number
+  vatRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  vatAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  total?: Prisma.FloatFieldUpdateOperationsInput | number
+  amountPaid?: Prisma.FloatFieldUpdateOperationsInput | number
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type InvoiceCreateManyCustomerInput = {
   id?: string
   invoiceNumber: string
+  driverPerformanceEntryId?: string | null
   status?: $Enums.InvoiceStatus
   description: string
   issueDate: Date | string
@@ -818,11 +979,13 @@ export type InvoiceUpdateWithoutCustomerInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  driverPerformanceEntry?: Prisma.DriverPerformanceEntryUpdateOneWithoutInvoiceNestedInput
 }
 
 export type InvoiceUncheckedUpdateWithoutCustomerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  driverPerformanceEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
   description?: Prisma.StringFieldUpdateOperationsInput | string
   issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -842,6 +1005,7 @@ export type InvoiceUncheckedUpdateWithoutCustomerInput = {
 export type InvoiceUncheckedUpdateManyWithoutCustomerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  driverPerformanceEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
   description?: Prisma.StringFieldUpdateOperationsInput | string
   issueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -864,6 +1028,7 @@ export type InvoiceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   id?: boolean
   invoiceNumber?: boolean
   customerId?: boolean
+  driverPerformanceEntryId?: boolean
   status?: boolean
   description?: boolean
   issueDate?: boolean
@@ -879,12 +1044,14 @@ export type InvoiceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   createdAt?: boolean
   updatedAt?: boolean
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
+  driverPerformanceEntry?: boolean | Prisma.Invoice$driverPerformanceEntryArgs<ExtArgs>
 }, ExtArgs["result"]["invoice"]>
 
 export type InvoiceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   invoiceNumber?: boolean
   customerId?: boolean
+  driverPerformanceEntryId?: boolean
   status?: boolean
   description?: boolean
   issueDate?: boolean
@@ -900,12 +1067,14 @@ export type InvoiceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   createdAt?: boolean
   updatedAt?: boolean
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
+  driverPerformanceEntry?: boolean | Prisma.Invoice$driverPerformanceEntryArgs<ExtArgs>
 }, ExtArgs["result"]["invoice"]>
 
 export type InvoiceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   invoiceNumber?: boolean
   customerId?: boolean
+  driverPerformanceEntryId?: boolean
   status?: boolean
   description?: boolean
   issueDate?: boolean
@@ -921,12 +1090,14 @@ export type InvoiceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   createdAt?: boolean
   updatedAt?: boolean
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
+  driverPerformanceEntry?: boolean | Prisma.Invoice$driverPerformanceEntryArgs<ExtArgs>
 }, ExtArgs["result"]["invoice"]>
 
 export type InvoiceSelectScalar = {
   id?: boolean
   invoiceNumber?: boolean
   customerId?: boolean
+  driverPerformanceEntryId?: boolean
   status?: boolean
   description?: boolean
   issueDate?: boolean
@@ -943,26 +1114,31 @@ export type InvoiceSelectScalar = {
   updatedAt?: boolean
 }
 
-export type InvoiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "invoiceNumber" | "customerId" | "status" | "description" | "issueDate" | "dueDate" | "subtotal" | "vatRate" | "vatAmount" | "total" | "amountPaid" | "paidAt" | "reference" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["invoice"]>
+export type InvoiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "invoiceNumber" | "customerId" | "driverPerformanceEntryId" | "status" | "description" | "issueDate" | "dueDate" | "subtotal" | "vatRate" | "vatAmount" | "total" | "amountPaid" | "paidAt" | "reference" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["invoice"]>
 export type InvoiceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
+  driverPerformanceEntry?: boolean | Prisma.Invoice$driverPerformanceEntryArgs<ExtArgs>
 }
 export type InvoiceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
+  driverPerformanceEntry?: boolean | Prisma.Invoice$driverPerformanceEntryArgs<ExtArgs>
 }
 export type InvoiceIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
+  driverPerformanceEntry?: boolean | Prisma.Invoice$driverPerformanceEntryArgs<ExtArgs>
 }
 
 export type $InvoicePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Invoice"
   objects: {
     customer: Prisma.$CustomerPayload<ExtArgs>
+    driverPerformanceEntry: Prisma.$DriverPerformanceEntryPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     invoiceNumber: string
     customerId: string
+    driverPerformanceEntryId: string | null
     status: $Enums.InvoiceStatus
     description: string
     issueDate: Date
@@ -1372,6 +1548,7 @@ readonly fields: InvoiceFieldRefs;
 export interface Prisma__InvoiceClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   customer<T extends Prisma.CustomerDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerDefaultArgs<ExtArgs>>): Prisma.Prisma__CustomerClient<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  driverPerformanceEntry<T extends Prisma.Invoice$driverPerformanceEntryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Invoice$driverPerformanceEntryArgs<ExtArgs>>): Prisma.Prisma__DriverPerformanceEntryClient<runtime.Types.Result.GetResult<Prisma.$DriverPerformanceEntryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1404,6 +1581,7 @@ export interface InvoiceFieldRefs {
   readonly id: Prisma.FieldRef<"Invoice", 'String'>
   readonly invoiceNumber: Prisma.FieldRef<"Invoice", 'String'>
   readonly customerId: Prisma.FieldRef<"Invoice", 'String'>
+  readonly driverPerformanceEntryId: Prisma.FieldRef<"Invoice", 'String'>
   readonly status: Prisma.FieldRef<"Invoice", 'InvoiceStatus'>
   readonly description: Prisma.FieldRef<"Invoice", 'String'>
   readonly issueDate: Prisma.FieldRef<"Invoice", 'DateTime'>
@@ -1816,6 +1994,25 @@ export type InvoiceDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Invoices to delete.
    */
   limit?: number
+}
+
+/**
+ * Invoice.driverPerformanceEntry
+ */
+export type Invoice$driverPerformanceEntryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DriverPerformanceEntry
+   */
+  select?: Prisma.DriverPerformanceEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DriverPerformanceEntry
+   */
+  omit?: Prisma.DriverPerformanceEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DriverPerformanceEntryInclude<ExtArgs> | null
+  where?: Prisma.DriverPerformanceEntryWhereInput
 }
 
 /**

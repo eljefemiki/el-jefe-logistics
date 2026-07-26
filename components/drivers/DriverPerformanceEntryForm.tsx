@@ -99,11 +99,17 @@ export default function DriverPerformanceEntryForm({
         <Field label="Cargo (tonnes)" name="cargoTonnes" error={state.fieldErrors?.cargoTonnes}>
           <input id="cargoTonnes" name="cargoTonnes" type="number" min="0" max="1000" step="0.001" required className={input} />
         </Field>
-        <Field label="Driver income (£)" name="income" error={state.fieldErrors?.income}>
+        <Field label="Job income / customer charge (£)" name="income" error={state.fieldErrors?.income}>
           <input id="income" name="income" type="number" min="0" step="0.01" required className={input} />
         </Field>
-        <Field label="Driver expenditure (£)" name="expenditure" error={state.fieldErrors?.expenditure}>
-          <input id="expenditure" name="expenditure" type="number" min="0" step="0.01" required className={input} />
+        <Field label="Repair costs (£)" name="repairCosts" error={state.fieldErrors?.repairCosts}>
+          <input id="repairCosts" name="repairCosts" type="number" min="0" step="0.01" defaultValue={0} required className={input} />
+        </Field>
+        <Field label="Damage costs (£)" name="damageCosts" error={state.fieldErrors?.damageCosts}>
+          <input id="damageCosts" name="damageCosts" type="number" min="0" step="0.01" defaultValue={0} required className={input} />
+        </Field>
+        <Field label="Other journey costs (£)" name="otherCosts" error={state.fieldErrors?.otherCosts}>
+          <input id="otherCosts" name="otherCosts" type="number" min="0" step="0.01" defaultValue={0} required className={input} />
         </Field>
         <Field label="Company reputation score" name="reputationScore" error={state.fieldErrors?.reputationScore}>
           <input id="reputationScore" name="reputationScore" type="number" min="0" max="100" step="0.1" required className={input} />

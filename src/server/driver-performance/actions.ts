@@ -5,6 +5,8 @@ import { revalidatePath } from "next/cache";
 import { authorize } from "@/src/lib/auth";
 import { recordDriverPerformanceEntry } from "./repository";
 import { driverPerformanceEntrySchema } from "./validation";
+import { recordAudit } from "@/src/server/platform/audit";
+import { notify } from "@/src/server/platform/notifications";
 
 export interface DriverPerformanceActionState {
   success: boolean;
@@ -36,7 +38,9 @@ export async function createDriverPerformanceEntryAction(
     distanceKm: number(formData.get("distanceKm")),
     cargoTonnes: number(formData.get("cargoTonnes")),
     income: number(formData.get("income")),
-    expenditure: number(formData.get("expenditure")),
+    repairCosts: number(formData.get("repairCosts")) ?? 0,
+    damageCosts: number(formData.get("damageCosts")) ?? 0,
+    otherCosts: number(formData.get("otherCosts")) ?? 0,
     reputationScore: number(formData.get("reputationScore")),
     completedAt: completedAtText
       ? new Date(`${completedAtText}T12:00:00Z`)
@@ -53,12 +57,36 @@ export async function createDriverPerformanceEntryAction(
   }
 
   try {
-    await recordDriverPerformanceEntry(actor.id, validation.data);
+    const result = await recordDriverPerformanceEntry(actor.id, validation.data);
+    await Promise.all([
+      recordAudit({
+        action: "CREATE",
+        entityType: "DriverPerformanceEntry",
+        entityId: result.entry.id,
+        summary: `Recorded completed delivery and created invoice ${result.invoice.invoiceNumber}`,
+        after: { entry: result.entry, invoice: result.invoice },
+      }),
+      notify({
+        title: "Journey invoice created",
+        message: `${result.invoice.invoiceNumber} · £${result.invoice.total.toFixed(2)}`,
+        type: "FINANCE",
+        severity: "SUCCESS",
+        entityType: "Invoice",
+        entityId: result.invoice.id,
+        entityHref: `/dashboard/finance/${result.invoice.id}`,
+      }),
+    ]);
 
     revalidatePath("/profile");
     revalidatePath(`/dashboard/drivers/${validation.data.driverId}`);
     revalidatePath("/dashboard/drivers");
-    return { success: true, message: "Completed delivery recorded." };
+    revalidatePath("/dashboard/finance");
+    revalidatePath(`/dashboard/finance/${result.invoice.id}`);
+    revalidatePath("/dashboard/marketplace");
+    return {
+      success: true,
+      message: `Completed delivery recorded and draft invoice ${result.invoice.invoiceNumber} created.`,
+    };
   } catch (error) {
     return {
       success: false,

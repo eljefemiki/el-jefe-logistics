@@ -1,6 +1,22 @@
 import { prisma } from "@/src/lib/prisma";
 import type { FinanceFilters, InvoiceInput } from "./types";
-const include = { customer: { select: { id: true, customerNumber: true, companyName: true, billingEmail: true, email: true } } } as const;
+const include = {
+  customer: { select: { id: true, customerNumber: true, companyName: true, billingEmail: true, email: true } },
+  driverPerformanceEntry: {
+    select: {
+      income: true,
+      expenditure: true,
+      repairCosts: true,
+      damageCosts: true,
+      otherCosts: true,
+      distanceKm: true,
+      cargoTonnes: true,
+      completedAt: true,
+      driver: { select: { employeeNumber: true, account: { select: { firstName: true, lastName: true } } } },
+      contractListing: { select: { reference: true, origin: true, destination: true } },
+    },
+  },
+} as const;
 export function findInvoices(filters: FinanceFilters = {}) {
   return prisma.invoice.findMany({ where: {
     ...(filters.status ? { status: filters.status } : {}), ...(filters.customerId ? { customerId: filters.customerId } : {}),

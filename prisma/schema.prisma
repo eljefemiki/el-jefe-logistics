@@ -369,6 +369,8 @@ model Invoice {
   invoiceNumber String   @unique
   customerId    String
   customer      Customer @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  driverPerformanceEntryId String? @unique
+  driverPerformanceEntry DriverPerformanceEntry? @relation(fields: [driverPerformanceEntryId], references: [id], onDelete: SetNull)
 
   status      InvoiceStatus @default(DRAFT)
   description String
@@ -390,6 +392,7 @@ model Invoice {
   @@index([status])
   @@index([issueDate])
   @@index([dueDate])
+  @@index([driverPerformanceEntryId])
 }
 
 // =======================================================
@@ -454,12 +457,16 @@ model DriverPerformanceEntry {
   cargoTonnes     Float
   income          Float
   expenditure     Float
+  repairCosts     Float @default(0)
+  damageCosts     Float @default(0)
+  otherCosts      Float @default(0)
   reputationScore Float
   completedAt     DateTime
   notes           String?
 
   recordedById String
   recordedBy   Account @relation("PerformanceEntryRecorder", fields: [recordedById], references: [id], onDelete: Restrict)
+  invoice Invoice?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
