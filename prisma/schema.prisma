@@ -214,13 +214,16 @@ model Account {
 
   // Private community identities. These are only exposed through the
   // authenticated account owner's profile.
-  steamId              String?   @unique
-  truckyUsername       String?
-  discordId            String?   @unique
-  discordUsername      String?
-  discordDisplayName   String?
-  discordVerifiedAt    DateTime?
-  discordGuildJoinedAt DateTime?
+  steamId               String?   @unique
+  truckyUsername        String?
+  discordId             String?   @unique
+  discordUsername       String?
+  discordDisplayName    String?
+  discordVerifiedAt     DateTime?
+  discordGuildJoinedAt  DateTime?
+  profileImage          Bytes?
+  profileImageMime      String?
+  profileImageUpdatedAt DateTime?
 
   role UserRole @default(DRIVER)
 
@@ -229,11 +232,12 @@ model Account {
 
   lastLogin DateTime?
 
-  driver           Driver?
-  notifications    Notification[]
-  documents        Document[]        @relation("DocumentUploader")
-  auditEvents      AuditEvent[]      @relation("AuditActor")
-  contractListings ContractListing[]
+  driver                           Driver?
+  notifications                    Notification[]
+  documents                        Document[]               @relation("DocumentUploader")
+  auditEvents                      AuditEvent[]             @relation("AuditActor")
+  contractListings                 ContractListing[]
+  recordedDriverPerformanceEntries DriverPerformanceEntry[] @relation("PerformanceEntryRecorder")
 
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
@@ -267,9 +271,10 @@ model Driver {
   totalDeliveries Int @default(0)
   totalConvoys    Int @default(0)
 
-  favouriteTruck  String?
-  assignedTrailer Ets2TrailerType?
-  contractBids    ContractBid[]
+  favouriteTruck     String?
+  assignedTrailer    Ets2TrailerType?
+  contractBids       ContractBid[]
+  performanceEntries DriverPerformanceEntry[]
 
   // Current truck relationships.
   // This will later be replaced/expanded with DriverAssignment history.
@@ -335,11 +340,12 @@ model Customer {
   postcode     String?
   country      String  @default("United Kingdom")
 
-  creditLimit      Float?
-  paymentTermsDays Int               @default(30)
-  notes            String?
-  invoices         Invoice[]
-  contractListings ContractListing[]
+  creditLimit              Float?
+  paymentTermsDays         Int                      @default(30)
+  notes                    String?
+  invoices                 Invoice[]
+  contractListings         ContractListing[]
+  driverPerformanceEntries DriverPerformanceEntry[]
 
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
@@ -415,9 +421,10 @@ model ContractListing {
   contractTerms   String
   status          ContractListingStatus @default(DRAFT)
 
-  bids         ContractBid[] @relation("ListingBids")
-  awardedBidId String?       @unique
-  awardedBid   ContractBid?  @relation("AwardedBid", fields: [awardedBidId], references: [id], onDelete: SetNull)
+  bids             ContractBid[]           @relation("ListingBids")
+  awardedBidId     String?                 @unique
+  awardedBid       ContractBid?            @relation("AwardedBid", fields: [awardedBidId], references: [id], onDelete: SetNull)
+  performanceEntry DriverPerformanceEntry?
 
   publishedAt DateTime?
   awardedAt   DateTime?
@@ -429,6 +436,37 @@ model ContractListing {
   @@index([createdById])
   @@index([status, pickupDate])
   @@index([origin, destination])
+}
+
+model DriverPerformanceEntry {
+  id String @id @default(cuid())
+
+  driverId String
+  driver   Driver @relation(fields: [driverId], references: [id], onDelete: Cascade)
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Restrict)
+
+  contractListingId String?          @unique
+  contractListing   ContractListing? @relation(fields: [contractListingId], references: [id], onDelete: SetNull)
+
+  distanceKm      Int
+  cargoTonnes     Float
+  income          Float
+  expenditure     Float
+  reputationScore Float
+  completedAt     DateTime
+  notes           String?
+
+  recordedById String
+  recordedBy   Account @relation("PerformanceEntryRecorder", fields: [recordedById], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([driverId, completedAt])
+  @@index([customerId])
+  @@index([recordedById])
 }
 
 model ContractBid {

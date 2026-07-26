@@ -4,14 +4,20 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Container from "@/components/ui/Container";
 import PrivateProfileForm from "@/components/account/PrivateProfileForm";
+import ProfilePhotoForm from "@/components/account/ProfilePhotoForm";
+import DriverPerformanceDashboard from "@/components/account/DriverPerformanceDashboard";
 import { requireAccount } from "@/src/lib/auth";
 import { prisma } from "@/src/lib/prisma";
 import { trailerLabels } from "@/src/lib/ets2-trailers";
+import { getDriverPerformance } from "@/src/server/driver-performance/queries";
 
 export const dynamic = "force-dynamic";
 
 interface ProfilePageProps {
-  searchParams: Promise<{ discord?: string | string[] }>;
+  searchParams: Promise<{
+    discord?: string | string[];
+    photo?: string | string[];
+  }>;
 }
 
 const discordMessages: Record<string, string> = {
@@ -20,6 +26,10 @@ const discordMessages: Record<string, string> = {
   denied: "Discord linking was cancelled.",
   failed: "Discord could not be verified. Please try again.",
 };
+const photoMessages: Record<string, string> = {
+  saved: "Your profile photo has been updated.",
+  invalid: "Choose a valid JPG, PNG, or WebP image no larger than 5 MB.",
+};
 
 export default async function ProfilePage({ searchParams }: ProfilePageProps) {
   const sessionAccount = await requireAccount("/profile");
@@ -27,6 +37,9 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
   const discordStatus = Array.isArray(params.discord)
     ? params.discord[0]
     : params.discord;
+  const photoStatus = Array.isArray(params.photo)
+    ? params.photo[0]
+    : params.photo;
   const account = await prisma.account.findUniqueOrThrow({
     where: { id: sessionAccount.id },
     select: {
@@ -40,9 +53,22 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
       discordDisplayName: true,
       discordVerifiedAt: true,
       discordGuildJoinedAt: true,
-      driver: { select: { assignedTrailer: true } },
+      profileImageMime: true,
+      profileImageUpdatedAt: true,
+      driver: {
+        select: {
+          id: true,
+          assignedTrailer: true,
+          reputation: true,
+          totalDistanceKm: true,
+        },
+      },
     },
   });
+  const performance = account.driver
+    ? await getDriverPerformance(account.driver.id)
+    : null;
+  const name = `${account.firstName} ${account.lastName}`.trim();
 
   return (
     <>
@@ -58,6 +84,12 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
                 <p className="mt-2 text-slate-400">{account.email}</p>
               </div>
             </div>
+            <ProfilePhotoForm
+              name={name}
+              hasPhoto={Boolean(account.profileImageMime)}
+              updatedAt={account.profileImageUpdatedAt}
+              message={photoStatus ? photoMessages[photoStatus] : undefined}
+            />
             <PrivateProfileForm
               profile={account}
               discordEnabled={Boolean(
@@ -69,6 +101,13 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
                 discordStatus ? discordMessages[discordStatus] : undefined
               }
             />
+            {performance && account.driver && (
+              <DriverPerformanceDashboard
+                performance={performance}
+                fallbackReputation={account.driver.reputation}
+                fallbackDistanceKm={account.driver.totalDistanceKm}
+              />
+            )}
             <section className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
               <div className="flex items-center gap-3">
                 <Truck className="h-6 w-6 text-blue-400" />

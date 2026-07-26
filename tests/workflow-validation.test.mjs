@@ -9,6 +9,7 @@ import { maintenanceJobSchema } from "../src/server/workshop/validation.ts";
 import { fuelEntrySchema } from "../src/server/fuel/validation.ts";
 import { invoiceSchema } from "../src/server/finance/validation.ts";
 import { contractBidSchema, contractListingSchema } from "../src/server/marketplace/validation.ts";
+import { driverPerformanceEntrySchema } from "../src/server/driver-performance/validation.ts";
 
 test("auth accepts valid login/registration and rejects weak or mismatched credentials", () => {
   assert.equal(loginSchema.safeParse({ email: "USER@example.com", password: "secret" }).success, true);
@@ -72,6 +73,27 @@ test("driver edit validates identity, role-specific state, and operational count
     totalDeliveries: 25,
   }).success, true);
   assert.equal(updateDriverSchema.safeParse({ email: "invalid", reputation: 101, totalDeliveries: -1 }).success, false);
+});
+
+test("completed driver delivery validates performance and financial values", () => {
+  const entry = {
+    driverId: "driver-1",
+    customerId: "customer-1",
+    distanceKm: 850,
+    cargoTonnes: 21.5,
+    income: 2400,
+    expenditure: 675,
+    reputationScore: 96,
+    completedAt: new Date("2026-07-01"),
+  };
+  assert.equal(driverPerformanceEntrySchema.safeParse(entry).success, true);
+  assert.equal(driverPerformanceEntrySchema.safeParse({
+    ...entry,
+    distanceKm: 0,
+    cargoTonnes: -1,
+    expenditure: -10,
+    reputationScore: 101,
+  }).success, false);
 });
 
 test("customer create/edit validates contacts and commercial limits", () => {

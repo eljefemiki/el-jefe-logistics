@@ -342,6 +342,7 @@ export type CustomerWhereInput = {
   archivedAt?: Prisma.DateTimeNullableFilter<"Customer"> | Date | string | null
   invoices?: Prisma.InvoiceListRelationFilter
   contractListings?: Prisma.ContractListingListRelationFilter
+  driverPerformanceEntries?: Prisma.DriverPerformanceEntryListRelationFilter
 }
 
 export type CustomerOrderByWithRelationInput = {
@@ -367,6 +368,7 @@ export type CustomerOrderByWithRelationInput = {
   archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   invoices?: Prisma.InvoiceOrderByRelationAggregateInput
   contractListings?: Prisma.ContractListingOrderByRelationAggregateInput
+  driverPerformanceEntries?: Prisma.DriverPerformanceEntryOrderByRelationAggregateInput
 }
 
 export type CustomerWhereUniqueInput = Prisma.AtLeast<{
@@ -395,6 +397,7 @@ export type CustomerWhereUniqueInput = Prisma.AtLeast<{
   archivedAt?: Prisma.DateTimeNullableFilter<"Customer"> | Date | string | null
   invoices?: Prisma.InvoiceListRelationFilter
   contractListings?: Prisma.ContractListingListRelationFilter
+  driverPerformanceEntries?: Prisma.DriverPerformanceEntryListRelationFilter
 }, "id" | "customerNumber">
 
 export type CustomerOrderByWithAggregationInput = {
@@ -474,6 +477,7 @@ export type CustomerCreateInput = {
   archivedAt?: Date | string | null
   invoices?: Prisma.InvoiceCreateNestedManyWithoutCustomerInput
   contractListings?: Prisma.ContractListingCreateNestedManyWithoutCustomerInput
+  driverPerformanceEntries?: Prisma.DriverPerformanceEntryCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateInput = {
@@ -499,6 +503,7 @@ export type CustomerUncheckedCreateInput = {
   archivedAt?: Date | string | null
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCustomerInput
   contractListings?: Prisma.ContractListingUncheckedCreateNestedManyWithoutCustomerInput
+  driverPerformanceEntries?: Prisma.DriverPerformanceEntryUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUpdateInput = {
@@ -524,6 +529,7 @@ export type CustomerUpdateInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   invoices?: Prisma.InvoiceUpdateManyWithoutCustomerNestedInput
   contractListings?: Prisma.ContractListingUpdateManyWithoutCustomerNestedInput
+  driverPerformanceEntries?: Prisma.DriverPerformanceEntryUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateInput = {
@@ -549,6 +555,7 @@ export type CustomerUncheckedUpdateInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCustomerNestedInput
   contractListings?: Prisma.ContractListingUncheckedUpdateManyWithoutCustomerNestedInput
+  driverPerformanceEntries?: Prisma.DriverPerformanceEntryUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateManyInput = {
@@ -744,6 +751,20 @@ export type CustomerUpdateOneRequiredWithoutContractListingsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerUpdateToOneWithWhereWithoutContractListingsInput, Prisma.CustomerUpdateWithoutContractListingsInput>, Prisma.CustomerUncheckedUpdateWithoutContractListingsInput>
 }
 
+export type CustomerCreateNestedOneWithoutDriverPerformanceEntriesInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutDriverPerformanceEntriesInput, Prisma.CustomerUncheckedCreateWithoutDriverPerformanceEntriesInput>
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutDriverPerformanceEntriesInput
+  connect?: Prisma.CustomerWhereUniqueInput
+}
+
+export type CustomerUpdateOneRequiredWithoutDriverPerformanceEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutDriverPerformanceEntriesInput, Prisma.CustomerUncheckedCreateWithoutDriverPerformanceEntriesInput>
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutDriverPerformanceEntriesInput
+  upsert?: Prisma.CustomerUpsertWithoutDriverPerformanceEntriesInput
+  connect?: Prisma.CustomerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerUpdateToOneWithWhereWithoutDriverPerformanceEntriesInput, Prisma.CustomerUpdateWithoutDriverPerformanceEntriesInput>, Prisma.CustomerUncheckedUpdateWithoutDriverPerformanceEntriesInput>
+}
+
 export type CustomerCreateWithoutInvoicesInput = {
   id?: string
   customerNumber: string
@@ -766,6 +787,7 @@ export type CustomerCreateWithoutInvoicesInput = {
   updatedAt?: Date | string
   archivedAt?: Date | string | null
   contractListings?: Prisma.ContractListingCreateNestedManyWithoutCustomerInput
+  driverPerformanceEntries?: Prisma.DriverPerformanceEntryCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutInvoicesInput = {
@@ -790,6 +812,7 @@ export type CustomerUncheckedCreateWithoutInvoicesInput = {
   updatedAt?: Date | string
   archivedAt?: Date | string | null
   contractListings?: Prisma.ContractListingUncheckedCreateNestedManyWithoutCustomerInput
+  driverPerformanceEntries?: Prisma.DriverPerformanceEntryUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutInvoicesInput = {
@@ -830,6 +853,7 @@ export type CustomerUpdateWithoutInvoicesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractListings?: Prisma.ContractListingUpdateManyWithoutCustomerNestedInput
+  driverPerformanceEntries?: Prisma.DriverPerformanceEntryUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutInvoicesInput = {
@@ -854,6 +878,7 @@ export type CustomerUncheckedUpdateWithoutInvoicesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractListings?: Prisma.ContractListingUncheckedUpdateManyWithoutCustomerNestedInput
+  driverPerformanceEntries?: Prisma.DriverPerformanceEntryUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutContractListingsInput = {
@@ -878,6 +903,7 @@ export type CustomerCreateWithoutContractListingsInput = {
   updatedAt?: Date | string
   archivedAt?: Date | string | null
   invoices?: Prisma.InvoiceCreateNestedManyWithoutCustomerInput
+  driverPerformanceEntries?: Prisma.DriverPerformanceEntryCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutContractListingsInput = {
@@ -902,6 +928,7 @@ export type CustomerUncheckedCreateWithoutContractListingsInput = {
   updatedAt?: Date | string
   archivedAt?: Date | string | null
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCustomerInput
+  driverPerformanceEntries?: Prisma.DriverPerformanceEntryUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutContractListingsInput = {
@@ -942,6 +969,7 @@ export type CustomerUpdateWithoutContractListingsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   invoices?: Prisma.InvoiceUpdateManyWithoutCustomerNestedInput
+  driverPerformanceEntries?: Prisma.DriverPerformanceEntryUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutContractListingsInput = {
@@ -966,6 +994,123 @@ export type CustomerUncheckedUpdateWithoutContractListingsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCustomerNestedInput
+  driverPerformanceEntries?: Prisma.DriverPerformanceEntryUncheckedUpdateManyWithoutCustomerNestedInput
+}
+
+export type CustomerCreateWithoutDriverPerformanceEntriesInput = {
+  id?: string
+  customerNumber: string
+  companyName: string
+  status?: $Enums.CustomerStatus
+  contactFirstName: string
+  contactLastName: string
+  email: string
+  phone?: string | null
+  billingEmail?: string | null
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  postcode?: string | null
+  country?: string
+  creditLimit?: number | null
+  paymentTermsDays?: number
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  archivedAt?: Date | string | null
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutCustomerInput
+  contractListings?: Prisma.ContractListingCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerUncheckedCreateWithoutDriverPerformanceEntriesInput = {
+  id?: string
+  customerNumber: string
+  companyName: string
+  status?: $Enums.CustomerStatus
+  contactFirstName: string
+  contactLastName: string
+  email: string
+  phone?: string | null
+  billingEmail?: string | null
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  postcode?: string | null
+  country?: string
+  creditLimit?: number | null
+  paymentTermsDays?: number
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  archivedAt?: Date | string | null
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCustomerInput
+  contractListings?: Prisma.ContractListingUncheckedCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerCreateOrConnectWithoutDriverPerformanceEntriesInput = {
+  where: Prisma.CustomerWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerCreateWithoutDriverPerformanceEntriesInput, Prisma.CustomerUncheckedCreateWithoutDriverPerformanceEntriesInput>
+}
+
+export type CustomerUpsertWithoutDriverPerformanceEntriesInput = {
+  update: Prisma.XOR<Prisma.CustomerUpdateWithoutDriverPerformanceEntriesInput, Prisma.CustomerUncheckedUpdateWithoutDriverPerformanceEntriesInput>
+  create: Prisma.XOR<Prisma.CustomerCreateWithoutDriverPerformanceEntriesInput, Prisma.CustomerUncheckedCreateWithoutDriverPerformanceEntriesInput>
+  where?: Prisma.CustomerWhereInput
+}
+
+export type CustomerUpdateToOneWithWhereWithoutDriverPerformanceEntriesInput = {
+  where?: Prisma.CustomerWhereInput
+  data: Prisma.XOR<Prisma.CustomerUpdateWithoutDriverPerformanceEntriesInput, Prisma.CustomerUncheckedUpdateWithoutDriverPerformanceEntriesInput>
+}
+
+export type CustomerUpdateWithoutDriverPerformanceEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  customerNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  companyName?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+  contactFirstName?: Prisma.StringFieldUpdateOperationsInput | string
+  contactLastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  creditLimit?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  invoices?: Prisma.InvoiceUpdateManyWithoutCustomerNestedInput
+  contractListings?: Prisma.ContractListingUpdateManyWithoutCustomerNestedInput
+}
+
+export type CustomerUncheckedUpdateWithoutDriverPerformanceEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  customerNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  companyName?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+  contactFirstName?: Prisma.StringFieldUpdateOperationsInput | string
+  contactLastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  creditLimit?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCustomerNestedInput
+  contractListings?: Prisma.ContractListingUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 
@@ -976,11 +1121,13 @@ export type CustomerUncheckedUpdateWithoutContractListingsInput = {
 export type CustomerCountOutputType = {
   invoices: number
   contractListings: number
+  driverPerformanceEntries: number
 }
 
 export type CustomerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   invoices?: boolean | CustomerCountOutputTypeCountInvoicesArgs
   contractListings?: boolean | CustomerCountOutputTypeCountContractListingsArgs
+  driverPerformanceEntries?: boolean | CustomerCountOutputTypeCountDriverPerformanceEntriesArgs
 }
 
 /**
@@ -1007,6 +1154,13 @@ export type CustomerCountOutputTypeCountContractListingsArgs<ExtArgs extends run
   where?: Prisma.ContractListingWhereInput
 }
 
+/**
+ * CustomerCountOutputType without action
+ */
+export type CustomerCountOutputTypeCountDriverPerformanceEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DriverPerformanceEntryWhereInput
+}
+
 
 export type CustomerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1031,6 +1185,7 @@ export type CustomerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   archivedAt?: boolean
   invoices?: boolean | Prisma.Customer$invoicesArgs<ExtArgs>
   contractListings?: boolean | Prisma.Customer$contractListingsArgs<ExtArgs>
+  driverPerformanceEntries?: boolean | Prisma.Customer$driverPerformanceEntriesArgs<ExtArgs>
   _count?: boolean | Prisma.CustomerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["customer"]>
 
@@ -1107,6 +1262,7 @@ export type CustomerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 export type CustomerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   invoices?: boolean | Prisma.Customer$invoicesArgs<ExtArgs>
   contractListings?: boolean | Prisma.Customer$contractListingsArgs<ExtArgs>
+  driverPerformanceEntries?: boolean | Prisma.Customer$driverPerformanceEntriesArgs<ExtArgs>
   _count?: boolean | Prisma.CustomerCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CustomerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1117,6 +1273,7 @@ export type $CustomerPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   objects: {
     invoices: Prisma.$InvoicePayload<ExtArgs>[]
     contractListings: Prisma.$ContractListingPayload<ExtArgs>[]
+    driverPerformanceEntries: Prisma.$DriverPerformanceEntryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1535,6 +1692,7 @@ export interface Prisma__CustomerClient<T, Null = never, ExtArgs extends runtime
   readonly [Symbol.toStringTag]: "PrismaPromise"
   invoices<T extends Prisma.Customer$invoicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   contractListings<T extends Prisma.Customer$contractListingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$contractListingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContractListingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  driverPerformanceEntries<T extends Prisma.Customer$driverPerformanceEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$driverPerformanceEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DriverPerformanceEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2022,6 +2180,30 @@ export type Customer$contractListingsArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.ContractListingScalarFieldEnum | Prisma.ContractListingScalarFieldEnum[]
+}
+
+/**
+ * Customer.driverPerformanceEntries
+ */
+export type Customer$driverPerformanceEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DriverPerformanceEntry
+   */
+  select?: Prisma.DriverPerformanceEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DriverPerformanceEntry
+   */
+  omit?: Prisma.DriverPerformanceEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DriverPerformanceEntryInclude<ExtArgs> | null
+  where?: Prisma.DriverPerformanceEntryWhereInput
+  orderBy?: Prisma.DriverPerformanceEntryOrderByWithRelationInput | Prisma.DriverPerformanceEntryOrderByWithRelationInput[]
+  cursor?: Prisma.DriverPerformanceEntryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DriverPerformanceEntryScalarFieldEnum | Prisma.DriverPerformanceEntryScalarFieldEnum[]
 }
 
 /**

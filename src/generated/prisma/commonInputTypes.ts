@@ -55,6 +55,13 @@ export type DateTimeNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
 }
 
+export type BytesNullableFilter<$PrismaModel = never> = {
+  equals?: runtime.Bytes | Prisma.BytesFieldRefInput<$PrismaModel> | null
+  in?: runtime.Bytes[] | Prisma.ListBytesFieldRefInput<$PrismaModel> | null
+  notIn?: runtime.Bytes[] | Prisma.ListBytesFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedBytesNullableFilter<$PrismaModel> | runtime.Bytes | null
+}
+
 export type EnumUserRoleFilter<$PrismaModel = never> = {
   equals?: $Enums.UserRole | Prisma.EnumUserRoleFieldRefInput<$PrismaModel>
   in?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel>
@@ -131,6 +138,16 @@ export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
   _max?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
+}
+
+export type BytesNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: runtime.Bytes | Prisma.BytesFieldRefInput<$PrismaModel> | null
+  in?: runtime.Bytes[] | Prisma.ListBytesFieldRefInput<$PrismaModel> | null
+  notIn?: runtime.Bytes[] | Prisma.ListBytesFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedBytesNullableWithAggregatesFilter<$PrismaModel> | runtime.Bytes | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedBytesNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedBytesNullableFilter<$PrismaModel>
 }
 
 export type EnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -703,6 +720,13 @@ export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
 }
 
+export type NestedBytesNullableFilter<$PrismaModel = never> = {
+  equals?: runtime.Bytes | Prisma.BytesFieldRefInput<$PrismaModel> | null
+  in?: runtime.Bytes[] | Prisma.ListBytesFieldRefInput<$PrismaModel> | null
+  notIn?: runtime.Bytes[] | Prisma.ListBytesFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedBytesNullableFilter<$PrismaModel> | runtime.Bytes | null
+}
+
 export type NestedEnumUserRoleFilter<$PrismaModel = never> = {
   equals?: $Enums.UserRole | Prisma.EnumUserRoleFieldRefInput<$PrismaModel>
   in?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel>
@@ -794,6 +818,16 @@ export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
   _max?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
+}
+
+export type NestedBytesNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: runtime.Bytes | Prisma.BytesFieldRefInput<$PrismaModel> | null
+  in?: runtime.Bytes[] | Prisma.ListBytesFieldRefInput<$PrismaModel> | null
+  notIn?: runtime.Bytes[] | Prisma.ListBytesFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedBytesNullableWithAggregatesFilter<$PrismaModel> | runtime.Bytes | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedBytesNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedBytesNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {

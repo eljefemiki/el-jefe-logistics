@@ -326,6 +326,7 @@ export type DriverWhereInput = {
   archivedAt?: Prisma.DateTimeNullableFilter<"Driver"> | Date | string | null
   account?: Prisma.XOR<Prisma.AccountScalarRelationFilter, Prisma.AccountWhereInput>
   contractBids?: Prisma.ContractBidListRelationFilter
+  performanceEntries?: Prisma.DriverPerformanceEntryListRelationFilter
   trucks?: Prisma.TruckListRelationFilter
 }
 
@@ -349,6 +350,7 @@ export type DriverOrderByWithRelationInput = {
   archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   account?: Prisma.AccountOrderByWithRelationInput
   contractBids?: Prisma.ContractBidOrderByRelationAggregateInput
+  performanceEntries?: Prisma.DriverPerformanceEntryOrderByRelationAggregateInput
   trucks?: Prisma.TruckOrderByRelationAggregateInput
 }
 
@@ -375,6 +377,7 @@ export type DriverWhereUniqueInput = Prisma.AtLeast<{
   archivedAt?: Prisma.DateTimeNullableFilter<"Driver"> | Date | string | null
   account?: Prisma.XOR<Prisma.AccountScalarRelationFilter, Prisma.AccountWhereInput>
   contractBids?: Prisma.ContractBidListRelationFilter
+  performanceEntries?: Prisma.DriverPerformanceEntryListRelationFilter
   trucks?: Prisma.TruckListRelationFilter
 }, "id" | "accountId" | "employeeNumber">
 
@@ -445,6 +448,7 @@ export type DriverCreateInput = {
   archivedAt?: Date | string | null
   account: Prisma.AccountCreateNestedOneWithoutDriverInput
   contractBids?: Prisma.ContractBidCreateNestedManyWithoutDriverInput
+  performanceEntries?: Prisma.DriverPerformanceEntryCreateNestedManyWithoutDriverInput
   trucks?: Prisma.TruckCreateNestedManyWithoutDriverInput
 }
 
@@ -467,6 +471,7 @@ export type DriverUncheckedCreateInput = {
   updatedAt?: Date | string
   archivedAt?: Date | string | null
   contractBids?: Prisma.ContractBidUncheckedCreateNestedManyWithoutDriverInput
+  performanceEntries?: Prisma.DriverPerformanceEntryUncheckedCreateNestedManyWithoutDriverInput
   trucks?: Prisma.TruckUncheckedCreateNestedManyWithoutDriverInput
 }
 
@@ -489,6 +494,7 @@ export type DriverUpdateInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   account?: Prisma.AccountUpdateOneRequiredWithoutDriverNestedInput
   contractBids?: Prisma.ContractBidUpdateManyWithoutDriverNestedInput
+  performanceEntries?: Prisma.DriverPerformanceEntryUpdateManyWithoutDriverNestedInput
   trucks?: Prisma.TruckUpdateManyWithoutDriverNestedInput
 }
 
@@ -511,6 +517,7 @@ export type DriverUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractBids?: Prisma.ContractBidUncheckedUpdateManyWithoutDriverNestedInput
+  performanceEntries?: Prisma.DriverPerformanceEntryUncheckedUpdateManyWithoutDriverNestedInput
   trucks?: Prisma.TruckUncheckedUpdateManyWithoutDriverNestedInput
 }
 
@@ -652,6 +659,11 @@ export type DriverSumOrderByAggregateInput = {
   totalConvoys?: Prisma.SortOrder
 }
 
+export type DriverScalarRelationFilter = {
+  is?: Prisma.DriverWhereInput
+  isNot?: Prisma.DriverWhereInput
+}
+
 export type DriverCreateNestedOneWithoutAccountInput = {
   create?: Prisma.XOR<Prisma.DriverCreateWithoutAccountInput, Prisma.DriverUncheckedCreateWithoutAccountInput>
   connectOrCreate?: Prisma.DriverCreateOrConnectWithoutAccountInput
@@ -712,6 +724,20 @@ export type NullableEnumEts2TrailerTypeFieldUpdateOperationsInput = {
   set?: $Enums.Ets2TrailerType | null
 }
 
+export type DriverCreateNestedOneWithoutPerformanceEntriesInput = {
+  create?: Prisma.XOR<Prisma.DriverCreateWithoutPerformanceEntriesInput, Prisma.DriverUncheckedCreateWithoutPerformanceEntriesInput>
+  connectOrCreate?: Prisma.DriverCreateOrConnectWithoutPerformanceEntriesInput
+  connect?: Prisma.DriverWhereUniqueInput
+}
+
+export type DriverUpdateOneRequiredWithoutPerformanceEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.DriverCreateWithoutPerformanceEntriesInput, Prisma.DriverUncheckedCreateWithoutPerformanceEntriesInput>
+  connectOrCreate?: Prisma.DriverCreateOrConnectWithoutPerformanceEntriesInput
+  upsert?: Prisma.DriverUpsertWithoutPerformanceEntriesInput
+  connect?: Prisma.DriverWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DriverUpdateToOneWithWhereWithoutPerformanceEntriesInput, Prisma.DriverUpdateWithoutPerformanceEntriesInput>, Prisma.DriverUncheckedUpdateWithoutPerformanceEntriesInput>
+}
+
 export type DriverCreateNestedOneWithoutContractBidsInput = {
   create?: Prisma.XOR<Prisma.DriverCreateWithoutContractBidsInput, Prisma.DriverUncheckedCreateWithoutContractBidsInput>
   connectOrCreate?: Prisma.DriverCreateOrConnectWithoutContractBidsInput
@@ -762,6 +788,7 @@ export type DriverCreateWithoutAccountInput = {
   updatedAt?: Date | string
   archivedAt?: Date | string | null
   contractBids?: Prisma.ContractBidCreateNestedManyWithoutDriverInput
+  performanceEntries?: Prisma.DriverPerformanceEntryCreateNestedManyWithoutDriverInput
   trucks?: Prisma.TruckCreateNestedManyWithoutDriverInput
 }
 
@@ -783,6 +810,7 @@ export type DriverUncheckedCreateWithoutAccountInput = {
   updatedAt?: Date | string
   archivedAt?: Date | string | null
   contractBids?: Prisma.ContractBidUncheckedCreateNestedManyWithoutDriverInput
+  performanceEntries?: Prisma.DriverPerformanceEntryUncheckedCreateNestedManyWithoutDriverInput
   trucks?: Prisma.TruckUncheckedCreateNestedManyWithoutDriverInput
 }
 
@@ -820,11 +848,117 @@ export type DriverUpdateWithoutAccountInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractBids?: Prisma.ContractBidUpdateManyWithoutDriverNestedInput
+  performanceEntries?: Prisma.DriverPerformanceEntryUpdateManyWithoutDriverNestedInput
   trucks?: Prisma.TruckUpdateManyWithoutDriverNestedInput
 }
 
 export type DriverUncheckedUpdateWithoutAccountInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  employeeNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  callsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rank?: Prisma.EnumDriverRankFieldUpdateOperationsInput | $Enums.DriverRank
+  status?: Prisma.EnumDriverStatusFieldUpdateOperationsInput | $Enums.DriverStatus
+  reputation?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalDistanceKm?: Prisma.IntFieldUpdateOperationsInput | number
+  totalDeliveries?: Prisma.IntFieldUpdateOperationsInput | number
+  totalConvoys?: Prisma.IntFieldUpdateOperationsInput | number
+  favouriteTruck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assignedTrailer?: Prisma.NullableEnumEts2TrailerTypeFieldUpdateOperationsInput | $Enums.Ets2TrailerType | null
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  contractBids?: Prisma.ContractBidUncheckedUpdateManyWithoutDriverNestedInput
+  performanceEntries?: Prisma.DriverPerformanceEntryUncheckedUpdateManyWithoutDriverNestedInput
+  trucks?: Prisma.TruckUncheckedUpdateManyWithoutDriverNestedInput
+}
+
+export type DriverCreateWithoutPerformanceEntriesInput = {
+  id?: string
+  employeeNumber: string
+  callsign?: string | null
+  rank?: $Enums.DriverRank
+  status?: $Enums.DriverStatus
+  reputation?: number
+  totalDistanceKm?: number
+  totalDeliveries?: number
+  totalConvoys?: number
+  favouriteTruck?: string | null
+  assignedTrailer?: $Enums.Ets2TrailerType | null
+  joinedAt?: Date | string
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  archivedAt?: Date | string | null
+  account: Prisma.AccountCreateNestedOneWithoutDriverInput
+  contractBids?: Prisma.ContractBidCreateNestedManyWithoutDriverInput
+  trucks?: Prisma.TruckCreateNestedManyWithoutDriverInput
+}
+
+export type DriverUncheckedCreateWithoutPerformanceEntriesInput = {
+  id?: string
+  accountId: string
+  employeeNumber: string
+  callsign?: string | null
+  rank?: $Enums.DriverRank
+  status?: $Enums.DriverStatus
+  reputation?: number
+  totalDistanceKm?: number
+  totalDeliveries?: number
+  totalConvoys?: number
+  favouriteTruck?: string | null
+  assignedTrailer?: $Enums.Ets2TrailerType | null
+  joinedAt?: Date | string
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  archivedAt?: Date | string | null
+  contractBids?: Prisma.ContractBidUncheckedCreateNestedManyWithoutDriverInput
+  trucks?: Prisma.TruckUncheckedCreateNestedManyWithoutDriverInput
+}
+
+export type DriverCreateOrConnectWithoutPerformanceEntriesInput = {
+  where: Prisma.DriverWhereUniqueInput
+  create: Prisma.XOR<Prisma.DriverCreateWithoutPerformanceEntriesInput, Prisma.DriverUncheckedCreateWithoutPerformanceEntriesInput>
+}
+
+export type DriverUpsertWithoutPerformanceEntriesInput = {
+  update: Prisma.XOR<Prisma.DriverUpdateWithoutPerformanceEntriesInput, Prisma.DriverUncheckedUpdateWithoutPerformanceEntriesInput>
+  create: Prisma.XOR<Prisma.DriverCreateWithoutPerformanceEntriesInput, Prisma.DriverUncheckedCreateWithoutPerformanceEntriesInput>
+  where?: Prisma.DriverWhereInput
+}
+
+export type DriverUpdateToOneWithWhereWithoutPerformanceEntriesInput = {
+  where?: Prisma.DriverWhereInput
+  data: Prisma.XOR<Prisma.DriverUpdateWithoutPerformanceEntriesInput, Prisma.DriverUncheckedUpdateWithoutPerformanceEntriesInput>
+}
+
+export type DriverUpdateWithoutPerformanceEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  employeeNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  callsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rank?: Prisma.EnumDriverRankFieldUpdateOperationsInput | $Enums.DriverRank
+  status?: Prisma.EnumDriverStatusFieldUpdateOperationsInput | $Enums.DriverStatus
+  reputation?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalDistanceKm?: Prisma.IntFieldUpdateOperationsInput | number
+  totalDeliveries?: Prisma.IntFieldUpdateOperationsInput | number
+  totalConvoys?: Prisma.IntFieldUpdateOperationsInput | number
+  favouriteTruck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assignedTrailer?: Prisma.NullableEnumEts2TrailerTypeFieldUpdateOperationsInput | $Enums.Ets2TrailerType | null
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  account?: Prisma.AccountUpdateOneRequiredWithoutDriverNestedInput
+  contractBids?: Prisma.ContractBidUpdateManyWithoutDriverNestedInput
+  trucks?: Prisma.TruckUpdateManyWithoutDriverNestedInput
+}
+
+export type DriverUncheckedUpdateWithoutPerformanceEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  accountId?: Prisma.StringFieldUpdateOperationsInput | string
   employeeNumber?: Prisma.StringFieldUpdateOperationsInput | string
   callsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rank?: Prisma.EnumDriverRankFieldUpdateOperationsInput | $Enums.DriverRank
@@ -862,6 +996,7 @@ export type DriverCreateWithoutContractBidsInput = {
   updatedAt?: Date | string
   archivedAt?: Date | string | null
   account: Prisma.AccountCreateNestedOneWithoutDriverInput
+  performanceEntries?: Prisma.DriverPerformanceEntryCreateNestedManyWithoutDriverInput
   trucks?: Prisma.TruckCreateNestedManyWithoutDriverInput
 }
 
@@ -883,6 +1018,7 @@ export type DriverUncheckedCreateWithoutContractBidsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   archivedAt?: Date | string | null
+  performanceEntries?: Prisma.DriverPerformanceEntryUncheckedCreateNestedManyWithoutDriverInput
   trucks?: Prisma.TruckUncheckedCreateNestedManyWithoutDriverInput
 }
 
@@ -920,6 +1056,7 @@ export type DriverUpdateWithoutContractBidsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   account?: Prisma.AccountUpdateOneRequiredWithoutDriverNestedInput
+  performanceEntries?: Prisma.DriverPerformanceEntryUpdateManyWithoutDriverNestedInput
   trucks?: Prisma.TruckUpdateManyWithoutDriverNestedInput
 }
 
@@ -941,6 +1078,7 @@ export type DriverUncheckedUpdateWithoutContractBidsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  performanceEntries?: Prisma.DriverPerformanceEntryUncheckedUpdateManyWithoutDriverNestedInput
   trucks?: Prisma.TruckUncheckedUpdateManyWithoutDriverNestedInput
 }
 
@@ -963,6 +1101,7 @@ export type DriverCreateWithoutTrucksInput = {
   archivedAt?: Date | string | null
   account: Prisma.AccountCreateNestedOneWithoutDriverInput
   contractBids?: Prisma.ContractBidCreateNestedManyWithoutDriverInput
+  performanceEntries?: Prisma.DriverPerformanceEntryCreateNestedManyWithoutDriverInput
 }
 
 export type DriverUncheckedCreateWithoutTrucksInput = {
@@ -984,6 +1123,7 @@ export type DriverUncheckedCreateWithoutTrucksInput = {
   updatedAt?: Date | string
   archivedAt?: Date | string | null
   contractBids?: Prisma.ContractBidUncheckedCreateNestedManyWithoutDriverInput
+  performanceEntries?: Prisma.DriverPerformanceEntryUncheckedCreateNestedManyWithoutDriverInput
 }
 
 export type DriverCreateOrConnectWithoutTrucksInput = {
@@ -1021,6 +1161,7 @@ export type DriverUpdateWithoutTrucksInput = {
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   account?: Prisma.AccountUpdateOneRequiredWithoutDriverNestedInput
   contractBids?: Prisma.ContractBidUpdateManyWithoutDriverNestedInput
+  performanceEntries?: Prisma.DriverPerformanceEntryUpdateManyWithoutDriverNestedInput
 }
 
 export type DriverUncheckedUpdateWithoutTrucksInput = {
@@ -1042,6 +1183,7 @@ export type DriverUncheckedUpdateWithoutTrucksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractBids?: Prisma.ContractBidUncheckedUpdateManyWithoutDriverNestedInput
+  performanceEntries?: Prisma.DriverPerformanceEntryUncheckedUpdateManyWithoutDriverNestedInput
 }
 
 
@@ -1051,11 +1193,13 @@ export type DriverUncheckedUpdateWithoutTrucksInput = {
 
 export type DriverCountOutputType = {
   contractBids: number
+  performanceEntries: number
   trucks: number
 }
 
 export type DriverCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   contractBids?: boolean | DriverCountOutputTypeCountContractBidsArgs
+  performanceEntries?: boolean | DriverCountOutputTypeCountPerformanceEntriesArgs
   trucks?: boolean | DriverCountOutputTypeCountTrucksArgs
 }
 
@@ -1074,6 +1218,13 @@ export type DriverCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exten
  */
 export type DriverCountOutputTypeCountContractBidsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ContractBidWhereInput
+}
+
+/**
+ * DriverCountOutputType without action
+ */
+export type DriverCountOutputTypeCountPerformanceEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DriverPerformanceEntryWhereInput
 }
 
 /**
@@ -1104,6 +1255,7 @@ export type DriverSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   archivedAt?: boolean
   account?: boolean | Prisma.AccountDefaultArgs<ExtArgs>
   contractBids?: boolean | Prisma.Driver$contractBidsArgs<ExtArgs>
+  performanceEntries?: boolean | Prisma.Driver$performanceEntriesArgs<ExtArgs>
   trucks?: boolean | Prisma.Driver$trucksArgs<ExtArgs>
   _count?: boolean | Prisma.DriverCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["driver"]>
@@ -1174,6 +1326,7 @@ export type DriverOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 export type DriverInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   account?: boolean | Prisma.AccountDefaultArgs<ExtArgs>
   contractBids?: boolean | Prisma.Driver$contractBidsArgs<ExtArgs>
+  performanceEntries?: boolean | Prisma.Driver$performanceEntriesArgs<ExtArgs>
   trucks?: boolean | Prisma.Driver$trucksArgs<ExtArgs>
   _count?: boolean | Prisma.DriverCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1189,6 +1342,7 @@ export type $DriverPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   objects: {
     account: Prisma.$AccountPayload<ExtArgs>
     contractBids: Prisma.$ContractBidPayload<ExtArgs>[]
+    performanceEntries: Prisma.$DriverPerformanceEntryPayload<ExtArgs>[]
     trucks: Prisma.$TruckPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1605,6 +1759,7 @@ export interface Prisma__DriverClient<T, Null = never, ExtArgs extends runtime.T
   readonly [Symbol.toStringTag]: "PrismaPromise"
   account<T extends Prisma.AccountDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AccountDefaultArgs<ExtArgs>>): Prisma.Prisma__AccountClient<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   contractBids<T extends Prisma.Driver$contractBidsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Driver$contractBidsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContractBidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  performanceEntries<T extends Prisma.Driver$performanceEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Driver$performanceEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DriverPerformanceEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   trucks<T extends Prisma.Driver$trucksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Driver$trucksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TruckPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2074,6 +2229,30 @@ export type Driver$contractBidsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.ContractBidScalarFieldEnum | Prisma.ContractBidScalarFieldEnum[]
+}
+
+/**
+ * Driver.performanceEntries
+ */
+export type Driver$performanceEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DriverPerformanceEntry
+   */
+  select?: Prisma.DriverPerformanceEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DriverPerformanceEntry
+   */
+  omit?: Prisma.DriverPerformanceEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DriverPerformanceEntryInclude<ExtArgs> | null
+  where?: Prisma.DriverPerformanceEntryWhereInput
+  orderBy?: Prisma.DriverPerformanceEntryOrderByWithRelationInput | Prisma.DriverPerformanceEntryOrderByWithRelationInput[]
+  cursor?: Prisma.DriverPerformanceEntryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DriverPerformanceEntryScalarFieldEnum | Prisma.DriverPerformanceEntryScalarFieldEnum[]
 }
 
 /**

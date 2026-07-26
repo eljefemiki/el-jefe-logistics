@@ -376,6 +376,7 @@ export type ContractListingWhereInput = {
   createdBy?: Prisma.XOR<Prisma.AccountScalarRelationFilter, Prisma.AccountWhereInput>
   bids?: Prisma.ContractBidListRelationFilter
   awardedBid?: Prisma.XOR<Prisma.ContractBidNullableScalarRelationFilter, Prisma.ContractBidWhereInput> | null
+  performanceEntry?: Prisma.XOR<Prisma.DriverPerformanceEntryNullableScalarRelationFilter, Prisma.DriverPerformanceEntryWhereInput> | null
 }
 
 export type ContractListingOrderByWithRelationInput = {
@@ -407,6 +408,7 @@ export type ContractListingOrderByWithRelationInput = {
   createdBy?: Prisma.AccountOrderByWithRelationInput
   bids?: Prisma.ContractBidOrderByRelationAggregateInput
   awardedBid?: Prisma.ContractBidOrderByWithRelationInput
+  performanceEntry?: Prisma.DriverPerformanceEntryOrderByWithRelationInput
 }
 
 export type ContractListingWhereUniqueInput = Prisma.AtLeast<{
@@ -441,6 +443,7 @@ export type ContractListingWhereUniqueInput = Prisma.AtLeast<{
   createdBy?: Prisma.XOR<Prisma.AccountScalarRelationFilter, Prisma.AccountWhereInput>
   bids?: Prisma.ContractBidListRelationFilter
   awardedBid?: Prisma.XOR<Prisma.ContractBidNullableScalarRelationFilter, Prisma.ContractBidWhereInput> | null
+  performanceEntry?: Prisma.XOR<Prisma.DriverPerformanceEntryNullableScalarRelationFilter, Prisma.DriverPerformanceEntryWhereInput> | null
 }, "id" | "reference" | "awardedBidId">
 
 export type ContractListingOrderByWithAggregationInput = {
@@ -531,6 +534,7 @@ export type ContractListingCreateInput = {
   createdBy: Prisma.AccountCreateNestedOneWithoutContractListingsInput
   bids?: Prisma.ContractBidCreateNestedManyWithoutListingInput
   awardedBid?: Prisma.ContractBidCreateNestedOneWithoutAwardedForInput
+  performanceEntry?: Prisma.DriverPerformanceEntryCreateNestedOneWithoutContractListingInput
 }
 
 export type ContractListingUncheckedCreateInput = {
@@ -559,6 +563,7 @@ export type ContractListingUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   bids?: Prisma.ContractBidUncheckedCreateNestedManyWithoutListingInput
+  performanceEntry?: Prisma.DriverPerformanceEntryUncheckedCreateNestedOneWithoutContractListingInput
 }
 
 export type ContractListingUpdateInput = {
@@ -587,6 +592,7 @@ export type ContractListingUpdateInput = {
   createdBy?: Prisma.AccountUpdateOneRequiredWithoutContractListingsNestedInput
   bids?: Prisma.ContractBidUpdateManyWithoutListingNestedInput
   awardedBid?: Prisma.ContractBidUpdateOneWithoutAwardedForNestedInput
+  performanceEntry?: Prisma.DriverPerformanceEntryUpdateOneWithoutContractListingNestedInput
 }
 
 export type ContractListingUncheckedUpdateInput = {
@@ -615,6 +621,7 @@ export type ContractListingUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bids?: Prisma.ContractBidUncheckedUpdateManyWithoutListingNestedInput
+  performanceEntry?: Prisma.DriverPerformanceEntryUncheckedUpdateOneWithoutContractListingNestedInput
 }
 
 export type ContractListingCreateManyInput = {
@@ -796,14 +803,14 @@ export type ContractListingSumOrderByAggregateInput = {
   budget?: Prisma.SortOrder
 }
 
-export type ContractListingScalarRelationFilter = {
-  is?: Prisma.ContractListingWhereInput
-  isNot?: Prisma.ContractListingWhereInput
-}
-
 export type ContractListingNullableScalarRelationFilter = {
   is?: Prisma.ContractListingWhereInput | null
   isNot?: Prisma.ContractListingWhereInput | null
+}
+
+export type ContractListingScalarRelationFilter = {
+  is?: Prisma.ContractListingWhereInput
+  isNot?: Prisma.ContractListingWhereInput
 }
 
 export type ContractListingCreateNestedManyWithoutCreatedByInput = {
@@ -902,6 +909,22 @@ export type EnumContractListingStatusFieldUpdateOperationsInput = {
   set?: $Enums.ContractListingStatus
 }
 
+export type ContractListingCreateNestedOneWithoutPerformanceEntryInput = {
+  create?: Prisma.XOR<Prisma.ContractListingCreateWithoutPerformanceEntryInput, Prisma.ContractListingUncheckedCreateWithoutPerformanceEntryInput>
+  connectOrCreate?: Prisma.ContractListingCreateOrConnectWithoutPerformanceEntryInput
+  connect?: Prisma.ContractListingWhereUniqueInput
+}
+
+export type ContractListingUpdateOneWithoutPerformanceEntryNestedInput = {
+  create?: Prisma.XOR<Prisma.ContractListingCreateWithoutPerformanceEntryInput, Prisma.ContractListingUncheckedCreateWithoutPerformanceEntryInput>
+  connectOrCreate?: Prisma.ContractListingCreateOrConnectWithoutPerformanceEntryInput
+  upsert?: Prisma.ContractListingUpsertWithoutPerformanceEntryInput
+  disconnect?: Prisma.ContractListingWhereInput | boolean
+  delete?: Prisma.ContractListingWhereInput | boolean
+  connect?: Prisma.ContractListingWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ContractListingUpdateToOneWithWhereWithoutPerformanceEntryInput, Prisma.ContractListingUpdateWithoutPerformanceEntryInput>, Prisma.ContractListingUncheckedUpdateWithoutPerformanceEntryInput>
+}
+
 export type ContractListingCreateNestedOneWithoutBidsInput = {
   create?: Prisma.XOR<Prisma.ContractListingCreateWithoutBidsInput, Prisma.ContractListingUncheckedCreateWithoutBidsInput>
   connectOrCreate?: Prisma.ContractListingCreateOrConnectWithoutBidsInput
@@ -973,6 +996,7 @@ export type ContractListingCreateWithoutCreatedByInput = {
   customer: Prisma.CustomerCreateNestedOneWithoutContractListingsInput
   bids?: Prisma.ContractBidCreateNestedManyWithoutListingInput
   awardedBid?: Prisma.ContractBidCreateNestedOneWithoutAwardedForInput
+  performanceEntry?: Prisma.DriverPerformanceEntryCreateNestedOneWithoutContractListingInput
 }
 
 export type ContractListingUncheckedCreateWithoutCreatedByInput = {
@@ -1000,6 +1024,7 @@ export type ContractListingUncheckedCreateWithoutCreatedByInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   bids?: Prisma.ContractBidUncheckedCreateNestedManyWithoutListingInput
+  performanceEntry?: Prisma.DriverPerformanceEntryUncheckedCreateNestedOneWithoutContractListingInput
 }
 
 export type ContractListingCreateOrConnectWithoutCreatedByInput = {
@@ -1083,6 +1108,7 @@ export type ContractListingCreateWithoutCustomerInput = {
   createdBy: Prisma.AccountCreateNestedOneWithoutContractListingsInput
   bids?: Prisma.ContractBidCreateNestedManyWithoutListingInput
   awardedBid?: Prisma.ContractBidCreateNestedOneWithoutAwardedForInput
+  performanceEntry?: Prisma.DriverPerformanceEntryCreateNestedOneWithoutContractListingInput
 }
 
 export type ContractListingUncheckedCreateWithoutCustomerInput = {
@@ -1110,6 +1136,7 @@ export type ContractListingUncheckedCreateWithoutCustomerInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   bids?: Prisma.ContractBidUncheckedCreateNestedManyWithoutListingInput
+  performanceEntry?: Prisma.DriverPerformanceEntryUncheckedCreateNestedOneWithoutContractListingInput
 }
 
 export type ContractListingCreateOrConnectWithoutCustomerInput = {
@@ -1138,6 +1165,134 @@ export type ContractListingUpdateManyWithWhereWithoutCustomerInput = {
   data: Prisma.XOR<Prisma.ContractListingUpdateManyMutationInput, Prisma.ContractListingUncheckedUpdateManyWithoutCustomerInput>
 }
 
+export type ContractListingCreateWithoutPerformanceEntryInput = {
+  id?: string
+  reference: string
+  title: string
+  description: string
+  origin: string
+  destination: string
+  cargoType: string
+  cargoCategory?: $Enums.CargoCategory
+  requiredTrailer?: $Enums.Ets2TrailerType
+  weightKg?: number | null
+  pickupDate: Date | string
+  deliveryDate: Date | string
+  budget: number
+  currency?: string
+  contractTerms: string
+  status?: $Enums.ContractListingStatus
+  publishedAt?: Date | string | null
+  awardedAt?: Date | string | null
+  closedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  customer: Prisma.CustomerCreateNestedOneWithoutContractListingsInput
+  createdBy: Prisma.AccountCreateNestedOneWithoutContractListingsInput
+  bids?: Prisma.ContractBidCreateNestedManyWithoutListingInput
+  awardedBid?: Prisma.ContractBidCreateNestedOneWithoutAwardedForInput
+}
+
+export type ContractListingUncheckedCreateWithoutPerformanceEntryInput = {
+  id?: string
+  reference: string
+  customerId: string
+  createdById: string
+  title: string
+  description: string
+  origin: string
+  destination: string
+  cargoType: string
+  cargoCategory?: $Enums.CargoCategory
+  requiredTrailer?: $Enums.Ets2TrailerType
+  weightKg?: number | null
+  pickupDate: Date | string
+  deliveryDate: Date | string
+  budget: number
+  currency?: string
+  contractTerms: string
+  status?: $Enums.ContractListingStatus
+  awardedBidId?: string | null
+  publishedAt?: Date | string | null
+  awardedAt?: Date | string | null
+  closedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  bids?: Prisma.ContractBidUncheckedCreateNestedManyWithoutListingInput
+}
+
+export type ContractListingCreateOrConnectWithoutPerformanceEntryInput = {
+  where: Prisma.ContractListingWhereUniqueInput
+  create: Prisma.XOR<Prisma.ContractListingCreateWithoutPerformanceEntryInput, Prisma.ContractListingUncheckedCreateWithoutPerformanceEntryInput>
+}
+
+export type ContractListingUpsertWithoutPerformanceEntryInput = {
+  update: Prisma.XOR<Prisma.ContractListingUpdateWithoutPerformanceEntryInput, Prisma.ContractListingUncheckedUpdateWithoutPerformanceEntryInput>
+  create: Prisma.XOR<Prisma.ContractListingCreateWithoutPerformanceEntryInput, Prisma.ContractListingUncheckedCreateWithoutPerformanceEntryInput>
+  where?: Prisma.ContractListingWhereInput
+}
+
+export type ContractListingUpdateToOneWithWhereWithoutPerformanceEntryInput = {
+  where?: Prisma.ContractListingWhereInput
+  data: Prisma.XOR<Prisma.ContractListingUpdateWithoutPerformanceEntryInput, Prisma.ContractListingUncheckedUpdateWithoutPerformanceEntryInput>
+}
+
+export type ContractListingUpdateWithoutPerformanceEntryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  reference?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  origin?: Prisma.StringFieldUpdateOperationsInput | string
+  destination?: Prisma.StringFieldUpdateOperationsInput | string
+  cargoType?: Prisma.StringFieldUpdateOperationsInput | string
+  cargoCategory?: Prisma.EnumCargoCategoryFieldUpdateOperationsInput | $Enums.CargoCategory
+  requiredTrailer?: Prisma.EnumEts2TrailerTypeFieldUpdateOperationsInput | $Enums.Ets2TrailerType
+  weightKg?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deliveryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budget?: Prisma.FloatFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  contractTerms?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumContractListingStatusFieldUpdateOperationsInput | $Enums.ContractListingStatus
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  awardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutContractListingsNestedInput
+  createdBy?: Prisma.AccountUpdateOneRequiredWithoutContractListingsNestedInput
+  bids?: Prisma.ContractBidUpdateManyWithoutListingNestedInput
+  awardedBid?: Prisma.ContractBidUpdateOneWithoutAwardedForNestedInput
+}
+
+export type ContractListingUncheckedUpdateWithoutPerformanceEntryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  reference?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  origin?: Prisma.StringFieldUpdateOperationsInput | string
+  destination?: Prisma.StringFieldUpdateOperationsInput | string
+  cargoType?: Prisma.StringFieldUpdateOperationsInput | string
+  cargoCategory?: Prisma.EnumCargoCategoryFieldUpdateOperationsInput | $Enums.CargoCategory
+  requiredTrailer?: Prisma.EnumEts2TrailerTypeFieldUpdateOperationsInput | $Enums.Ets2TrailerType
+  weightKg?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deliveryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budget?: Prisma.FloatFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  contractTerms?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumContractListingStatusFieldUpdateOperationsInput | $Enums.ContractListingStatus
+  awardedBidId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  awardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bids?: Prisma.ContractBidUncheckedUpdateManyWithoutListingNestedInput
+}
+
 export type ContractListingCreateWithoutBidsInput = {
   id?: string
   reference: string
@@ -1163,6 +1318,7 @@ export type ContractListingCreateWithoutBidsInput = {
   customer: Prisma.CustomerCreateNestedOneWithoutContractListingsInput
   createdBy: Prisma.AccountCreateNestedOneWithoutContractListingsInput
   awardedBid?: Prisma.ContractBidCreateNestedOneWithoutAwardedForInput
+  performanceEntry?: Prisma.DriverPerformanceEntryCreateNestedOneWithoutContractListingInput
 }
 
 export type ContractListingUncheckedCreateWithoutBidsInput = {
@@ -1190,6 +1346,7 @@ export type ContractListingUncheckedCreateWithoutBidsInput = {
   closedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  performanceEntry?: Prisma.DriverPerformanceEntryUncheckedCreateNestedOneWithoutContractListingInput
 }
 
 export type ContractListingCreateOrConnectWithoutBidsInput = {
@@ -1222,6 +1379,7 @@ export type ContractListingCreateWithoutAwardedBidInput = {
   customer: Prisma.CustomerCreateNestedOneWithoutContractListingsInput
   createdBy: Prisma.AccountCreateNestedOneWithoutContractListingsInput
   bids?: Prisma.ContractBidCreateNestedManyWithoutListingInput
+  performanceEntry?: Prisma.DriverPerformanceEntryCreateNestedOneWithoutContractListingInput
 }
 
 export type ContractListingUncheckedCreateWithoutAwardedBidInput = {
@@ -1249,6 +1407,7 @@ export type ContractListingUncheckedCreateWithoutAwardedBidInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   bids?: Prisma.ContractBidUncheckedCreateNestedManyWithoutListingInput
+  performanceEntry?: Prisma.DriverPerformanceEntryUncheckedCreateNestedOneWithoutContractListingInput
 }
 
 export type ContractListingCreateOrConnectWithoutAwardedBidInput = {
@@ -1292,6 +1451,7 @@ export type ContractListingUpdateWithoutBidsInput = {
   customer?: Prisma.CustomerUpdateOneRequiredWithoutContractListingsNestedInput
   createdBy?: Prisma.AccountUpdateOneRequiredWithoutContractListingsNestedInput
   awardedBid?: Prisma.ContractBidUpdateOneWithoutAwardedForNestedInput
+  performanceEntry?: Prisma.DriverPerformanceEntryUpdateOneWithoutContractListingNestedInput
 }
 
 export type ContractListingUncheckedUpdateWithoutBidsInput = {
@@ -1319,6 +1479,7 @@ export type ContractListingUncheckedUpdateWithoutBidsInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  performanceEntry?: Prisma.DriverPerformanceEntryUncheckedUpdateOneWithoutContractListingNestedInput
 }
 
 export type ContractListingUpsertWithoutAwardedBidInput = {
@@ -1357,6 +1518,7 @@ export type ContractListingUpdateWithoutAwardedBidInput = {
   customer?: Prisma.CustomerUpdateOneRequiredWithoutContractListingsNestedInput
   createdBy?: Prisma.AccountUpdateOneRequiredWithoutContractListingsNestedInput
   bids?: Prisma.ContractBidUpdateManyWithoutListingNestedInput
+  performanceEntry?: Prisma.DriverPerformanceEntryUpdateOneWithoutContractListingNestedInput
 }
 
 export type ContractListingUncheckedUpdateWithoutAwardedBidInput = {
@@ -1384,6 +1546,7 @@ export type ContractListingUncheckedUpdateWithoutAwardedBidInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bids?: Prisma.ContractBidUncheckedUpdateManyWithoutListingNestedInput
+  performanceEntry?: Prisma.DriverPerformanceEntryUncheckedUpdateOneWithoutContractListingNestedInput
 }
 
 export type ContractListingCreateManyCreatedByInput = {
@@ -1437,6 +1600,7 @@ export type ContractListingUpdateWithoutCreatedByInput = {
   customer?: Prisma.CustomerUpdateOneRequiredWithoutContractListingsNestedInput
   bids?: Prisma.ContractBidUpdateManyWithoutListingNestedInput
   awardedBid?: Prisma.ContractBidUpdateOneWithoutAwardedForNestedInput
+  performanceEntry?: Prisma.DriverPerformanceEntryUpdateOneWithoutContractListingNestedInput
 }
 
 export type ContractListingUncheckedUpdateWithoutCreatedByInput = {
@@ -1464,6 +1628,7 @@ export type ContractListingUncheckedUpdateWithoutCreatedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bids?: Prisma.ContractBidUncheckedUpdateManyWithoutListingNestedInput
+  performanceEntry?: Prisma.DriverPerformanceEntryUncheckedUpdateOneWithoutContractListingNestedInput
 }
 
 export type ContractListingUncheckedUpdateManyWithoutCreatedByInput = {
@@ -1543,6 +1708,7 @@ export type ContractListingUpdateWithoutCustomerInput = {
   createdBy?: Prisma.AccountUpdateOneRequiredWithoutContractListingsNestedInput
   bids?: Prisma.ContractBidUpdateManyWithoutListingNestedInput
   awardedBid?: Prisma.ContractBidUpdateOneWithoutAwardedForNestedInput
+  performanceEntry?: Prisma.DriverPerformanceEntryUpdateOneWithoutContractListingNestedInput
 }
 
 export type ContractListingUncheckedUpdateWithoutCustomerInput = {
@@ -1570,6 +1736,7 @@ export type ContractListingUncheckedUpdateWithoutCustomerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bids?: Prisma.ContractBidUncheckedUpdateManyWithoutListingNestedInput
+  performanceEntry?: Prisma.DriverPerformanceEntryUncheckedUpdateOneWithoutContractListingNestedInput
 }
 
 export type ContractListingUncheckedUpdateManyWithoutCustomerInput = {
@@ -1658,6 +1825,7 @@ export type ContractListingSelect<ExtArgs extends runtime.Types.Extensions.Inter
   createdBy?: boolean | Prisma.AccountDefaultArgs<ExtArgs>
   bids?: boolean | Prisma.ContractListing$bidsArgs<ExtArgs>
   awardedBid?: boolean | Prisma.ContractListing$awardedBidArgs<ExtArgs>
+  performanceEntry?: boolean | Prisma.ContractListing$performanceEntryArgs<ExtArgs>
   _count?: boolean | Prisma.ContractListingCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["contractListing"]>
 
@@ -1754,6 +1922,7 @@ export type ContractListingInclude<ExtArgs extends runtime.Types.Extensions.Inte
   createdBy?: boolean | Prisma.AccountDefaultArgs<ExtArgs>
   bids?: boolean | Prisma.ContractListing$bidsArgs<ExtArgs>
   awardedBid?: boolean | Prisma.ContractListing$awardedBidArgs<ExtArgs>
+  performanceEntry?: boolean | Prisma.ContractListing$performanceEntryArgs<ExtArgs>
   _count?: boolean | Prisma.ContractListingCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ContractListingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1774,6 +1943,7 @@ export type $ContractListingPayload<ExtArgs extends runtime.Types.Extensions.Int
     createdBy: Prisma.$AccountPayload<ExtArgs>
     bids: Prisma.$ContractBidPayload<ExtArgs>[]
     awardedBid: Prisma.$ContractBidPayload<ExtArgs> | null
+    performanceEntry: Prisma.$DriverPerformanceEntryPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2198,6 +2368,7 @@ export interface Prisma__ContractListingClient<T, Null = never, ExtArgs extends 
   createdBy<T extends Prisma.AccountDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AccountDefaultArgs<ExtArgs>>): Prisma.Prisma__AccountClient<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   bids<T extends Prisma.ContractListing$bidsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContractListing$bidsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContractBidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   awardedBid<T extends Prisma.ContractListing$awardedBidArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContractListing$awardedBidArgs<ExtArgs>>): Prisma.Prisma__ContractBidClient<runtime.Types.Result.GetResult<Prisma.$ContractBidPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  performanceEntry<T extends Prisma.ContractListing$performanceEntryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContractListing$performanceEntryArgs<ExtArgs>>): Prisma.Prisma__DriverPerformanceEntryClient<runtime.Types.Result.GetResult<Prisma.$DriverPerformanceEntryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2692,6 +2863,25 @@ export type ContractListing$awardedBidArgs<ExtArgs extends runtime.Types.Extensi
    */
   include?: Prisma.ContractBidInclude<ExtArgs> | null
   where?: Prisma.ContractBidWhereInput
+}
+
+/**
+ * ContractListing.performanceEntry
+ */
+export type ContractListing$performanceEntryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DriverPerformanceEntry
+   */
+  select?: Prisma.DriverPerformanceEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DriverPerformanceEntry
+   */
+  omit?: Prisma.DriverPerformanceEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DriverPerformanceEntryInclude<ExtArgs> | null
+  where?: Prisma.DriverPerformanceEntryWhereInput
 }
 
 /**

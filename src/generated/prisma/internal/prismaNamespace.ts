@@ -403,6 +403,7 @@ export const ModelName = {
   Customer: 'Customer',
   Invoice: 'Invoice',
   ContractListing: 'ContractListing',
+  DriverPerformanceEntry: 'DriverPerformanceEntry',
   ContractBid: 'ContractBid',
   Depot: 'Depot',
   Notification: 'Notification',
@@ -427,7 +428,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "driver" | "company" | "customer" | "invoice" | "contractListing" | "contractBid" | "depot" | "notification" | "document" | "auditEvent" | "companySettings" | "truck" | "fuelEntry" | "maintenanceJob"
+    modelProps: "account" | "driver" | "company" | "customer" | "invoice" | "contractListing" | "driverPerformanceEntry" | "contractBid" | "depot" | "notification" | "document" | "auditEvent" | "companySettings" | "truck" | "fuelEntry" | "maintenanceJob"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -872,6 +873,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ContractListingCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ContractListingCountAggregateOutputType> | number
+        }
+      }
+    }
+    DriverPerformanceEntry: {
+      payload: Prisma.$DriverPerformanceEntryPayload<ExtArgs>
+      fields: Prisma.DriverPerformanceEntryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DriverPerformanceEntryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DriverPerformanceEntryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DriverPerformanceEntryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DriverPerformanceEntryPayload>
+        }
+        findFirst: {
+          args: Prisma.DriverPerformanceEntryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DriverPerformanceEntryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DriverPerformanceEntryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DriverPerformanceEntryPayload>
+        }
+        findMany: {
+          args: Prisma.DriverPerformanceEntryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DriverPerformanceEntryPayload>[]
+        }
+        create: {
+          args: Prisma.DriverPerformanceEntryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DriverPerformanceEntryPayload>
+        }
+        createMany: {
+          args: Prisma.DriverPerformanceEntryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DriverPerformanceEntryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DriverPerformanceEntryPayload>[]
+        }
+        delete: {
+          args: Prisma.DriverPerformanceEntryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DriverPerformanceEntryPayload>
+        }
+        update: {
+          args: Prisma.DriverPerformanceEntryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DriverPerformanceEntryPayload>
+        }
+        deleteMany: {
+          args: Prisma.DriverPerformanceEntryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DriverPerformanceEntryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DriverPerformanceEntryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DriverPerformanceEntryPayload>[]
+        }
+        upsert: {
+          args: Prisma.DriverPerformanceEntryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DriverPerformanceEntryPayload>
+        }
+        aggregate: {
+          args: Prisma.DriverPerformanceEntryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDriverPerformanceEntry>
+        }
+        groupBy: {
+          args: Prisma.DriverPerformanceEntryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DriverPerformanceEntryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DriverPerformanceEntryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DriverPerformanceEntryCountAggregateOutputType> | number
         }
       }
     }
@@ -1593,6 +1668,9 @@ export const AccountScalarFieldEnum = {
   discordDisplayName: 'discordDisplayName',
   discordVerifiedAt: 'discordVerifiedAt',
   discordGuildJoinedAt: 'discordGuildJoinedAt',
+  profileImage: 'profileImage',
+  profileImageMime: 'profileImageMime',
+  profileImageUpdatedAt: 'profileImageUpdatedAt',
   role: 'role',
   isActive: 'isActive',
   emailVerified: 'emailVerified',
@@ -1718,6 +1796,26 @@ export const ContractListingScalarFieldEnum = {
 } as const
 
 export type ContractListingScalarFieldEnum = (typeof ContractListingScalarFieldEnum)[keyof typeof ContractListingScalarFieldEnum]
+
+
+export const DriverPerformanceEntryScalarFieldEnum = {
+  id: 'id',
+  driverId: 'driverId',
+  customerId: 'customerId',
+  contractListingId: 'contractListingId',
+  distanceKm: 'distanceKm',
+  cargoTonnes: 'cargoTonnes',
+  income: 'income',
+  expenditure: 'expenditure',
+  reputationScore: 'reputationScore',
+  completedAt: 'completedAt',
+  notes: 'notes',
+  recordedById: 'recordedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DriverPerformanceEntryScalarFieldEnum = (typeof DriverPerformanceEntryScalarFieldEnum)[keyof typeof DriverPerformanceEntryScalarFieldEnum]
 
 
 export const ContractBidScalarFieldEnum = {
@@ -1982,6 +2080,20 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
+
+
+/**
+ * Reference to a field of type 'Bytes'
+ */
+export type BytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes'>
+
+
+
+/**
+ * Reference to a field of type 'Bytes[]'
+ */
+export type ListBytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes[]'>
+
 
 
 /**
@@ -2469,6 +2581,7 @@ export type GlobalOmitConfig = {
   customer?: Prisma.CustomerOmit
   invoice?: Prisma.InvoiceOmit
   contractListing?: Prisma.ContractListingOmit
+  driverPerformanceEntry?: Prisma.DriverPerformanceEntryOmit
   contractBid?: Prisma.ContractBidOmit
   depot?: Prisma.DepotOmit
   notification?: Prisma.NotificationOmit

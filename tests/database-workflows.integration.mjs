@@ -153,3 +153,55 @@ test("database-backed maintenance completion restores fleet availability only af
   }
   await prisma.$disconnect();
 });
+
+test("database-backed driver performance updates lifetime totals atomically", { skip: !enabled }, async () => {
+  const prisma = createClient();
+  process.env.DATABASE_URL = databaseUrl;
+  const { recordDriverPerformanceEntry } = await import(
+    "../src/server/driver-performance/repository.ts"
+  );
+  const account = await prisma.account.create({
+    data: {
+      email: `${runId}-performance@example.test`,
+      passwordHash: "integration-only",
+      firstName: "Performance",
+      lastName: "Driver",
+      role: "MANAGER",
+    },
+  });
+  const driver = await prisma.driver.create({
+    data: {
+      accountId: account.id,
+      employeeNumber: `${runId}-performance-driver`,
+      totalDistanceKm: 1000,
+      totalDeliveries: 2,
+    },
+  });
+  const customer = await prisma.customer.create({
+    data: {
+      customerNumber: `${runId}-performance-customer`,
+      companyName: "Performance Customer",
+      status: "ACTIVE",
+      contactFirstName: "Test",
+      contactLastName: "Customer",
+      email: `${runId}-performance-customer@example.test`,
+    },
+  });
+
+  const result = await recordDriverPerformanceEntry(account.id, {
+    driverId: driver.id,
+    customerId: customer.id,
+    distanceKm: 750,
+    cargoTonnes: 18.5,
+    income: 2200,
+    expenditure: 600,
+    reputationScore: 94,
+    completedAt: new Date("2026-07-20T12:00:00Z"),
+  });
+
+  assert.equal(result.driver.totalDistanceKm, 1750);
+  assert.equal(result.driver.totalDeliveries, 3);
+  assert.equal(result.driver.reputation, 94);
+  assert.equal(result.entry.income - result.entry.expenditure, 1600);
+  await prisma.$disconnect();
+});

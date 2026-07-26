@@ -57,6 +57,7 @@ export const ModelName = {
   Customer: 'Customer',
   Invoice: 'Invoice',
   ContractListing: 'ContractListing',
+  DriverPerformanceEntry: 'DriverPerformanceEntry',
   ContractBid: 'ContractBid',
   Depot: 'Depot',
   Notification: 'Notification',
@@ -97,6 +98,9 @@ export const AccountScalarFieldEnum = {
   discordDisplayName: 'discordDisplayName',
   discordVerifiedAt: 'discordVerifiedAt',
   discordGuildJoinedAt: 'discordGuildJoinedAt',
+  profileImage: 'profileImage',
+  profileImageMime: 'profileImageMime',
+  profileImageUpdatedAt: 'profileImageUpdatedAt',
   role: 'role',
   isActive: 'isActive',
   emailVerified: 'emailVerified',
@@ -222,6 +226,26 @@ export const ContractListingScalarFieldEnum = {
 } as const
 
 export type ContractListingScalarFieldEnum = (typeof ContractListingScalarFieldEnum)[keyof typeof ContractListingScalarFieldEnum]
+
+
+export const DriverPerformanceEntryScalarFieldEnum = {
+  id: 'id',
+  driverId: 'driverId',
+  customerId: 'customerId',
+  contractListingId: 'contractListingId',
+  distanceKm: 'distanceKm',
+  cargoTonnes: 'cargoTonnes',
+  income: 'income',
+  expenditure: 'expenditure',
+  reputationScore: 'reputationScore',
+  completedAt: 'completedAt',
+  notes: 'notes',
+  recordedById: 'recordedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DriverPerformanceEntryScalarFieldEnum = (typeof DriverPerformanceEntryScalarFieldEnum)[keyof typeof DriverPerformanceEntryScalarFieldEnum]
 
 
 export const ContractBidScalarFieldEnum = {

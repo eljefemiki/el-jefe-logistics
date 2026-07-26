@@ -37,6 +37,9 @@ export type AccountMinAggregateOutputType = {
   discordDisplayName: string | null
   discordVerifiedAt: Date | null
   discordGuildJoinedAt: Date | null
+  profileImage: runtime.Bytes | null
+  profileImageMime: string | null
+  profileImageUpdatedAt: Date | null
   role: $Enums.UserRole | null
   isActive: boolean | null
   emailVerified: boolean | null
@@ -59,6 +62,9 @@ export type AccountMaxAggregateOutputType = {
   discordDisplayName: string | null
   discordVerifiedAt: Date | null
   discordGuildJoinedAt: Date | null
+  profileImage: runtime.Bytes | null
+  profileImageMime: string | null
+  profileImageUpdatedAt: Date | null
   role: $Enums.UserRole | null
   isActive: boolean | null
   emailVerified: boolean | null
@@ -81,6 +87,9 @@ export type AccountCountAggregateOutputType = {
   discordDisplayName: number
   discordVerifiedAt: number
   discordGuildJoinedAt: number
+  profileImage: number
+  profileImageMime: number
+  profileImageUpdatedAt: number
   role: number
   isActive: number
   emailVerified: number
@@ -105,6 +114,9 @@ export type AccountMinAggregateInputType = {
   discordDisplayName?: true
   discordVerifiedAt?: true
   discordGuildJoinedAt?: true
+  profileImage?: true
+  profileImageMime?: true
+  profileImageUpdatedAt?: true
   role?: true
   isActive?: true
   emailVerified?: true
@@ -127,6 +139,9 @@ export type AccountMaxAggregateInputType = {
   discordDisplayName?: true
   discordVerifiedAt?: true
   discordGuildJoinedAt?: true
+  profileImage?: true
+  profileImageMime?: true
+  profileImageUpdatedAt?: true
   role?: true
   isActive?: true
   emailVerified?: true
@@ -149,6 +164,9 @@ export type AccountCountAggregateInputType = {
   discordDisplayName?: true
   discordVerifiedAt?: true
   discordGuildJoinedAt?: true
+  profileImage?: true
+  profileImageMime?: true
+  profileImageUpdatedAt?: true
   role?: true
   isActive?: true
   emailVerified?: true
@@ -244,6 +262,9 @@ export type AccountGroupByOutputType = {
   discordDisplayName: string | null
   discordVerifiedAt: Date | null
   discordGuildJoinedAt: Date | null
+  profileImage: runtime.Bytes | null
+  profileImageMime: string | null
+  profileImageUpdatedAt: Date | null
   role: $Enums.UserRole
   isActive: boolean
   emailVerified: boolean
@@ -287,6 +308,9 @@ export type AccountWhereInput = {
   discordDisplayName?: Prisma.StringNullableFilter<"Account"> | string | null
   discordVerifiedAt?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
   discordGuildJoinedAt?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
+  profileImage?: Prisma.BytesNullableFilter<"Account"> | runtime.Bytes | null
+  profileImageMime?: Prisma.StringNullableFilter<"Account"> | string | null
+  profileImageUpdatedAt?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
   role?: Prisma.EnumUserRoleFilter<"Account"> | $Enums.UserRole
   isActive?: Prisma.BoolFilter<"Account"> | boolean
   emailVerified?: Prisma.BoolFilter<"Account"> | boolean
@@ -299,6 +323,7 @@ export type AccountWhereInput = {
   documents?: Prisma.DocumentListRelationFilter
   auditEvents?: Prisma.AuditEventListRelationFilter
   contractListings?: Prisma.ContractListingListRelationFilter
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryListRelationFilter
 }
 
 export type AccountOrderByWithRelationInput = {
@@ -314,6 +339,9 @@ export type AccountOrderByWithRelationInput = {
   discordDisplayName?: Prisma.SortOrderInput | Prisma.SortOrder
   discordVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   discordGuildJoinedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  profileImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  profileImageMime?: Prisma.SortOrderInput | Prisma.SortOrder
+  profileImageUpdatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
@@ -326,6 +354,7 @@ export type AccountOrderByWithRelationInput = {
   documents?: Prisma.DocumentOrderByRelationAggregateInput
   auditEvents?: Prisma.AuditEventOrderByRelationAggregateInput
   contractListings?: Prisma.ContractListingOrderByRelationAggregateInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryOrderByRelationAggregateInput
 }
 
 export type AccountWhereUniqueInput = Prisma.AtLeast<{
@@ -344,6 +373,9 @@ export type AccountWhereUniqueInput = Prisma.AtLeast<{
   discordDisplayName?: Prisma.StringNullableFilter<"Account"> | string | null
   discordVerifiedAt?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
   discordGuildJoinedAt?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
+  profileImage?: Prisma.BytesNullableFilter<"Account"> | runtime.Bytes | null
+  profileImageMime?: Prisma.StringNullableFilter<"Account"> | string | null
+  profileImageUpdatedAt?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
   role?: Prisma.EnumUserRoleFilter<"Account"> | $Enums.UserRole
   isActive?: Prisma.BoolFilter<"Account"> | boolean
   emailVerified?: Prisma.BoolFilter<"Account"> | boolean
@@ -356,6 +388,7 @@ export type AccountWhereUniqueInput = Prisma.AtLeast<{
   documents?: Prisma.DocumentListRelationFilter
   auditEvents?: Prisma.AuditEventListRelationFilter
   contractListings?: Prisma.ContractListingListRelationFilter
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryListRelationFilter
 }, "id" | "email" | "steamId" | "discordId">
 
 export type AccountOrderByWithAggregationInput = {
@@ -371,6 +404,9 @@ export type AccountOrderByWithAggregationInput = {
   discordDisplayName?: Prisma.SortOrderInput | Prisma.SortOrder
   discordVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   discordGuildJoinedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  profileImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  profileImageMime?: Prisma.SortOrderInput | Prisma.SortOrder
+  profileImageUpdatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
@@ -399,6 +435,9 @@ export type AccountScalarWhereWithAggregatesInput = {
   discordDisplayName?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
   discordVerifiedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Account"> | Date | string | null
   discordGuildJoinedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Account"> | Date | string | null
+  profileImage?: Prisma.BytesNullableWithAggregatesFilter<"Account"> | runtime.Bytes | null
+  profileImageMime?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
+  profileImageUpdatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Account"> | Date | string | null
   role?: Prisma.EnumUserRoleWithAggregatesFilter<"Account"> | $Enums.UserRole
   isActive?: Prisma.BoolWithAggregatesFilter<"Account"> | boolean
   emailVerified?: Prisma.BoolWithAggregatesFilter<"Account"> | boolean
@@ -421,6 +460,9 @@ export type AccountCreateInput = {
   discordDisplayName?: string | null
   discordVerifiedAt?: Date | string | null
   discordGuildJoinedAt?: Date | string | null
+  profileImage?: runtime.Bytes | null
+  profileImageMime?: string | null
+  profileImageUpdatedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -433,6 +475,7 @@ export type AccountCreateInput = {
   documents?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
   contractListings?: Prisma.ContractListingCreateNestedManyWithoutCreatedByInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryCreateNestedManyWithoutRecordedByInput
 }
 
 export type AccountUncheckedCreateInput = {
@@ -448,6 +491,9 @@ export type AccountUncheckedCreateInput = {
   discordDisplayName?: string | null
   discordVerifiedAt?: Date | string | null
   discordGuildJoinedAt?: Date | string | null
+  profileImage?: runtime.Bytes | null
+  profileImageMime?: string | null
+  profileImageUpdatedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -460,6 +506,7 @@ export type AccountUncheckedCreateInput = {
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
   contractListings?: Prisma.ContractListingUncheckedCreateNestedManyWithoutCreatedByInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryUncheckedCreateNestedManyWithoutRecordedByInput
 }
 
 export type AccountUpdateInput = {
@@ -475,6 +522,9 @@ export type AccountUpdateInput = {
   discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profileImage?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  profileImageMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -487,6 +537,7 @@ export type AccountUpdateInput = {
   documents?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
   contractListings?: Prisma.ContractListingUpdateManyWithoutCreatedByNestedInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryUpdateManyWithoutRecordedByNestedInput
 }
 
 export type AccountUncheckedUpdateInput = {
@@ -502,6 +553,9 @@ export type AccountUncheckedUpdateInput = {
   discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profileImage?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  profileImageMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -514,6 +568,7 @@ export type AccountUncheckedUpdateInput = {
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
   contractListings?: Prisma.ContractListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryUncheckedUpdateManyWithoutRecordedByNestedInput
 }
 
 export type AccountCreateManyInput = {
@@ -529,6 +584,9 @@ export type AccountCreateManyInput = {
   discordDisplayName?: string | null
   discordVerifiedAt?: Date | string | null
   discordGuildJoinedAt?: Date | string | null
+  profileImage?: runtime.Bytes | null
+  profileImageMime?: string | null
+  profileImageUpdatedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -551,6 +609,9 @@ export type AccountUpdateManyMutationInput = {
   discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profileImage?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  profileImageMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -573,6 +634,9 @@ export type AccountUncheckedUpdateManyInput = {
   discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profileImage?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  profileImageMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -595,6 +659,9 @@ export type AccountCountOrderByAggregateInput = {
   discordDisplayName?: Prisma.SortOrder
   discordVerifiedAt?: Prisma.SortOrder
   discordGuildJoinedAt?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrder
+  profileImageMime?: Prisma.SortOrder
+  profileImageUpdatedAt?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
@@ -617,6 +684,9 @@ export type AccountMaxOrderByAggregateInput = {
   discordDisplayName?: Prisma.SortOrder
   discordVerifiedAt?: Prisma.SortOrder
   discordGuildJoinedAt?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrder
+  profileImageMime?: Prisma.SortOrder
+  profileImageUpdatedAt?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
@@ -639,6 +709,9 @@ export type AccountMinOrderByAggregateInput = {
   discordDisplayName?: Prisma.SortOrder
   discordVerifiedAt?: Prisma.SortOrder
   discordGuildJoinedAt?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrder
+  profileImageMime?: Prisma.SortOrder
+  profileImageUpdatedAt?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
@@ -668,6 +741,10 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
+}
+
+export type NullableBytesFieldUpdateOperationsInput = {
+  set?: runtime.Bytes | null
 }
 
 export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -708,6 +785,20 @@ export type AccountUpdateOneRequiredWithoutContractListingsNestedInput = {
   upsert?: Prisma.AccountUpsertWithoutContractListingsInput
   connect?: Prisma.AccountWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutContractListingsInput, Prisma.AccountUpdateWithoutContractListingsInput>, Prisma.AccountUncheckedUpdateWithoutContractListingsInput>
+}
+
+export type AccountCreateNestedOneWithoutRecordedDriverPerformanceEntriesInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutRecordedDriverPerformanceEntriesInput, Prisma.AccountUncheckedCreateWithoutRecordedDriverPerformanceEntriesInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutRecordedDriverPerformanceEntriesInput
+  connect?: Prisma.AccountWhereUniqueInput
+}
+
+export type AccountUpdateOneRequiredWithoutRecordedDriverPerformanceEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutRecordedDriverPerformanceEntriesInput, Prisma.AccountUncheckedCreateWithoutRecordedDriverPerformanceEntriesInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutRecordedDriverPerformanceEntriesInput
+  upsert?: Prisma.AccountUpsertWithoutRecordedDriverPerformanceEntriesInput
+  connect?: Prisma.AccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutRecordedDriverPerformanceEntriesInput, Prisma.AccountUpdateWithoutRecordedDriverPerformanceEntriesInput>, Prisma.AccountUncheckedUpdateWithoutRecordedDriverPerformanceEntriesInput>
 }
 
 export type AccountCreateNestedOneWithoutNotificationsInput = {
@@ -771,6 +862,9 @@ export type AccountCreateWithoutDriverInput = {
   discordDisplayName?: string | null
   discordVerifiedAt?: Date | string | null
   discordGuildJoinedAt?: Date | string | null
+  profileImage?: runtime.Bytes | null
+  profileImageMime?: string | null
+  profileImageUpdatedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -782,6 +876,7 @@ export type AccountCreateWithoutDriverInput = {
   documents?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
   contractListings?: Prisma.ContractListingCreateNestedManyWithoutCreatedByInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryCreateNestedManyWithoutRecordedByInput
 }
 
 export type AccountUncheckedCreateWithoutDriverInput = {
@@ -797,6 +892,9 @@ export type AccountUncheckedCreateWithoutDriverInput = {
   discordDisplayName?: string | null
   discordVerifiedAt?: Date | string | null
   discordGuildJoinedAt?: Date | string | null
+  profileImage?: runtime.Bytes | null
+  profileImageMime?: string | null
+  profileImageUpdatedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -808,6 +906,7 @@ export type AccountUncheckedCreateWithoutDriverInput = {
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
   contractListings?: Prisma.ContractListingUncheckedCreateNestedManyWithoutCreatedByInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryUncheckedCreateNestedManyWithoutRecordedByInput
 }
 
 export type AccountCreateOrConnectWithoutDriverInput = {
@@ -839,6 +938,9 @@ export type AccountUpdateWithoutDriverInput = {
   discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profileImage?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  profileImageMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -850,6 +952,7 @@ export type AccountUpdateWithoutDriverInput = {
   documents?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
   contractListings?: Prisma.ContractListingUpdateManyWithoutCreatedByNestedInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryUpdateManyWithoutRecordedByNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutDriverInput = {
@@ -865,6 +968,9 @@ export type AccountUncheckedUpdateWithoutDriverInput = {
   discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profileImage?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  profileImageMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -876,6 +982,7 @@ export type AccountUncheckedUpdateWithoutDriverInput = {
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
   contractListings?: Prisma.ContractListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryUncheckedUpdateManyWithoutRecordedByNestedInput
 }
 
 export type AccountCreateWithoutContractListingsInput = {
@@ -891,6 +998,9 @@ export type AccountCreateWithoutContractListingsInput = {
   discordDisplayName?: string | null
   discordVerifiedAt?: Date | string | null
   discordGuildJoinedAt?: Date | string | null
+  profileImage?: runtime.Bytes | null
+  profileImageMime?: string | null
+  profileImageUpdatedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -902,6 +1012,7 @@ export type AccountCreateWithoutContractListingsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryCreateNestedManyWithoutRecordedByInput
 }
 
 export type AccountUncheckedCreateWithoutContractListingsInput = {
@@ -917,6 +1028,9 @@ export type AccountUncheckedCreateWithoutContractListingsInput = {
   discordDisplayName?: string | null
   discordVerifiedAt?: Date | string | null
   discordGuildJoinedAt?: Date | string | null
+  profileImage?: runtime.Bytes | null
+  profileImageMime?: string | null
+  profileImageUpdatedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -928,6 +1042,7 @@ export type AccountUncheckedCreateWithoutContractListingsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryUncheckedCreateNestedManyWithoutRecordedByInput
 }
 
 export type AccountCreateOrConnectWithoutContractListingsInput = {
@@ -959,6 +1074,9 @@ export type AccountUpdateWithoutContractListingsInput = {
   discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profileImage?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  profileImageMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -970,6 +1088,7 @@ export type AccountUpdateWithoutContractListingsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryUpdateManyWithoutRecordedByNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutContractListingsInput = {
@@ -985,6 +1104,9 @@ export type AccountUncheckedUpdateWithoutContractListingsInput = {
   discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profileImage?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  profileImageMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -996,6 +1118,143 @@ export type AccountUncheckedUpdateWithoutContractListingsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+}
+
+export type AccountCreateWithoutRecordedDriverPerformanceEntriesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  steamId?: string | null
+  truckyUsername?: string | null
+  discordId?: string | null
+  discordUsername?: string | null
+  discordDisplayName?: string | null
+  discordVerifiedAt?: Date | string | null
+  discordGuildJoinedAt?: Date | string | null
+  profileImage?: runtime.Bytes | null
+  profileImageMime?: string | null
+  profileImageUpdatedAt?: Date | string | null
+  role?: $Enums.UserRole
+  isActive?: boolean
+  emailVerified?: boolean
+  lastLogin?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  archivedAt?: Date | string | null
+  driver?: Prisma.DriverCreateNestedOneWithoutAccountInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
+  auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
+  contractListings?: Prisma.ContractListingCreateNestedManyWithoutCreatedByInput
+}
+
+export type AccountUncheckedCreateWithoutRecordedDriverPerformanceEntriesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  firstName: string
+  lastName: string
+  steamId?: string | null
+  truckyUsername?: string | null
+  discordId?: string | null
+  discordUsername?: string | null
+  discordDisplayName?: string | null
+  discordVerifiedAt?: Date | string | null
+  discordGuildJoinedAt?: Date | string | null
+  profileImage?: runtime.Bytes | null
+  profileImageMime?: string | null
+  profileImageUpdatedAt?: Date | string | null
+  role?: $Enums.UserRole
+  isActive?: boolean
+  emailVerified?: boolean
+  lastLogin?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  archivedAt?: Date | string | null
+  driver?: Prisma.DriverUncheckedCreateNestedOneWithoutAccountInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+  auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
+  contractListings?: Prisma.ContractListingUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type AccountCreateOrConnectWithoutRecordedDriverPerformanceEntriesInput = {
+  where: Prisma.AccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.AccountCreateWithoutRecordedDriverPerformanceEntriesInput, Prisma.AccountUncheckedCreateWithoutRecordedDriverPerformanceEntriesInput>
+}
+
+export type AccountUpsertWithoutRecordedDriverPerformanceEntriesInput = {
+  update: Prisma.XOR<Prisma.AccountUpdateWithoutRecordedDriverPerformanceEntriesInput, Prisma.AccountUncheckedUpdateWithoutRecordedDriverPerformanceEntriesInput>
+  create: Prisma.XOR<Prisma.AccountCreateWithoutRecordedDriverPerformanceEntriesInput, Prisma.AccountUncheckedCreateWithoutRecordedDriverPerformanceEntriesInput>
+  where?: Prisma.AccountWhereInput
+}
+
+export type AccountUpdateToOneWithWhereWithoutRecordedDriverPerformanceEntriesInput = {
+  where?: Prisma.AccountWhereInput
+  data: Prisma.XOR<Prisma.AccountUpdateWithoutRecordedDriverPerformanceEntriesInput, Prisma.AccountUncheckedUpdateWithoutRecordedDriverPerformanceEntriesInput>
+}
+
+export type AccountUpdateWithoutRecordedDriverPerformanceEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profileImage?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  profileImageMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  driver?: Prisma.DriverUpdateOneWithoutAccountNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
+  auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
+  contractListings?: Prisma.ContractListingUpdateManyWithoutCreatedByNestedInput
+}
+
+export type AccountUncheckedUpdateWithoutRecordedDriverPerformanceEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profileImage?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  profileImageMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  driver?: Prisma.DriverUncheckedUpdateOneWithoutAccountNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+  auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
+  contractListings?: Prisma.ContractListingUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type AccountCreateWithoutNotificationsInput = {
@@ -1011,6 +1270,9 @@ export type AccountCreateWithoutNotificationsInput = {
   discordDisplayName?: string | null
   discordVerifiedAt?: Date | string | null
   discordGuildJoinedAt?: Date | string | null
+  profileImage?: runtime.Bytes | null
+  profileImageMime?: string | null
+  profileImageUpdatedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -1022,6 +1284,7 @@ export type AccountCreateWithoutNotificationsInput = {
   documents?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
   contractListings?: Prisma.ContractListingCreateNestedManyWithoutCreatedByInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryCreateNestedManyWithoutRecordedByInput
 }
 
 export type AccountUncheckedCreateWithoutNotificationsInput = {
@@ -1037,6 +1300,9 @@ export type AccountUncheckedCreateWithoutNotificationsInput = {
   discordDisplayName?: string | null
   discordVerifiedAt?: Date | string | null
   discordGuildJoinedAt?: Date | string | null
+  profileImage?: runtime.Bytes | null
+  profileImageMime?: string | null
+  profileImageUpdatedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -1048,6 +1314,7 @@ export type AccountUncheckedCreateWithoutNotificationsInput = {
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
   contractListings?: Prisma.ContractListingUncheckedCreateNestedManyWithoutCreatedByInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryUncheckedCreateNestedManyWithoutRecordedByInput
 }
 
 export type AccountCreateOrConnectWithoutNotificationsInput = {
@@ -1079,6 +1346,9 @@ export type AccountUpdateWithoutNotificationsInput = {
   discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profileImage?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  profileImageMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1090,6 +1360,7 @@ export type AccountUpdateWithoutNotificationsInput = {
   documents?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
   contractListings?: Prisma.ContractListingUpdateManyWithoutCreatedByNestedInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryUpdateManyWithoutRecordedByNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutNotificationsInput = {
@@ -1105,6 +1376,9 @@ export type AccountUncheckedUpdateWithoutNotificationsInput = {
   discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profileImage?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  profileImageMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1116,6 +1390,7 @@ export type AccountUncheckedUpdateWithoutNotificationsInput = {
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
   contractListings?: Prisma.ContractListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryUncheckedUpdateManyWithoutRecordedByNestedInput
 }
 
 export type AccountCreateWithoutDocumentsInput = {
@@ -1131,6 +1406,9 @@ export type AccountCreateWithoutDocumentsInput = {
   discordDisplayName?: string | null
   discordVerifiedAt?: Date | string | null
   discordGuildJoinedAt?: Date | string | null
+  profileImage?: runtime.Bytes | null
+  profileImageMime?: string | null
+  profileImageUpdatedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -1142,6 +1420,7 @@ export type AccountCreateWithoutDocumentsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
   contractListings?: Prisma.ContractListingCreateNestedManyWithoutCreatedByInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryCreateNestedManyWithoutRecordedByInput
 }
 
 export type AccountUncheckedCreateWithoutDocumentsInput = {
@@ -1157,6 +1436,9 @@ export type AccountUncheckedCreateWithoutDocumentsInput = {
   discordDisplayName?: string | null
   discordVerifiedAt?: Date | string | null
   discordGuildJoinedAt?: Date | string | null
+  profileImage?: runtime.Bytes | null
+  profileImageMime?: string | null
+  profileImageUpdatedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -1168,6 +1450,7 @@ export type AccountUncheckedCreateWithoutDocumentsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
   contractListings?: Prisma.ContractListingUncheckedCreateNestedManyWithoutCreatedByInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryUncheckedCreateNestedManyWithoutRecordedByInput
 }
 
 export type AccountCreateOrConnectWithoutDocumentsInput = {
@@ -1199,6 +1482,9 @@ export type AccountUpdateWithoutDocumentsInput = {
   discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profileImage?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  profileImageMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1210,6 +1496,7 @@ export type AccountUpdateWithoutDocumentsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
   contractListings?: Prisma.ContractListingUpdateManyWithoutCreatedByNestedInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryUpdateManyWithoutRecordedByNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutDocumentsInput = {
@@ -1225,6 +1512,9 @@ export type AccountUncheckedUpdateWithoutDocumentsInput = {
   discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profileImage?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  profileImageMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1236,6 +1526,7 @@ export type AccountUncheckedUpdateWithoutDocumentsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
   contractListings?: Prisma.ContractListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryUncheckedUpdateManyWithoutRecordedByNestedInput
 }
 
 export type AccountCreateWithoutAuditEventsInput = {
@@ -1251,6 +1542,9 @@ export type AccountCreateWithoutAuditEventsInput = {
   discordDisplayName?: string | null
   discordVerifiedAt?: Date | string | null
   discordGuildJoinedAt?: Date | string | null
+  profileImage?: runtime.Bytes | null
+  profileImageMime?: string | null
+  profileImageUpdatedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -1262,6 +1556,7 @@ export type AccountCreateWithoutAuditEventsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
   contractListings?: Prisma.ContractListingCreateNestedManyWithoutCreatedByInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryCreateNestedManyWithoutRecordedByInput
 }
 
 export type AccountUncheckedCreateWithoutAuditEventsInput = {
@@ -1277,6 +1572,9 @@ export type AccountUncheckedCreateWithoutAuditEventsInput = {
   discordDisplayName?: string | null
   discordVerifiedAt?: Date | string | null
   discordGuildJoinedAt?: Date | string | null
+  profileImage?: runtime.Bytes | null
+  profileImageMime?: string | null
+  profileImageUpdatedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -1288,6 +1586,7 @@ export type AccountUncheckedCreateWithoutAuditEventsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
   contractListings?: Prisma.ContractListingUncheckedCreateNestedManyWithoutCreatedByInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryUncheckedCreateNestedManyWithoutRecordedByInput
 }
 
 export type AccountCreateOrConnectWithoutAuditEventsInput = {
@@ -1319,6 +1618,9 @@ export type AccountUpdateWithoutAuditEventsInput = {
   discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profileImage?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  profileImageMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1330,6 +1632,7 @@ export type AccountUpdateWithoutAuditEventsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
   contractListings?: Prisma.ContractListingUpdateManyWithoutCreatedByNestedInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryUpdateManyWithoutRecordedByNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutAuditEventsInput = {
@@ -1345,6 +1648,9 @@ export type AccountUncheckedUpdateWithoutAuditEventsInput = {
   discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profileImage?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  profileImageMime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImageUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1356,6 +1662,7 @@ export type AccountUncheckedUpdateWithoutAuditEventsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
   contractListings?: Prisma.ContractListingUncheckedUpdateManyWithoutCreatedByNestedInput
+  recordedDriverPerformanceEntries?: Prisma.DriverPerformanceEntryUncheckedUpdateManyWithoutRecordedByNestedInput
 }
 
 
@@ -1368,6 +1675,7 @@ export type AccountCountOutputType = {
   documents: number
   auditEvents: number
   contractListings: number
+  recordedDriverPerformanceEntries: number
 }
 
 export type AccountCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1375,6 +1683,7 @@ export type AccountCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   documents?: boolean | AccountCountOutputTypeCountDocumentsArgs
   auditEvents?: boolean | AccountCountOutputTypeCountAuditEventsArgs
   contractListings?: boolean | AccountCountOutputTypeCountContractListingsArgs
+  recordedDriverPerformanceEntries?: boolean | AccountCountOutputTypeCountRecordedDriverPerformanceEntriesArgs
 }
 
 /**
@@ -1415,6 +1724,13 @@ export type AccountCountOutputTypeCountContractListingsArgs<ExtArgs extends runt
   where?: Prisma.ContractListingWhereInput
 }
 
+/**
+ * AccountCountOutputType without action
+ */
+export type AccountCountOutputTypeCountRecordedDriverPerformanceEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DriverPerformanceEntryWhereInput
+}
+
 
 export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1429,6 +1745,9 @@ export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   discordDisplayName?: boolean
   discordVerifiedAt?: boolean
   discordGuildJoinedAt?: boolean
+  profileImage?: boolean
+  profileImageMime?: boolean
+  profileImageUpdatedAt?: boolean
   role?: boolean
   isActive?: boolean
   emailVerified?: boolean
@@ -1441,6 +1760,7 @@ export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   documents?: boolean | Prisma.Account$documentsArgs<ExtArgs>
   auditEvents?: boolean | Prisma.Account$auditEventsArgs<ExtArgs>
   contractListings?: boolean | Prisma.Account$contractListingsArgs<ExtArgs>
+  recordedDriverPerformanceEntries?: boolean | Prisma.Account$recordedDriverPerformanceEntriesArgs<ExtArgs>
   _count?: boolean | Prisma.AccountCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["account"]>
 
@@ -1457,6 +1777,9 @@ export type AccountSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   discordDisplayName?: boolean
   discordVerifiedAt?: boolean
   discordGuildJoinedAt?: boolean
+  profileImage?: boolean
+  profileImageMime?: boolean
+  profileImageUpdatedAt?: boolean
   role?: boolean
   isActive?: boolean
   emailVerified?: boolean
@@ -1479,6 +1802,9 @@ export type AccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   discordDisplayName?: boolean
   discordVerifiedAt?: boolean
   discordGuildJoinedAt?: boolean
+  profileImage?: boolean
+  profileImageMime?: boolean
+  profileImageUpdatedAt?: boolean
   role?: boolean
   isActive?: boolean
   emailVerified?: boolean
@@ -1501,6 +1827,9 @@ export type AccountSelectScalar = {
   discordDisplayName?: boolean
   discordVerifiedAt?: boolean
   discordGuildJoinedAt?: boolean
+  profileImage?: boolean
+  profileImageMime?: boolean
+  profileImageUpdatedAt?: boolean
   role?: boolean
   isActive?: boolean
   emailVerified?: boolean
@@ -1510,13 +1839,14 @@ export type AccountSelectScalar = {
   archivedAt?: boolean
 }
 
-export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "firstName" | "lastName" | "steamId" | "truckyUsername" | "discordId" | "discordUsername" | "discordDisplayName" | "discordVerifiedAt" | "discordGuildJoinedAt" | "role" | "isActive" | "emailVerified" | "lastLogin" | "createdAt" | "updatedAt" | "archivedAt", ExtArgs["result"]["account"]>
+export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "firstName" | "lastName" | "steamId" | "truckyUsername" | "discordId" | "discordUsername" | "discordDisplayName" | "discordVerifiedAt" | "discordGuildJoinedAt" | "profileImage" | "profileImageMime" | "profileImageUpdatedAt" | "role" | "isActive" | "emailVerified" | "lastLogin" | "createdAt" | "updatedAt" | "archivedAt", ExtArgs["result"]["account"]>
 export type AccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   driver?: boolean | Prisma.Account$driverArgs<ExtArgs>
   notifications?: boolean | Prisma.Account$notificationsArgs<ExtArgs>
   documents?: boolean | Prisma.Account$documentsArgs<ExtArgs>
   auditEvents?: boolean | Prisma.Account$auditEventsArgs<ExtArgs>
   contractListings?: boolean | Prisma.Account$contractListingsArgs<ExtArgs>
+  recordedDriverPerformanceEntries?: boolean | Prisma.Account$recordedDriverPerformanceEntriesArgs<ExtArgs>
   _count?: boolean | Prisma.AccountCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AccountIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1530,6 +1860,7 @@ export type $AccountPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     documents: Prisma.$DocumentPayload<ExtArgs>[]
     auditEvents: Prisma.$AuditEventPayload<ExtArgs>[]
     contractListings: Prisma.$ContractListingPayload<ExtArgs>[]
+    recordedDriverPerformanceEntries: Prisma.$DriverPerformanceEntryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1544,6 +1875,9 @@ export type $AccountPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     discordDisplayName: string | null
     discordVerifiedAt: Date | null
     discordGuildJoinedAt: Date | null
+    profileImage: runtime.Bytes | null
+    profileImageMime: string | null
+    profileImageUpdatedAt: Date | null
     role: $Enums.UserRole
     isActive: boolean
     emailVerified: boolean
@@ -1950,6 +2284,7 @@ export interface Prisma__AccountClient<T, Null = never, ExtArgs extends runtime.
   documents<T extends Prisma.Account$documentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditEvents<T extends Prisma.Account$auditEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$auditEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   contractListings<T extends Prisma.Account$contractListingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$contractListingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContractListingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  recordedDriverPerformanceEntries<T extends Prisma.Account$recordedDriverPerformanceEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$recordedDriverPerformanceEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DriverPerformanceEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1991,6 +2326,9 @@ export interface AccountFieldRefs {
   readonly discordDisplayName: Prisma.FieldRef<"Account", 'String'>
   readonly discordVerifiedAt: Prisma.FieldRef<"Account", 'DateTime'>
   readonly discordGuildJoinedAt: Prisma.FieldRef<"Account", 'DateTime'>
+  readonly profileImage: Prisma.FieldRef<"Account", 'Bytes'>
+  readonly profileImageMime: Prisma.FieldRef<"Account", 'String'>
+  readonly profileImageUpdatedAt: Prisma.FieldRef<"Account", 'DateTime'>
   readonly role: Prisma.FieldRef<"Account", 'UserRole'>
   readonly isActive: Prisma.FieldRef<"Account", 'Boolean'>
   readonly emailVerified: Prisma.FieldRef<"Account", 'Boolean'>
@@ -2503,6 +2841,30 @@ export type Account$contractListingsArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.ContractListingScalarFieldEnum | Prisma.ContractListingScalarFieldEnum[]
+}
+
+/**
+ * Account.recordedDriverPerformanceEntries
+ */
+export type Account$recordedDriverPerformanceEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DriverPerformanceEntry
+   */
+  select?: Prisma.DriverPerformanceEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DriverPerformanceEntry
+   */
+  omit?: Prisma.DriverPerformanceEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DriverPerformanceEntryInclude<ExtArgs> | null
+  where?: Prisma.DriverPerformanceEntryWhereInput
+  orderBy?: Prisma.DriverPerformanceEntryOrderByWithRelationInput | Prisma.DriverPerformanceEntryOrderByWithRelationInput[]
+  cursor?: Prisma.DriverPerformanceEntryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DriverPerformanceEntryScalarFieldEnum | Prisma.DriverPerformanceEntryScalarFieldEnum[]
 }
 
 /**
