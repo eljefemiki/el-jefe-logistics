@@ -30,6 +30,14 @@ async function matchTruck(job: NormalizedJob) {
 }
 
 export async function importJob(job: NormalizedJob): Promise<ImportResult> {
+  const {
+    truckyUserId: _truckyUserId,
+    steamId: _steamId,
+    truckyUsername: _truckyUsername,
+    truckyVehicleId: _truckyVehicleId,
+    registration: _registration,
+    ...transportJob
+  } = job;
   const [driver, truck, existing] = await Promise.all([
     matchDriver(job), matchTruck(job),
     prisma.transportJob.findUnique({ where: { truckyJobId: job.truckyJobId }, select: { id: true, status: true } }),
@@ -39,8 +47,8 @@ export async function importJob(job: NormalizedJob): Promise<ImportResult> {
   const saved = await prisma.$transaction(async (tx) => {
     const result = await tx.transportJob.upsert({
       where: { truckyJobId: job.truckyJobId },
-      create: { ...job, profit, driverId: driver?.id, truckId: truck?.id },
-      update: { ...job, profit, driverId: driver?.id, truckId: truck?.id },
+      create: { ...transportJob, profit, driverId: driver?.id, truckId: truck?.id },
+      update: { ...transportJob, profit, driverId: driver?.id, truckId: truck?.id },
     });
     if (driver) {
       await tx.driver.update({
