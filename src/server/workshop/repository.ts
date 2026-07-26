@@ -28,8 +28,11 @@ export function findMaintenanceJob(id: string) {
   return prisma.maintenanceJob.findUnique({ where: { id }, include: jobInclude });
 }
 
-export function findWorkshopTrucks() {
+export function findWorkshopTrucks(currentTruckId?: string) {
   return prisma.truck.findMany({
+    where: currentTruckId
+      ? { OR: [{ archivedAt: null }, { id: currentTruckId }] }
+      : { archivedAt: null },
     select: { id: true, fleetNumber: true, registration: true, manufacturer: true, model: true, mileage: true },
     orderBy: { fleetNumber: "asc" },
   });
@@ -47,6 +50,10 @@ export async function insertMaintenanceJob(jobNumber: string, data: MaintenanceJ
 
 export async function reviseMaintenanceJob(id: string, data: MaintenanceJobInput) {
   return prisma.$transaction(async (tx) => {
+    const existing = await tx.maintenanceJob.findUniqueOrThrow({
+      where: { id },
+      select: { truckId: true },
+    });
     const job = await tx.maintenanceJob.update({
       where: { id },
       data: {
@@ -56,13 +63,16 @@ export async function reviseMaintenanceJob(id: string, data: MaintenanceJobInput
       },
       include: jobInclude,
     });
-    const openJobs = await tx.maintenanceJob.count({
-      where: { truckId: data.truckId, id: { not: id }, status: { notIn: ["COMPLETED", "CANCELLED"] } },
-    });
-    await tx.truck.update({
-      where: { id: data.truckId },
-      data: { status: ["COMPLETED", "CANCELLED"].includes(data.status) && openJobs === 0 ? "AVAILABLE" : "MAINTENANCE" },
-    });
+    const affectedTruckIds = [...new Set([existing.truckId, data.truckId])];
+    for (const truckId of affectedTruckIds) {
+      const openJobs = await tx.maintenanceJob.count({
+        where: { truckId, status: { notIn: ["COMPLETED", "CANCELLED"] } },
+      });
+      await tx.truck.update({
+        where: { id: truckId },
+        data: { status: openJobs === 0 ? "AVAILABLE" : "MAINTENANCE" },
+      });
+    }
     return job;
   });
 }

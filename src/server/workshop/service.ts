@@ -2,8 +2,11 @@ import { findMaintenanceJob, findMaintenanceJobs, findWorkshopTrucks, insertMain
 import type { MaintenanceJobInput, WorkshopFilters } from "./types";
 
 export async function getWorkshopCentre(filters: WorkshopFilters = {}) {
-  const jobs = await findMaintenanceJobs(filters);
-  const active = jobs.filter((job) => !["COMPLETED", "CANCELLED"].includes(job.status));
+  const [jobs, allJobs] = await Promise.all([
+    findMaintenanceJobs(filters),
+    findMaintenanceJobs(),
+  ]);
+  const active = allJobs.filter((job) => !["COMPLETED", "CANCELLED"].includes(job.status));
   return {
     jobs,
     stats: {

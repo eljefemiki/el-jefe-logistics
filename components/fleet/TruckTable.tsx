@@ -178,7 +178,7 @@ export default function TruckTable({
                 </td>
 
                 <td className="whitespace-nowrap px-6 py-4 text-right text-slate-300">
-                  {truck.mileage.toLocaleString()} miles
+                  {truck.mileage.toLocaleString()} km
                 </td>
 
                 <td className="whitespace-nowrap px-6 py-4 text-right text-slate-300">

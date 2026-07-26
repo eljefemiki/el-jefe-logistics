@@ -151,6 +151,46 @@ test("database-backed maintenance completion restores fleet availability only af
     const updated = await prisma.truck.findUniqueOrThrow({ where: { id: truck.id } });
     assert.equal(updated.status, index === 0 ? "MAINTENANCE" : "AVAILABLE");
   }
+
+  const replacementTruck = await prisma.truck.create({
+    data: {
+      fleetNumber: `${runId}-replacement-fleet`,
+      registration: `${runId}-replacement-reg`,
+      manufacturer: "SCANIA",
+      model: "S",
+      type: "TRACTOR",
+      year: 2026,
+      status: "AVAILABLE",
+    },
+  });
+  const movedJob = await insertMaintenanceJob(`${runId}-moved-job`, {
+    truckId: truck.id,
+    title: "Move to replacement truck",
+    type: "REPAIR",
+    priority: "HIGH",
+    status: "REPORTED",
+  });
+  await reviseMaintenanceJob(movedJob.id, {
+    truckId: replacementTruck.id,
+    title: movedJob.title,
+    type: movedJob.type,
+    priority: movedJob.priority,
+    status: "IN_PROGRESS",
+  });
+  const [oldTruck, newTruck] = await Promise.all([
+    prisma.truck.findUniqueOrThrow({ where: { id: truck.id } }),
+    prisma.truck.findUniqueOrThrow({ where: { id: replacementTruck.id } }),
+  ]);
+  assert.equal(oldTruck.status, "AVAILABLE");
+  assert.equal(newTruck.status, "MAINTENANCE");
+
+  await prisma.truck.update({
+    where: { id: truck.id },
+    data: { archivedAt: new Date() },
+  });
+  const { findWorkshopTrucks } = await import("../src/server/workshop/repository.ts");
+  const selectableTrucks = await findWorkshopTrucks();
+  assert.equal(selectableTrucks.some(({ id }) => id === truck.id), false);
   await prisma.$disconnect();
 });
 

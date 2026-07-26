@@ -16,7 +16,7 @@ function Field({ name, title, error, children }: { name: string; title: string; 
   return <div><label htmlFor={name} className={label}>{title}</label>{children}{error?.[0] && <p className="mt-2 text-sm text-red-400">{error[0]}</p>}</div>;
 }
 
-export default function WorkOrderForm({ trucks, job }: { trucks: Truck[]; job?: Job }) {
+export default function WorkOrderForm({ trucks, job, selectedTruckId }: { trucks: Truck[]; job?: Job; selectedTruckId?: string }) {
   const router = useRouter();
   const action = job ? updateMaintenanceJobAction.bind(null, job.id) : createMaintenanceJobAction;
   const [state, formAction, pending] = useActionState(action, initial);
@@ -29,11 +29,11 @@ export default function WorkOrderForm({ trucks, job }: { trucks: Truck[]; job?: 
       <h2 className="text-lg font-semibold text-white">Work order</h2>
       <p className="mt-1 text-sm text-slate-400">Record the vehicle, scope, urgency and workshop ownership.</p>
       <div className="mt-6 grid gap-6 md:grid-cols-2">
-        <Field name="truckId" title="Vehicle" error={state.fieldErrors?.truckId}><select id="truckId" name="truckId" defaultValue={job?.truckId ?? ""} required className={input}><option value="" disabled>Select truck</option>{trucks.map((truck) => <option key={truck.id} value={truck.id}>{truck.fleetNumber} · {truck.registration} · {truck.manufacturer} {truck.model}</option>)}</select></Field>
+        <Field name="truckId" title="Vehicle" error={state.fieldErrors?.truckId}><select id="truckId" name="truckId" defaultValue={job?.truckId ?? selectedTruckId ?? ""} required className={input}><option value="" disabled>Select truck</option>{trucks.map((truck) => <option key={truck.id} value={truck.id}>{truck.fleetNumber} · {truck.registration} · {truck.manufacturer} {truck.model}</option>)}</select></Field>
         <Field name="title" title="Job title" error={state.fieldErrors?.title}><input id="title" name="title" defaultValue={job?.title} placeholder="Investigate brake pressure warning" required className={input} /></Field>
         <Field name="type" title="Work type" error={state.fieldErrors?.type}><select id="type" name="type" defaultValue={job?.type ?? "REPAIR"} className={input}><option value="INSPECTION">Inspection</option><option value="PREVENTIVE_SERVICE">Preventive service</option><option value="REPAIR">Repair</option><option value="TYRES">Tyres</option><option value="MOT">MOT</option><option value="BREAKDOWN">Breakdown</option><option value="OTHER">Other</option></select></Field>
         <Field name="priority" title="Priority" error={state.fieldErrors?.priority}><select id="priority" name="priority" defaultValue={job?.priority ?? "ROUTINE"} className={input}><option value="LOW">Low</option><option value="ROUTINE">Routine</option><option value="HIGH">High</option><option value="CRITICAL">Critical</option></select></Field>
-        <Field name="status" title="Status" error={state.fieldErrors?.status}><select id="status" name="status" defaultValue={job?.status ?? "REPORTED"} className={input}><option value="REPORTED">Reported</option><option value="SCHEDULED">Scheduled</option><option value="IN_PROGRESS">In progress</option><option value="WAITING_PARTS">Waiting parts</option><option value="COMPLETED">Completed</option><option value="CANCELLED">Cancelled</option></select></Field>
+        <Field name="status" title="Status" error={state.fieldErrors?.status}><select id="status" name="status" defaultValue={job?.status ?? "REPORTED"} className={input}><option value="REPORTED">Reported</option><option value="SCHEDULED">Scheduled</option><option value="IN_PROGRESS">In progress</option><option value="WAITING_PARTS">Waiting parts</option><option value="COMPLETED">Completed — return vehicle when all work is closed</option><option value="CANCELLED">Cancelled — retain work-order history</option></select></Field>
         <Field name="scheduledFor" title="Scheduled date" error={state.fieldErrors?.scheduledFor}><input id="scheduledFor" name="scheduledFor" type="date" defaultValue={date} className={input} /></Field>
         <Field name="technician" title="Technician" error={state.fieldErrors?.technician}><input id="technician" name="technician" defaultValue={job?.technician ?? ""} placeholder="Workshop owner" className={input} /></Field>
         <Field name="vendor" title="External vendor" error={state.fieldErrors?.vendor}><input id="vendor" name="vendor" defaultValue={job?.vendor ?? ""} placeholder="Optional supplier" className={input} /></Field>
