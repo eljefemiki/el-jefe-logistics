@@ -2,17 +2,22 @@ import { findFuelEntries, findFuelEntry, findFuelTrucks, insertFuelEntry, revise
 import type { FuelEntryInput, FuelFilters } from "./types";
 
 export async function getFuelCentre(filters: FuelFilters = {}) {
-  const entries = await findFuelEntries(filters);
+  const [entries, allEntries] = await Promise.all([
+    findFuelEntries(filters),
+    findFuelEntries(),
+  ]);
   const now = new Date();
   const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-  const monthly = entries.filter((entry) => entry.purchasedAt >= monthStart);
+  const monthly = allEntries.filter((entry) => entry.purchasedAt >= monthStart);
   const litres = monthly.filter((entry) => entry.fuelType !== "ELECTRIC").reduce((sum, entry) => sum + entry.quantity, 0);
+  const energyKwh = monthly.filter((entry) => entry.fuelType === "ELECTRIC").reduce((sum, entry) => sum + entry.quantity, 0);
   const spend = monthly.reduce((sum, entry) => sum + entry.totalCost, 0);
   return {
     entries,
     stats: {
       monthlySpend: spend,
       monthlyQuantity: litres,
+      monthlyEnergyKwh: energyKwh,
       averageUnitPrice: litres ? monthly.filter((entry) => entry.fuelType !== "ELECTRIC").reduce((sum, entry) => sum + entry.unitPrice * entry.quantity, 0) / litres : 0,
       transactions: monthly.length,
     },

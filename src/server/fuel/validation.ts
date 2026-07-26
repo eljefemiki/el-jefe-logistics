@@ -13,6 +13,9 @@ export const fuelEntrySchema = z.object({
   station: z.string().trim().min(2, "Enter the fuel station.").max(120),
   location: z.string().trim().max(160).optional(),
   receiptNumber: z.string().trim().max(80).optional(),
-  purchasedAt: z.date(),
+  purchasedAt: z.date().refine(
+    (value) => value.getTime() <= Date.now() + 5 * 60 * 1000,
+    "Purchase time cannot be in the future.",
+  ),
   notes: optionalText,
 });

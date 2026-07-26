@@ -5,6 +5,7 @@ import { createFuelEntry, updateFuelEntry } from "./service";
 import { fuelEntrySchema } from "./validation";
 import { authorize } from "@/src/lib/auth";
 import { recordAudit } from "@/src/server/platform/audit";
+import { notify } from "@/src/server/platform/notifications";
 
 export interface FuelActionState {
   success: boolean;
@@ -44,10 +45,16 @@ async function run(formData: FormData, id?: string): Promise<FuelActionState> {
   if (!result.success) return { success: false, message: "Please check the highlighted fields.", fieldErrors: result.error.flatten().fieldErrors };
   try {
     const entry = id ? await updateFuelEntry(id, result.data) : await createFuelEntry(result.data);
-    await recordAudit({ action: id ? "UPDATE" : "CREATE", entityType: "FuelEntry", entityId: entry.id, summary: `${id ? "Updated" : "Recorded"} fuel entry ${entry.reference}`, after: entry });
+    await Promise.all([
+      recordAudit({ action: id ? "UPDATE" : "CREATE", entityType: "FuelEntry", entityId: entry.id, summary: `${id ? "Updated" : "Recorded"} fuel entry ${entry.reference}`, after: entry }),
+      notify({ title: id ? "Fuel entry updated" : "Fuel entry recorded", message: `${entry.reference} · ${entry.truck.fleetNumber}`, type: "FUEL", severity: "INFO", entityType: "FuelEntry", entityId: entry.id, entityHref: `/dashboard/fuel/${entry.id}` }),
+    ]);
     revalidatePath("/dashboard/fuel");
     revalidatePath("/dashboard/fleet");
     revalidatePath(`/dashboard/fleet/${entry.truckId}`);
+    if ("previousTruckId" in entry && entry.previousTruckId !== entry.truckId) {
+      revalidatePath(`/dashboard/fleet/${entry.previousTruckId}`);
+    }
     return { success: true, message: id ? "Fuel entry updated." : "Fuel entry recorded.", entryId: entry.id };
   } catch (error) {
     return { success: false, message: error instanceof Error ? error.message : "Unable to save the fuel entry." };

@@ -245,3 +245,80 @@ test("database-backed driver performance updates lifetime totals atomically", { 
   assert.equal(result.entry.income - result.entry.expenditure, 1600);
   await prisma.$disconnect();
 });
+
+test("database-backed fuel edits preserve odometers and refresh both affected trucks", { skip: !enabled }, async () => {
+  const prisma = createClient();
+  process.env.DATABASE_URL = databaseUrl;
+  const { findFuelTrucks, insertFuelEntry, reviseFuelEntry } = await import("../src/server/fuel/repository.ts");
+  const firstTruck = await prisma.truck.create({
+    data: {
+      fleetNumber: `${runId}-fuel-a`,
+      registration: `${runId}-fuel-reg-a`,
+      manufacturer: "VOLVO",
+      model: "FH",
+      type: "TRACTOR",
+      year: 2025,
+      mileage: 1000,
+      fuelLevel: 20,
+    },
+  });
+  const secondTruck = await prisma.truck.create({
+    data: {
+      fleetNumber: `${runId}-fuel-b`,
+      registration: `${runId}-fuel-reg-b`,
+      manufacturer: "DAF",
+      model: "XG",
+      type: "TRACTOR",
+      year: 2026,
+      mileage: 500,
+      fuelLevel: 10,
+    },
+  });
+  const latest = await insertFuelEntry(`${runId}-fuel-latest`, {
+    truckId: firstTruck.id,
+    fuelType: "DIESEL",
+    quantity: 400,
+    unitPrice: 1.5,
+    odometerKm: 1200,
+    fuelLevelAfter: 80,
+    station: "Integration Fuel",
+    purchasedAt: new Date("2026-07-20T12:00:00Z"),
+  });
+  await insertFuelEntry(`${runId}-fuel-history`, {
+    truckId: firstTruck.id,
+    fuelType: "DIESEL",
+    quantity: 200,
+    unitPrice: 1.4,
+    odometerKm: 900,
+    fuelLevelAfter: 40,
+    station: "Historical Fuel",
+    purchasedAt: new Date("2026-07-10T12:00:00Z"),
+  });
+  let refreshedFirst = await prisma.truck.findUniqueOrThrow({ where: { id: firstTruck.id } });
+  assert.equal(refreshedFirst.mileage, 1200);
+  assert.equal(refreshedFirst.fuelLevel, 80);
+
+  await reviseFuelEntry(latest.id, {
+    truckId: secondTruck.id,
+    fuelType: latest.fuelType,
+    quantity: latest.quantity,
+    unitPrice: latest.unitPrice,
+    odometerKm: 1300,
+    fuelLevelAfter: 90,
+    station: latest.station,
+    purchasedAt: latest.purchasedAt,
+  });
+  const [oldTruck, newTruck] = await Promise.all([
+    prisma.truck.findUniqueOrThrow({ where: { id: firstTruck.id } }),
+    prisma.truck.findUniqueOrThrow({ where: { id: secondTruck.id } }),
+  ]);
+  assert.equal(oldTruck.mileage, 1200);
+  assert.equal(oldTruck.fuelLevel, 40);
+  assert.equal(newTruck.mileage, 1300);
+  assert.equal(newTruck.fuelLevel, 90);
+
+  await prisma.truck.update({ where: { id: firstTruck.id }, data: { archivedAt: new Date() } });
+  const selectable = await findFuelTrucks();
+  assert.equal(selectable.some(({ id }) => id === firstTruck.id), false);
+  await prisma.$disconnect();
+});
