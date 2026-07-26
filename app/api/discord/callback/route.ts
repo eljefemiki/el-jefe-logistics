@@ -5,6 +5,7 @@ import {
   discordStateCookie,
   getDiscordConfig,
 } from "@/src/lib/discord";
+import { getDiscordPublicOrigin } from "@/src/lib/discord-origin";
 import { prisma } from "@/src/lib/prisma";
 import { getCurrentAccount } from "@/src/lib/session";
 
@@ -37,22 +38,25 @@ export async function GET(request: Request) {
   const returnedState = requestUrl.searchParams.get("state");
   const code = requestUrl.searchParams.get("code");
   const error = requestUrl.searchParams.get("error");
+  const config = getDiscordConfig(requestUrl.origin);
+  const publicOrigin = config
+    ? getDiscordPublicOrigin(config.redirectUri)
+    : requestUrl.origin;
 
   cookieStore.delete(discordStateCookie);
 
   if (!account) {
     return NextResponse.redirect(
-      new URL("/login?next=%2Fprofile", requestUrl.origin),
+      new URL("/login?next=%2Fprofile", publicOrigin),
     );
   }
 
   if (error) {
-    return profileRedirect(requestUrl.origin, "denied");
+    return profileRedirect(publicOrigin, "denied");
   }
 
-  const config = getDiscordConfig(requestUrl.origin);
   if (!config || !code || !storedState || returnedState !== storedState) {
-    return profileRedirect(requestUrl.origin, "failed");
+    return profileRedirect(publicOrigin, "failed");
   }
 
   try {
@@ -70,7 +74,7 @@ export async function GET(request: Request) {
     });
 
     if (!tokenResponse.ok) {
-      return profileRedirect(requestUrl.origin, "failed");
+      return profileRedirect(publicOrigin, "failed");
     }
 
     const token = (await tokenResponse.json()) as DiscordTokenResponse;
@@ -87,18 +91,18 @@ export async function GET(request: Request) {
     ]);
 
     if (memberResponse.status === 404) {
-      return profileRedirect(requestUrl.origin, "not_member");
+      return profileRedirect(publicOrigin, "not_member");
     }
 
     if (!userResponse.ok || !memberResponse.ok) {
-      return profileRedirect(requestUrl.origin, "failed");
+      return profileRedirect(publicOrigin, "failed");
     }
 
     const user = (await userResponse.json()) as DiscordUser;
     const member = (await memberResponse.json()) as DiscordGuildMember;
 
     if (member.pending) {
-      return profileRedirect(requestUrl.origin, "not_member");
+      return profileRedirect(publicOrigin, "not_member");
     }
 
     await prisma.account.update({
@@ -114,9 +118,9 @@ export async function GET(request: Request) {
       },
     });
 
-    return profileRedirect(requestUrl.origin, "verified");
+    return profileRedirect(publicOrigin, "verified");
   } catch (error) {
     console.error("Discord verification failed:", error);
-    return profileRedirect(requestUrl.origin, "failed");
+    return profileRedirect(publicOrigin, "failed");
   }
 }

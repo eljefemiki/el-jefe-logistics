@@ -5,22 +5,24 @@ import {
   discordStateCookie,
   getDiscordConfig,
 } from "@/src/lib/discord";
+import { getDiscordPublicOrigin } from "@/src/lib/discord-origin";
 import { getCurrentAccount } from "@/src/lib/session";
 
 export async function GET(request: Request) {
   const account = await getCurrentAccount();
   const requestUrl = new URL(request.url);
 
-  if (!account) {
-    return NextResponse.redirect(
-      new URL("/login?next=%2Fprofile", requestUrl.origin),
-    );
-  }
-
   const config = getDiscordConfig(requestUrl.origin);
   if (!config) {
     return NextResponse.redirect(
       new URL("/profile?discord=failed", requestUrl.origin),
+    );
+  }
+  const publicOrigin = getDiscordPublicOrigin(config.redirectUri);
+
+  if (!account) {
+    return NextResponse.redirect(
+      new URL("/login?next=%2Fprofile", publicOrigin),
     );
   }
 
