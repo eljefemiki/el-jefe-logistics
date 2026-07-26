@@ -164,6 +164,16 @@ export async function synchronizeJobs() {
     for (const payload of jobs) {
       try { await importJob(normalizeJob(payload)); imported += 1; } catch { failed += 1; }
     }
+    await Promise.all([
+      prisma.driver.updateMany({
+        where: { transportJobs: { some: { status: "STARTED" } } },
+        data: { status: "DRIVING" },
+      }),
+      prisma.truck.updateMany({
+        where: { transportJobs: { some: { status: "STARTED" } } },
+        data: { status: "DELIVERING" },
+      }),
+    ]);
     await prisma.truckySyncState.update({ where: { id: "company" }, data: {
       lastCompletedAt: new Date(), lastSuccessfulAt: new Date(), imported: { increment: imported }, failed: { increment: failed },
     } });
