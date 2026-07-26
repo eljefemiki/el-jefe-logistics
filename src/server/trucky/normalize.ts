@@ -29,7 +29,7 @@ export function eventFingerprint(rawBody: string) {
   return createHash("sha256").update(rawBody).digest("hex");
 }
 
-export function normalizeJob(input: unknown, eventType = "job_completed"): NormalizedJob {
+export function normalizeJob(input: unknown, eventType?: string): NormalizedJob {
   const root = object(input);
   const data = object(root.data ?? root);
   const user = object(data.user ?? data.driver ?? data.member);
@@ -42,9 +42,16 @@ export function normalizeJob(input: unknown, eventType = "job_completed"): Norma
   const externalId = text(pick(data, "id", "_id", "job_id", "jobId", "uuid"));
   if (!externalId) throw new Error("Trucky job payload has no stable job id.");
 
-  const eventStatus = eventType === "job_created" ? "STARTED"
-    : eventType === "job_canceled" ? "CANCELLED"
-    : eventType === "job_deleted" ? "DELETED" : "COMPLETED";
+  const sourceStatus = text(pick(data, "status"))?.toLowerCase();
+  const resolvedEvent = eventType ?? (
+    ["completed", "delivered"].includes(sourceStatus ?? "") ? "job_completed"
+      : ["canceled", "cancelled"].includes(sourceStatus ?? "") ? "job_canceled"
+      : sourceStatus === "deleted" ? "job_deleted"
+      : "job_created"
+  );
+  const eventStatus = resolvedEvent === "job_created" ? "STARTED"
+    : resolvedEvent === "job_canceled" ? "CANCELLED"
+    : resolvedEvent === "job_deleted" ? "DELETED" : "COMPLETED";
   const revenue = number(pick(data, "revenue", "income", "price")) ?? number(pick(economy, "revenue", "income"));
   const fuelCost = number(pick(data, "fuel_cost", "fuelCost")) ?? number(pick(economy, "fuel_cost", "fuelCost"));
   const tollCost = number(pick(data, "toll_cost", "tollCost")) ?? number(pick(economy, "toll_cost", "tollCost"));

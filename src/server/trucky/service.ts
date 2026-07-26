@@ -56,6 +56,7 @@ export async function importJob(job: NormalizedJob): Promise<ImportResult> {
         data: {
           truckyUserId: job.truckyUserId ?? undefined, steamId: job.steamId ?? undefined,
           truckyUsername: job.truckyUsername ?? undefined, lastTruckySyncAt: new Date(),
+          status: job.status === "STARTED" ? "DRIVING" : "AVAILABLE",
           ...(job.status === "COMPLETED" && existing?.status !== "COMPLETED" ? {
             totalDeliveries: { increment: 1 },
             totalDistanceKm: { increment: job.drivenDistanceKm ?? job.distanceKm ?? 0 },
@@ -68,6 +69,7 @@ export async function importJob(job: NormalizedJob): Promise<ImportResult> {
         where: { id: truck.id },
         data: {
           truckyVehicleId: job.truckyVehicleId ?? undefined,
+          status: job.status === "STARTED" ? "DELIVERING" : "AVAILABLE",
           mileage: job.status === "COMPLETED" && existing?.status !== "COMPLETED"
             ? { increment: job.drivenDistanceKm ?? job.distanceKm ?? 0 } : undefined,
         },

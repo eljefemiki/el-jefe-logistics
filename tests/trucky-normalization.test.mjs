@@ -74,3 +74,10 @@ test("real Trucky API job shape accepts numeric IDs and flat route fields", () =
   assert.equal(job.averageFuelConsumption, 31.8);
   assert.equal(job.lastEventAt.toISOString(), "2026-07-26T12:01:00.000Z");
 });
+
+test("API reconciliation derives in-progress and terminal states from payload status", () => {
+  const base = { id: 987, driver: { id: 88 }, started_at: "2026-07-26T19:00:00.000Z" };
+  assert.equal(normalizeJob({ ...base, status: "in_progress" }).status, "STARTED");
+  assert.equal(normalizeJob({ ...base, status: "completed", completed_at: "2026-07-26T20:00:00.000Z" }).status, "COMPLETED");
+  assert.equal(normalizeJob({ ...base, status: "canceled" }).status, "CANCELLED");
+});
