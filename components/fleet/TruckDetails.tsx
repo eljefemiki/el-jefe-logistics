@@ -1,4 +1,5 @@
 import type { FleetTruckDTO } from "@/src/server/fleet/types";
+import { calculateLeaseSummary } from "@/src/lib/fleet-finance";
 
 interface TruckDetailsProps {
   truck: FleetTruckDTO;
@@ -58,6 +59,17 @@ export default function TruckDetails({
   const depot = truck.depot
     ? `${truck.depot.name}, ${truck.depot.city}`
     : "Unassigned";
+  const lease =
+    truck.ownershipType === "LEASED" &&
+    truck.purchasePrice !== null &&
+    truck.leaseTermMonths &&
+    truck.leaseStartDate
+      ? calculateLeaseSummary(
+          truck.purchasePrice,
+          truck.leaseTermMonths,
+          truck.leaseStartDate,
+        )
+      : null;
 
   return (
     <div className="grid gap-6 lg:grid-cols-2">
@@ -79,10 +91,14 @@ export default function TruckDetails({
 
       <section className="rounded-xl border border-slate-800 bg-slate-900 p-6">
         <h2 className="text-xl font-semibold text-white">
-          Ownership
+          Financial Information
         </h2>
 
         <dl className="mt-4">
+          <DetailRow
+            label="Financing"
+            value={truck.ownershipType === "LEASED" ? "Lease to own" : "Owned outright"}
+          />
           <DetailRow
             label="Purchase Date"
             value={formatDate(truck.purchaseDate)}
@@ -95,6 +111,30 @@ export default function TruckDetails({
             label="Current Value"
             value={formatCurrency(truck.currentValue)}
           />
+          {lease && (
+            <>
+              <DetailRow
+                label="Lease Period"
+                value={`${truck.leaseTermMonths} months`}
+              />
+              <DetailRow
+                label="Monthly Payment"
+                value={formatCurrency(lease.monthlyPayment)}
+              />
+              <DetailRow
+                label="Paid"
+                value={`${formatCurrency(lease.amountPaid)} · ${lease.paymentsMade} of ${truck.leaseTermMonths} payments`}
+              />
+              <DetailRow
+                label="Remaining Balance"
+                value={formatCurrency(lease.remainingBalance)}
+              />
+              <DetailRow
+                label="Pay-off Date"
+                value={formatDate(lease.endDate)}
+              />
+            </>
+          )}
           <DetailRow
             label="Created"
             value={formatDate(truck.createdAt)}
@@ -104,6 +144,20 @@ export default function TruckDetails({
             value={formatDate(truck.updatedAt)}
           />
         </dl>
+        {lease && (
+          <div className="mt-4">
+            <div className="mb-2 flex justify-between text-sm text-slate-400">
+              <span>Lease progress</span>
+              <span>{Math.round(lease.progressPercent)}%</span>
+            </div>
+            <div className="h-2 overflow-hidden rounded-full bg-slate-800">
+              <div
+                className="h-full rounded-full bg-blue-500"
+                style={{ width: `${lease.progressPercent}%` }}
+              />
+            </div>
+          </div>
+        )}
       </section>
     </div>
   );

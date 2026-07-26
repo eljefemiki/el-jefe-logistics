@@ -44,9 +44,7 @@ export async function POST(request: Request) {
       name,
       password,
       steamId,
-      truckyUserId,
       truckyUsername,
-      discordId,
     } = result.data;
     const email = result.data.email.trim().toLowerCase();
 
@@ -81,9 +79,7 @@ export async function POST(request: Request) {
         email,
         passwordHash,
         steamId,
-        truckyUserId,
         truckyUsername,
-        discordId,
         role: "APPLICANT",
         isActive: true,
         emailVerified: false,
@@ -110,7 +106,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           success: false,
-          message: "One of these account or driver IDs is already registered.",
+          message: "That email address or Steam ID is already registered.",
         },
         { status: 409 }
       );

@@ -3,6 +3,8 @@ import type {
   FleetTruckManufacturer,
   FleetTruckStatus,
   FleetTruckType,
+  LeaseTermMonths,
+  TruckOwnershipType,
 } from "./types";
 
 interface TruckRecord {
@@ -26,6 +28,9 @@ interface TruckRecord {
   purchaseDate: Date | null;
   purchasePrice: number | null;
   currentValue: number | null;
+  ownershipType: string;
+  leaseStartDate: Date | null;
+  leaseTermMonths: number | null;
 
   createdAt: Date;
   updatedAt: Date;
@@ -111,6 +116,15 @@ export function mapTruckToDTO(
 
     currentValue:
       truck.currentValue,
+
+    ownershipType:
+      truck.ownershipType as TruckOwnershipType,
+
+    leaseStartDate:
+      truck.leaseStartDate,
+
+    leaseTermMonths:
+      truck.leaseTermMonths as LeaseTermMonths | null,
 
     createdAt:
       truck.createdAt,

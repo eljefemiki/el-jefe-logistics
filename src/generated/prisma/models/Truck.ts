@@ -32,6 +32,7 @@ export type TruckAvgAggregateOutputType = {
   fuelLevel: number | null
   purchasePrice: number | null
   currentValue: number | null
+  leaseTermMonths: number | null
 }
 
 export type TruckSumAggregateOutputType = {
@@ -40,6 +41,7 @@ export type TruckSumAggregateOutputType = {
   fuelLevel: number | null
   purchasePrice: number | null
   currentValue: number | null
+  leaseTermMonths: number | null
 }
 
 export type TruckMinAggregateOutputType = {
@@ -59,6 +61,9 @@ export type TruckMinAggregateOutputType = {
   purchaseDate: Date | null
   purchasePrice: number | null
   currentValue: number | null
+  ownershipType: $Enums.TruckOwnershipType | null
+  leaseStartDate: Date | null
+  leaseTermMonths: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -80,6 +85,9 @@ export type TruckMaxAggregateOutputType = {
   purchaseDate: Date | null
   purchasePrice: number | null
   currentValue: number | null
+  ownershipType: $Enums.TruckOwnershipType | null
+  leaseStartDate: Date | null
+  leaseTermMonths: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -101,6 +109,9 @@ export type TruckCountAggregateOutputType = {
   purchaseDate: number
   purchasePrice: number
   currentValue: number
+  ownershipType: number
+  leaseStartDate: number
+  leaseTermMonths: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -113,6 +124,7 @@ export type TruckAvgAggregateInputType = {
   fuelLevel?: true
   purchasePrice?: true
   currentValue?: true
+  leaseTermMonths?: true
 }
 
 export type TruckSumAggregateInputType = {
@@ -121,6 +133,7 @@ export type TruckSumAggregateInputType = {
   fuelLevel?: true
   purchasePrice?: true
   currentValue?: true
+  leaseTermMonths?: true
 }
 
 export type TruckMinAggregateInputType = {
@@ -140,6 +153,9 @@ export type TruckMinAggregateInputType = {
   purchaseDate?: true
   purchasePrice?: true
   currentValue?: true
+  ownershipType?: true
+  leaseStartDate?: true
+  leaseTermMonths?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -161,6 +177,9 @@ export type TruckMaxAggregateInputType = {
   purchaseDate?: true
   purchasePrice?: true
   currentValue?: true
+  ownershipType?: true
+  leaseStartDate?: true
+  leaseTermMonths?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -182,6 +201,9 @@ export type TruckCountAggregateInputType = {
   purchaseDate?: true
   purchasePrice?: true
   currentValue?: true
+  ownershipType?: true
+  leaseStartDate?: true
+  leaseTermMonths?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -290,6 +312,9 @@ export type TruckGroupByOutputType = {
   purchaseDate: Date | null
   purchasePrice: number | null
   currentValue: number | null
+  ownershipType: $Enums.TruckOwnershipType
+  leaseStartDate: Date | null
+  leaseTermMonths: number | null
   createdAt: Date
   updatedAt: Date
   _count: TruckCountAggregateOutputType | null
@@ -334,6 +359,9 @@ export type TruckWhereInput = {
   purchaseDate?: Prisma.DateTimeNullableFilter<"Truck"> | Date | string | null
   purchasePrice?: Prisma.FloatNullableFilter<"Truck"> | number | null
   currentValue?: Prisma.FloatNullableFilter<"Truck"> | number | null
+  ownershipType?: Prisma.EnumTruckOwnershipTypeFilter<"Truck"> | $Enums.TruckOwnershipType
+  leaseStartDate?: Prisma.DateTimeNullableFilter<"Truck"> | Date | string | null
+  leaseTermMonths?: Prisma.IntNullableFilter<"Truck"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Truck"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Truck"> | Date | string
   depot?: Prisma.XOR<Prisma.DepotNullableScalarRelationFilter, Prisma.DepotWhereInput> | null
@@ -359,6 +387,9 @@ export type TruckOrderByWithRelationInput = {
   purchaseDate?: Prisma.SortOrderInput | Prisma.SortOrder
   purchasePrice?: Prisma.SortOrderInput | Prisma.SortOrder
   currentValue?: Prisma.SortOrderInput | Prisma.SortOrder
+  ownershipType?: Prisma.SortOrder
+  leaseStartDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  leaseTermMonths?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   depot?: Prisma.DepotOrderByWithRelationInput
@@ -387,6 +418,9 @@ export type TruckWhereUniqueInput = Prisma.AtLeast<{
   purchaseDate?: Prisma.DateTimeNullableFilter<"Truck"> | Date | string | null
   purchasePrice?: Prisma.FloatNullableFilter<"Truck"> | number | null
   currentValue?: Prisma.FloatNullableFilter<"Truck"> | number | null
+  ownershipType?: Prisma.EnumTruckOwnershipTypeFilter<"Truck"> | $Enums.TruckOwnershipType
+  leaseStartDate?: Prisma.DateTimeNullableFilter<"Truck"> | Date | string | null
+  leaseTermMonths?: Prisma.IntNullableFilter<"Truck"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Truck"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Truck"> | Date | string
   depot?: Prisma.XOR<Prisma.DepotNullableScalarRelationFilter, Prisma.DepotWhereInput> | null
@@ -412,6 +446,9 @@ export type TruckOrderByWithAggregationInput = {
   purchaseDate?: Prisma.SortOrderInput | Prisma.SortOrder
   purchasePrice?: Prisma.SortOrderInput | Prisma.SortOrder
   currentValue?: Prisma.SortOrderInput | Prisma.SortOrder
+  ownershipType?: Prisma.SortOrder
+  leaseStartDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  leaseTermMonths?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.TruckCountOrderByAggregateInput
@@ -441,6 +478,9 @@ export type TruckScalarWhereWithAggregatesInput = {
   purchaseDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Truck"> | Date | string | null
   purchasePrice?: Prisma.FloatNullableWithAggregatesFilter<"Truck"> | number | null
   currentValue?: Prisma.FloatNullableWithAggregatesFilter<"Truck"> | number | null
+  ownershipType?: Prisma.EnumTruckOwnershipTypeWithAggregatesFilter<"Truck"> | $Enums.TruckOwnershipType
+  leaseStartDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Truck"> | Date | string | null
+  leaseTermMonths?: Prisma.IntNullableWithAggregatesFilter<"Truck"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Truck"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Truck"> | Date | string
 }
@@ -460,6 +500,9 @@ export type TruckCreateInput = {
   purchaseDate?: Date | string | null
   purchasePrice?: number | null
   currentValue?: number | null
+  ownershipType?: $Enums.TruckOwnershipType
+  leaseStartDate?: Date | string | null
+  leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   depot?: Prisma.DepotCreateNestedOneWithoutTrucksInput
@@ -485,6 +528,9 @@ export type TruckUncheckedCreateInput = {
   purchaseDate?: Date | string | null
   purchasePrice?: number | null
   currentValue?: number | null
+  ownershipType?: $Enums.TruckOwnershipType
+  leaseStartDate?: Date | string | null
+  leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   maintenanceJobs?: Prisma.MaintenanceJobUncheckedCreateNestedManyWithoutTruckInput
@@ -506,6 +552,9 @@ export type TruckUpdateInput = {
   purchaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   purchasePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  ownershipType?: Prisma.EnumTruckOwnershipTypeFieldUpdateOperationsInput | $Enums.TruckOwnershipType
+  leaseStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   depot?: Prisma.DepotUpdateOneWithoutTrucksNestedInput
@@ -531,6 +580,9 @@ export type TruckUncheckedUpdateInput = {
   purchaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   purchasePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  ownershipType?: Prisma.EnumTruckOwnershipTypeFieldUpdateOperationsInput | $Enums.TruckOwnershipType
+  leaseStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   maintenanceJobs?: Prisma.MaintenanceJobUncheckedUpdateManyWithoutTruckNestedInput
@@ -554,6 +606,9 @@ export type TruckCreateManyInput = {
   purchaseDate?: Date | string | null
   purchasePrice?: number | null
   currentValue?: number | null
+  ownershipType?: $Enums.TruckOwnershipType
+  leaseStartDate?: Date | string | null
+  leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -573,6 +628,9 @@ export type TruckUpdateManyMutationInput = {
   purchaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   purchasePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  ownershipType?: Prisma.EnumTruckOwnershipTypeFieldUpdateOperationsInput | $Enums.TruckOwnershipType
+  leaseStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -594,6 +652,9 @@ export type TruckUncheckedUpdateManyInput = {
   purchaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   purchasePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  ownershipType?: Prisma.EnumTruckOwnershipTypeFieldUpdateOperationsInput | $Enums.TruckOwnershipType
+  leaseStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -625,6 +686,9 @@ export type TruckCountOrderByAggregateInput = {
   purchaseDate?: Prisma.SortOrder
   purchasePrice?: Prisma.SortOrder
   currentValue?: Prisma.SortOrder
+  ownershipType?: Prisma.SortOrder
+  leaseStartDate?: Prisma.SortOrder
+  leaseTermMonths?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -635,6 +699,7 @@ export type TruckAvgOrderByAggregateInput = {
   fuelLevel?: Prisma.SortOrder
   purchasePrice?: Prisma.SortOrder
   currentValue?: Prisma.SortOrder
+  leaseTermMonths?: Prisma.SortOrder
 }
 
 export type TruckMaxOrderByAggregateInput = {
@@ -654,6 +719,9 @@ export type TruckMaxOrderByAggregateInput = {
   purchaseDate?: Prisma.SortOrder
   purchasePrice?: Prisma.SortOrder
   currentValue?: Prisma.SortOrder
+  ownershipType?: Prisma.SortOrder
+  leaseStartDate?: Prisma.SortOrder
+  leaseTermMonths?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -675,6 +743,9 @@ export type TruckMinOrderByAggregateInput = {
   purchaseDate?: Prisma.SortOrder
   purchasePrice?: Prisma.SortOrder
   currentValue?: Prisma.SortOrder
+  ownershipType?: Prisma.SortOrder
+  leaseStartDate?: Prisma.SortOrder
+  leaseTermMonths?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -685,6 +756,7 @@ export type TruckSumOrderByAggregateInput = {
   fuelLevel?: Prisma.SortOrder
   purchasePrice?: Prisma.SortOrder
   currentValue?: Prisma.SortOrder
+  leaseTermMonths?: Prisma.SortOrder
 }
 
 export type TruckScalarRelationFilter = {
@@ -788,6 +860,10 @@ export type EnumTruckStatusFieldUpdateOperationsInput = {
   set?: $Enums.TruckStatus
 }
 
+export type EnumTruckOwnershipTypeFieldUpdateOperationsInput = {
+  set?: $Enums.TruckOwnershipType
+}
+
 export type TruckCreateNestedOneWithoutFuelEntriesInput = {
   create?: Prisma.XOR<Prisma.TruckCreateWithoutFuelEntriesInput, Prisma.TruckUncheckedCreateWithoutFuelEntriesInput>
   connectOrCreate?: Prisma.TruckCreateOrConnectWithoutFuelEntriesInput
@@ -831,6 +907,9 @@ export type TruckCreateWithoutDriverInput = {
   purchaseDate?: Date | string | null
   purchasePrice?: number | null
   currentValue?: number | null
+  ownershipType?: $Enums.TruckOwnershipType
+  leaseStartDate?: Date | string | null
+  leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   depot?: Prisma.DepotCreateNestedOneWithoutTrucksInput
@@ -854,6 +933,9 @@ export type TruckUncheckedCreateWithoutDriverInput = {
   purchaseDate?: Date | string | null
   purchasePrice?: number | null
   currentValue?: number | null
+  ownershipType?: $Enums.TruckOwnershipType
+  leaseStartDate?: Date | string | null
+  leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   maintenanceJobs?: Prisma.MaintenanceJobUncheckedCreateNestedManyWithoutTruckInput
@@ -906,6 +988,9 @@ export type TruckScalarWhereInput = {
   purchaseDate?: Prisma.DateTimeNullableFilter<"Truck"> | Date | string | null
   purchasePrice?: Prisma.FloatNullableFilter<"Truck"> | number | null
   currentValue?: Prisma.FloatNullableFilter<"Truck"> | number | null
+  ownershipType?: Prisma.EnumTruckOwnershipTypeFilter<"Truck"> | $Enums.TruckOwnershipType
+  leaseStartDate?: Prisma.DateTimeNullableFilter<"Truck"> | Date | string | null
+  leaseTermMonths?: Prisma.IntNullableFilter<"Truck"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Truck"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Truck"> | Date | string
 }
@@ -925,6 +1010,9 @@ export type TruckCreateWithoutDepotInput = {
   purchaseDate?: Date | string | null
   purchasePrice?: number | null
   currentValue?: number | null
+  ownershipType?: $Enums.TruckOwnershipType
+  leaseStartDate?: Date | string | null
+  leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   driver?: Prisma.DriverCreateNestedOneWithoutTrucksInput
@@ -948,6 +1036,9 @@ export type TruckUncheckedCreateWithoutDepotInput = {
   purchaseDate?: Date | string | null
   purchasePrice?: number | null
   currentValue?: number | null
+  ownershipType?: $Enums.TruckOwnershipType
+  leaseStartDate?: Date | string | null
+  leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   maintenanceJobs?: Prisma.MaintenanceJobUncheckedCreateNestedManyWithoutTruckInput
@@ -995,6 +1086,9 @@ export type TruckCreateWithoutFuelEntriesInput = {
   purchaseDate?: Date | string | null
   purchasePrice?: number | null
   currentValue?: number | null
+  ownershipType?: $Enums.TruckOwnershipType
+  leaseStartDate?: Date | string | null
+  leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   depot?: Prisma.DepotCreateNestedOneWithoutTrucksInput
@@ -1019,6 +1113,9 @@ export type TruckUncheckedCreateWithoutFuelEntriesInput = {
   purchaseDate?: Date | string | null
   purchasePrice?: number | null
   currentValue?: number | null
+  ownershipType?: $Enums.TruckOwnershipType
+  leaseStartDate?: Date | string | null
+  leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   maintenanceJobs?: Prisma.MaintenanceJobUncheckedCreateNestedManyWithoutTruckInput
@@ -1055,6 +1152,9 @@ export type TruckUpdateWithoutFuelEntriesInput = {
   purchaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   purchasePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  ownershipType?: Prisma.EnumTruckOwnershipTypeFieldUpdateOperationsInput | $Enums.TruckOwnershipType
+  leaseStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   depot?: Prisma.DepotUpdateOneWithoutTrucksNestedInput
@@ -1079,6 +1179,9 @@ export type TruckUncheckedUpdateWithoutFuelEntriesInput = {
   purchaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   purchasePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  ownershipType?: Prisma.EnumTruckOwnershipTypeFieldUpdateOperationsInput | $Enums.TruckOwnershipType
+  leaseStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   maintenanceJobs?: Prisma.MaintenanceJobUncheckedUpdateManyWithoutTruckNestedInput
@@ -1099,6 +1202,9 @@ export type TruckCreateWithoutMaintenanceJobsInput = {
   purchaseDate?: Date | string | null
   purchasePrice?: number | null
   currentValue?: number | null
+  ownershipType?: $Enums.TruckOwnershipType
+  leaseStartDate?: Date | string | null
+  leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   depot?: Prisma.DepotCreateNestedOneWithoutTrucksInput
@@ -1123,6 +1229,9 @@ export type TruckUncheckedCreateWithoutMaintenanceJobsInput = {
   purchaseDate?: Date | string | null
   purchasePrice?: number | null
   currentValue?: number | null
+  ownershipType?: $Enums.TruckOwnershipType
+  leaseStartDate?: Date | string | null
+  leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   fuelEntries?: Prisma.FuelEntryUncheckedCreateNestedManyWithoutTruckInput
@@ -1159,6 +1268,9 @@ export type TruckUpdateWithoutMaintenanceJobsInput = {
   purchaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   purchasePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  ownershipType?: Prisma.EnumTruckOwnershipTypeFieldUpdateOperationsInput | $Enums.TruckOwnershipType
+  leaseStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   depot?: Prisma.DepotUpdateOneWithoutTrucksNestedInput
@@ -1183,6 +1295,9 @@ export type TruckUncheckedUpdateWithoutMaintenanceJobsInput = {
   purchaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   purchasePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  ownershipType?: Prisma.EnumTruckOwnershipTypeFieldUpdateOperationsInput | $Enums.TruckOwnershipType
+  leaseStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fuelEntries?: Prisma.FuelEntryUncheckedUpdateManyWithoutTruckNestedInput
@@ -1204,6 +1319,9 @@ export type TruckCreateManyDriverInput = {
   purchaseDate?: Date | string | null
   purchasePrice?: number | null
   currentValue?: number | null
+  ownershipType?: $Enums.TruckOwnershipType
+  leaseStartDate?: Date | string | null
+  leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1223,6 +1341,9 @@ export type TruckUpdateWithoutDriverInput = {
   purchaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   purchasePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  ownershipType?: Prisma.EnumTruckOwnershipTypeFieldUpdateOperationsInput | $Enums.TruckOwnershipType
+  leaseStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   depot?: Prisma.DepotUpdateOneWithoutTrucksNestedInput
@@ -1246,6 +1367,9 @@ export type TruckUncheckedUpdateWithoutDriverInput = {
   purchaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   purchasePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  ownershipType?: Prisma.EnumTruckOwnershipTypeFieldUpdateOperationsInput | $Enums.TruckOwnershipType
+  leaseStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   maintenanceJobs?: Prisma.MaintenanceJobUncheckedUpdateManyWithoutTruckNestedInput
@@ -1268,6 +1392,9 @@ export type TruckUncheckedUpdateManyWithoutDriverInput = {
   purchaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   purchasePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  ownershipType?: Prisma.EnumTruckOwnershipTypeFieldUpdateOperationsInput | $Enums.TruckOwnershipType
+  leaseStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1288,6 +1415,9 @@ export type TruckCreateManyDepotInput = {
   purchaseDate?: Date | string | null
   purchasePrice?: number | null
   currentValue?: number | null
+  ownershipType?: $Enums.TruckOwnershipType
+  leaseStartDate?: Date | string | null
+  leaseTermMonths?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1307,6 +1437,9 @@ export type TruckUpdateWithoutDepotInput = {
   purchaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   purchasePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  ownershipType?: Prisma.EnumTruckOwnershipTypeFieldUpdateOperationsInput | $Enums.TruckOwnershipType
+  leaseStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   driver?: Prisma.DriverUpdateOneWithoutTrucksNestedInput
@@ -1330,6 +1463,9 @@ export type TruckUncheckedUpdateWithoutDepotInput = {
   purchaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   purchasePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  ownershipType?: Prisma.EnumTruckOwnershipTypeFieldUpdateOperationsInput | $Enums.TruckOwnershipType
+  leaseStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   maintenanceJobs?: Prisma.MaintenanceJobUncheckedUpdateManyWithoutTruckNestedInput
@@ -1352,6 +1488,9 @@ export type TruckUncheckedUpdateManyWithoutDepotInput = {
   purchaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   purchasePrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  ownershipType?: Prisma.EnumTruckOwnershipTypeFieldUpdateOperationsInput | $Enums.TruckOwnershipType
+  leaseStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  leaseTermMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1413,6 +1552,9 @@ export type TruckSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   purchaseDate?: boolean
   purchasePrice?: boolean
   currentValue?: boolean
+  ownershipType?: boolean
+  leaseStartDate?: boolean
+  leaseTermMonths?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   depot?: boolean | Prisma.Truck$depotArgs<ExtArgs>
@@ -1439,6 +1581,9 @@ export type TruckSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   purchaseDate?: boolean
   purchasePrice?: boolean
   currentValue?: boolean
+  ownershipType?: boolean
+  leaseStartDate?: boolean
+  leaseTermMonths?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   depot?: boolean | Prisma.Truck$depotArgs<ExtArgs>
@@ -1462,6 +1607,9 @@ export type TruckSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   purchaseDate?: boolean
   purchasePrice?: boolean
   currentValue?: boolean
+  ownershipType?: boolean
+  leaseStartDate?: boolean
+  leaseTermMonths?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   depot?: boolean | Prisma.Truck$depotArgs<ExtArgs>
@@ -1485,11 +1633,14 @@ export type TruckSelectScalar = {
   purchaseDate?: boolean
   purchasePrice?: boolean
   currentValue?: boolean
+  ownershipType?: boolean
+  leaseStartDate?: boolean
+  leaseTermMonths?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TruckOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fleetNumber" | "registration" | "manufacturer" | "model" | "type" | "year" | "colour" | "mileage" | "fuelLevel" | "status" | "depotId" | "driverId" | "purchaseDate" | "purchasePrice" | "currentValue" | "createdAt" | "updatedAt", ExtArgs["result"]["truck"]>
+export type TruckOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fleetNumber" | "registration" | "manufacturer" | "model" | "type" | "year" | "colour" | "mileage" | "fuelLevel" | "status" | "depotId" | "driverId" | "purchaseDate" | "purchasePrice" | "currentValue" | "ownershipType" | "leaseStartDate" | "leaseTermMonths" | "createdAt" | "updatedAt", ExtArgs["result"]["truck"]>
 export type TruckInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   depot?: boolean | Prisma.Truck$depotArgs<ExtArgs>
   driver?: boolean | Prisma.Truck$driverArgs<ExtArgs>
@@ -1531,6 +1682,9 @@ export type $TruckPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     purchaseDate: Date | null
     purchasePrice: number | null
     currentValue: number | null
+    ownershipType: $Enums.TruckOwnershipType
+    leaseStartDate: Date | null
+    leaseTermMonths: number | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["truck"]>
@@ -1976,6 +2130,9 @@ export interface TruckFieldRefs {
   readonly purchaseDate: Prisma.FieldRef<"Truck", 'DateTime'>
   readonly purchasePrice: Prisma.FieldRef<"Truck", 'Float'>
   readonly currentValue: Prisma.FieldRef<"Truck", 'Float'>
+  readonly ownershipType: Prisma.FieldRef<"Truck", 'TruckOwnershipType'>
+  readonly leaseStartDate: Prisma.FieldRef<"Truck", 'DateTime'>
+  readonly leaseTermMonths: Prisma.FieldRef<"Truck", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Truck", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Truck", 'DateTime'>
 }

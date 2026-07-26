@@ -31,9 +31,12 @@ export type AccountMinAggregateOutputType = {
   firstName: string | null
   lastName: string | null
   steamId: string | null
-  truckyUserId: string | null
   truckyUsername: string | null
   discordId: string | null
+  discordUsername: string | null
+  discordDisplayName: string | null
+  discordVerifiedAt: Date | null
+  discordGuildJoinedAt: Date | null
   role: $Enums.UserRole | null
   isActive: boolean | null
   emailVerified: boolean | null
@@ -50,9 +53,12 @@ export type AccountMaxAggregateOutputType = {
   firstName: string | null
   lastName: string | null
   steamId: string | null
-  truckyUserId: string | null
   truckyUsername: string | null
   discordId: string | null
+  discordUsername: string | null
+  discordDisplayName: string | null
+  discordVerifiedAt: Date | null
+  discordGuildJoinedAt: Date | null
   role: $Enums.UserRole | null
   isActive: boolean | null
   emailVerified: boolean | null
@@ -69,9 +75,12 @@ export type AccountCountAggregateOutputType = {
   firstName: number
   lastName: number
   steamId: number
-  truckyUserId: number
   truckyUsername: number
   discordId: number
+  discordUsername: number
+  discordDisplayName: number
+  discordVerifiedAt: number
+  discordGuildJoinedAt: number
   role: number
   isActive: number
   emailVerified: number
@@ -90,9 +99,12 @@ export type AccountMinAggregateInputType = {
   firstName?: true
   lastName?: true
   steamId?: true
-  truckyUserId?: true
   truckyUsername?: true
   discordId?: true
+  discordUsername?: true
+  discordDisplayName?: true
+  discordVerifiedAt?: true
+  discordGuildJoinedAt?: true
   role?: true
   isActive?: true
   emailVerified?: true
@@ -109,9 +121,12 @@ export type AccountMaxAggregateInputType = {
   firstName?: true
   lastName?: true
   steamId?: true
-  truckyUserId?: true
   truckyUsername?: true
   discordId?: true
+  discordUsername?: true
+  discordDisplayName?: true
+  discordVerifiedAt?: true
+  discordGuildJoinedAt?: true
   role?: true
   isActive?: true
   emailVerified?: true
@@ -128,9 +143,12 @@ export type AccountCountAggregateInputType = {
   firstName?: true
   lastName?: true
   steamId?: true
-  truckyUserId?: true
   truckyUsername?: true
   discordId?: true
+  discordUsername?: true
+  discordDisplayName?: true
+  discordVerifiedAt?: true
+  discordGuildJoinedAt?: true
   role?: true
   isActive?: true
   emailVerified?: true
@@ -220,9 +238,12 @@ export type AccountGroupByOutputType = {
   firstName: string
   lastName: string
   steamId: string | null
-  truckyUserId: string | null
   truckyUsername: string | null
   discordId: string | null
+  discordUsername: string | null
+  discordDisplayName: string | null
+  discordVerifiedAt: Date | null
+  discordGuildJoinedAt: Date | null
   role: $Enums.UserRole
   isActive: boolean
   emailVerified: boolean
@@ -260,9 +281,12 @@ export type AccountWhereInput = {
   firstName?: Prisma.StringFilter<"Account"> | string
   lastName?: Prisma.StringFilter<"Account"> | string
   steamId?: Prisma.StringNullableFilter<"Account"> | string | null
-  truckyUserId?: Prisma.StringNullableFilter<"Account"> | string | null
   truckyUsername?: Prisma.StringNullableFilter<"Account"> | string | null
   discordId?: Prisma.StringNullableFilter<"Account"> | string | null
+  discordUsername?: Prisma.StringNullableFilter<"Account"> | string | null
+  discordDisplayName?: Prisma.StringNullableFilter<"Account"> | string | null
+  discordVerifiedAt?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
+  discordGuildJoinedAt?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
   role?: Prisma.EnumUserRoleFilter<"Account"> | $Enums.UserRole
   isActive?: Prisma.BoolFilter<"Account"> | boolean
   emailVerified?: Prisma.BoolFilter<"Account"> | boolean
@@ -284,9 +308,12 @@ export type AccountOrderByWithRelationInput = {
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   steamId?: Prisma.SortOrderInput | Prisma.SortOrder
-  truckyUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   truckyUsername?: Prisma.SortOrderInput | Prisma.SortOrder
   discordId?: Prisma.SortOrderInput | Prisma.SortOrder
+  discordUsername?: Prisma.SortOrderInput | Prisma.SortOrder
+  discordDisplayName?: Prisma.SortOrderInput | Prisma.SortOrder
+  discordVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  discordGuildJoinedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
@@ -305,7 +332,6 @@ export type AccountWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   email?: string
   steamId?: string
-  truckyUserId?: string
   discordId?: string
   AND?: Prisma.AccountWhereInput | Prisma.AccountWhereInput[]
   OR?: Prisma.AccountWhereInput[]
@@ -314,6 +340,10 @@ export type AccountWhereUniqueInput = Prisma.AtLeast<{
   firstName?: Prisma.StringFilter<"Account"> | string
   lastName?: Prisma.StringFilter<"Account"> | string
   truckyUsername?: Prisma.StringNullableFilter<"Account"> | string | null
+  discordUsername?: Prisma.StringNullableFilter<"Account"> | string | null
+  discordDisplayName?: Prisma.StringNullableFilter<"Account"> | string | null
+  discordVerifiedAt?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
+  discordGuildJoinedAt?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
   role?: Prisma.EnumUserRoleFilter<"Account"> | $Enums.UserRole
   isActive?: Prisma.BoolFilter<"Account"> | boolean
   emailVerified?: Prisma.BoolFilter<"Account"> | boolean
@@ -326,7 +356,7 @@ export type AccountWhereUniqueInput = Prisma.AtLeast<{
   documents?: Prisma.DocumentListRelationFilter
   auditEvents?: Prisma.AuditEventListRelationFilter
   contractListings?: Prisma.ContractListingListRelationFilter
-}, "id" | "email" | "steamId" | "truckyUserId" | "discordId">
+}, "id" | "email" | "steamId" | "discordId">
 
 export type AccountOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -335,9 +365,12 @@ export type AccountOrderByWithAggregationInput = {
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   steamId?: Prisma.SortOrderInput | Prisma.SortOrder
-  truckyUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   truckyUsername?: Prisma.SortOrderInput | Prisma.SortOrder
   discordId?: Prisma.SortOrderInput | Prisma.SortOrder
+  discordUsername?: Prisma.SortOrderInput | Prisma.SortOrder
+  discordDisplayName?: Prisma.SortOrderInput | Prisma.SortOrder
+  discordVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  discordGuildJoinedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
@@ -360,9 +393,12 @@ export type AccountScalarWhereWithAggregatesInput = {
   firstName?: Prisma.StringWithAggregatesFilter<"Account"> | string
   lastName?: Prisma.StringWithAggregatesFilter<"Account"> | string
   steamId?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
-  truckyUserId?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
   truckyUsername?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
   discordId?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
+  discordUsername?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
+  discordDisplayName?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
+  discordVerifiedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Account"> | Date | string | null
+  discordGuildJoinedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Account"> | Date | string | null
   role?: Prisma.EnumUserRoleWithAggregatesFilter<"Account"> | $Enums.UserRole
   isActive?: Prisma.BoolWithAggregatesFilter<"Account"> | boolean
   emailVerified?: Prisma.BoolWithAggregatesFilter<"Account"> | boolean
@@ -379,9 +415,12 @@ export type AccountCreateInput = {
   firstName: string
   lastName: string
   steamId?: string | null
-  truckyUserId?: string | null
   truckyUsername?: string | null
   discordId?: string | null
+  discordUsername?: string | null
+  discordDisplayName?: string | null
+  discordVerifiedAt?: Date | string | null
+  discordGuildJoinedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -403,9 +442,12 @@ export type AccountUncheckedCreateInput = {
   firstName: string
   lastName: string
   steamId?: string | null
-  truckyUserId?: string | null
   truckyUsername?: string | null
   discordId?: string | null
+  discordUsername?: string | null
+  discordDisplayName?: string | null
+  discordVerifiedAt?: Date | string | null
+  discordGuildJoinedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -427,9 +469,12 @@ export type AccountUpdateInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -451,9 +496,12 @@ export type AccountUncheckedUpdateInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -475,9 +523,12 @@ export type AccountCreateManyInput = {
   firstName: string
   lastName: string
   steamId?: string | null
-  truckyUserId?: string | null
   truckyUsername?: string | null
   discordId?: string | null
+  discordUsername?: string | null
+  discordDisplayName?: string | null
+  discordVerifiedAt?: Date | string | null
+  discordGuildJoinedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -494,9 +545,12 @@ export type AccountUpdateManyMutationInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -513,9 +567,12 @@ export type AccountUncheckedUpdateManyInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -532,9 +589,12 @@ export type AccountCountOrderByAggregateInput = {
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   steamId?: Prisma.SortOrder
-  truckyUserId?: Prisma.SortOrder
   truckyUsername?: Prisma.SortOrder
   discordId?: Prisma.SortOrder
+  discordUsername?: Prisma.SortOrder
+  discordDisplayName?: Prisma.SortOrder
+  discordVerifiedAt?: Prisma.SortOrder
+  discordGuildJoinedAt?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
@@ -551,9 +611,12 @@ export type AccountMaxOrderByAggregateInput = {
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   steamId?: Prisma.SortOrder
-  truckyUserId?: Prisma.SortOrder
   truckyUsername?: Prisma.SortOrder
   discordId?: Prisma.SortOrder
+  discordUsername?: Prisma.SortOrder
+  discordDisplayName?: Prisma.SortOrder
+  discordVerifiedAt?: Prisma.SortOrder
+  discordGuildJoinedAt?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
@@ -570,9 +633,12 @@ export type AccountMinOrderByAggregateInput = {
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   steamId?: Prisma.SortOrder
-  truckyUserId?: Prisma.SortOrder
   truckyUsername?: Prisma.SortOrder
   discordId?: Prisma.SortOrder
+  discordUsername?: Prisma.SortOrder
+  discordDisplayName?: Prisma.SortOrder
+  discordVerifiedAt?: Prisma.SortOrder
+  discordGuildJoinedAt?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
@@ -600,16 +666,16 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type EnumUserRoleFieldUpdateOperationsInput = {
   set?: $Enums.UserRole
 }
 
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
-}
-
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -699,9 +765,12 @@ export type AccountCreateWithoutDriverInput = {
   firstName: string
   lastName: string
   steamId?: string | null
-  truckyUserId?: string | null
   truckyUsername?: string | null
   discordId?: string | null
+  discordUsername?: string | null
+  discordDisplayName?: string | null
+  discordVerifiedAt?: Date | string | null
+  discordGuildJoinedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -722,9 +791,12 @@ export type AccountUncheckedCreateWithoutDriverInput = {
   firstName: string
   lastName: string
   steamId?: string | null
-  truckyUserId?: string | null
   truckyUsername?: string | null
   discordId?: string | null
+  discordUsername?: string | null
+  discordDisplayName?: string | null
+  discordVerifiedAt?: Date | string | null
+  discordGuildJoinedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -761,9 +833,12 @@ export type AccountUpdateWithoutDriverInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -784,9 +859,12 @@ export type AccountUncheckedUpdateWithoutDriverInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -807,9 +885,12 @@ export type AccountCreateWithoutContractListingsInput = {
   firstName: string
   lastName: string
   steamId?: string | null
-  truckyUserId?: string | null
   truckyUsername?: string | null
   discordId?: string | null
+  discordUsername?: string | null
+  discordDisplayName?: string | null
+  discordVerifiedAt?: Date | string | null
+  discordGuildJoinedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -830,9 +911,12 @@ export type AccountUncheckedCreateWithoutContractListingsInput = {
   firstName: string
   lastName: string
   steamId?: string | null
-  truckyUserId?: string | null
   truckyUsername?: string | null
   discordId?: string | null
+  discordUsername?: string | null
+  discordDisplayName?: string | null
+  discordVerifiedAt?: Date | string | null
+  discordGuildJoinedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -869,9 +953,12 @@ export type AccountUpdateWithoutContractListingsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -892,9 +979,12 @@ export type AccountUncheckedUpdateWithoutContractListingsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -915,9 +1005,12 @@ export type AccountCreateWithoutNotificationsInput = {
   firstName: string
   lastName: string
   steamId?: string | null
-  truckyUserId?: string | null
   truckyUsername?: string | null
   discordId?: string | null
+  discordUsername?: string | null
+  discordDisplayName?: string | null
+  discordVerifiedAt?: Date | string | null
+  discordGuildJoinedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -938,9 +1031,12 @@ export type AccountUncheckedCreateWithoutNotificationsInput = {
   firstName: string
   lastName: string
   steamId?: string | null
-  truckyUserId?: string | null
   truckyUsername?: string | null
   discordId?: string | null
+  discordUsername?: string | null
+  discordDisplayName?: string | null
+  discordVerifiedAt?: Date | string | null
+  discordGuildJoinedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -977,9 +1073,12 @@ export type AccountUpdateWithoutNotificationsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1000,9 +1099,12 @@ export type AccountUncheckedUpdateWithoutNotificationsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1023,9 +1125,12 @@ export type AccountCreateWithoutDocumentsInput = {
   firstName: string
   lastName: string
   steamId?: string | null
-  truckyUserId?: string | null
   truckyUsername?: string | null
   discordId?: string | null
+  discordUsername?: string | null
+  discordDisplayName?: string | null
+  discordVerifiedAt?: Date | string | null
+  discordGuildJoinedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -1046,9 +1151,12 @@ export type AccountUncheckedCreateWithoutDocumentsInput = {
   firstName: string
   lastName: string
   steamId?: string | null
-  truckyUserId?: string | null
   truckyUsername?: string | null
   discordId?: string | null
+  discordUsername?: string | null
+  discordDisplayName?: string | null
+  discordVerifiedAt?: Date | string | null
+  discordGuildJoinedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -1085,9 +1193,12 @@ export type AccountUpdateWithoutDocumentsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1108,9 +1219,12 @@ export type AccountUncheckedUpdateWithoutDocumentsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1131,9 +1245,12 @@ export type AccountCreateWithoutAuditEventsInput = {
   firstName: string
   lastName: string
   steamId?: string | null
-  truckyUserId?: string | null
   truckyUsername?: string | null
   discordId?: string | null
+  discordUsername?: string | null
+  discordDisplayName?: string | null
+  discordVerifiedAt?: Date | string | null
+  discordGuildJoinedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -1154,9 +1271,12 @@ export type AccountUncheckedCreateWithoutAuditEventsInput = {
   firstName: string
   lastName: string
   steamId?: string | null
-  truckyUserId?: string | null
   truckyUsername?: string | null
   discordId?: string | null
+  discordUsername?: string | null
+  discordDisplayName?: string | null
+  discordVerifiedAt?: Date | string | null
+  discordGuildJoinedAt?: Date | string | null
   role?: $Enums.UserRole
   isActive?: boolean
   emailVerified?: boolean
@@ -1193,9 +1313,12 @@ export type AccountUpdateWithoutAuditEventsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1216,9 +1339,12 @@ export type AccountUncheckedUpdateWithoutAuditEventsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   steamId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  truckyUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   truckyUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   discordId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discordVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  discordGuildJoinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1297,9 +1423,12 @@ export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   firstName?: boolean
   lastName?: boolean
   steamId?: boolean
-  truckyUserId?: boolean
   truckyUsername?: boolean
   discordId?: boolean
+  discordUsername?: boolean
+  discordDisplayName?: boolean
+  discordVerifiedAt?: boolean
+  discordGuildJoinedAt?: boolean
   role?: boolean
   isActive?: boolean
   emailVerified?: boolean
@@ -1322,9 +1451,12 @@ export type AccountSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   firstName?: boolean
   lastName?: boolean
   steamId?: boolean
-  truckyUserId?: boolean
   truckyUsername?: boolean
   discordId?: boolean
+  discordUsername?: boolean
+  discordDisplayName?: boolean
+  discordVerifiedAt?: boolean
+  discordGuildJoinedAt?: boolean
   role?: boolean
   isActive?: boolean
   emailVerified?: boolean
@@ -1341,9 +1473,12 @@ export type AccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   firstName?: boolean
   lastName?: boolean
   steamId?: boolean
-  truckyUserId?: boolean
   truckyUsername?: boolean
   discordId?: boolean
+  discordUsername?: boolean
+  discordDisplayName?: boolean
+  discordVerifiedAt?: boolean
+  discordGuildJoinedAt?: boolean
   role?: boolean
   isActive?: boolean
   emailVerified?: boolean
@@ -1360,9 +1495,12 @@ export type AccountSelectScalar = {
   firstName?: boolean
   lastName?: boolean
   steamId?: boolean
-  truckyUserId?: boolean
   truckyUsername?: boolean
   discordId?: boolean
+  discordUsername?: boolean
+  discordDisplayName?: boolean
+  discordVerifiedAt?: boolean
+  discordGuildJoinedAt?: boolean
   role?: boolean
   isActive?: boolean
   emailVerified?: boolean
@@ -1372,7 +1510,7 @@ export type AccountSelectScalar = {
   archivedAt?: boolean
 }
 
-export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "firstName" | "lastName" | "steamId" | "truckyUserId" | "truckyUsername" | "discordId" | "role" | "isActive" | "emailVerified" | "lastLogin" | "createdAt" | "updatedAt" | "archivedAt", ExtArgs["result"]["account"]>
+export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "firstName" | "lastName" | "steamId" | "truckyUsername" | "discordId" | "discordUsername" | "discordDisplayName" | "discordVerifiedAt" | "discordGuildJoinedAt" | "role" | "isActive" | "emailVerified" | "lastLogin" | "createdAt" | "updatedAt" | "archivedAt", ExtArgs["result"]["account"]>
 export type AccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   driver?: boolean | Prisma.Account$driverArgs<ExtArgs>
   notifications?: boolean | Prisma.Account$notificationsArgs<ExtArgs>
@@ -1400,9 +1538,12 @@ export type $AccountPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     firstName: string
     lastName: string
     steamId: string | null
-    truckyUserId: string | null
     truckyUsername: string | null
     discordId: string | null
+    discordUsername: string | null
+    discordDisplayName: string | null
+    discordVerifiedAt: Date | null
+    discordGuildJoinedAt: Date | null
     role: $Enums.UserRole
     isActive: boolean
     emailVerified: boolean
@@ -1844,9 +1985,12 @@ export interface AccountFieldRefs {
   readonly firstName: Prisma.FieldRef<"Account", 'String'>
   readonly lastName: Prisma.FieldRef<"Account", 'String'>
   readonly steamId: Prisma.FieldRef<"Account", 'String'>
-  readonly truckyUserId: Prisma.FieldRef<"Account", 'String'>
   readonly truckyUsername: Prisma.FieldRef<"Account", 'String'>
   readonly discordId: Prisma.FieldRef<"Account", 'String'>
+  readonly discordUsername: Prisma.FieldRef<"Account", 'String'>
+  readonly discordDisplayName: Prisma.FieldRef<"Account", 'String'>
+  readonly discordVerifiedAt: Prisma.FieldRef<"Account", 'DateTime'>
+  readonly discordGuildJoinedAt: Prisma.FieldRef<"Account", 'DateTime'>
   readonly role: Prisma.FieldRef<"Account", 'UserRole'>
   readonly isActive: Prisma.FieldRef<"Account", 'Boolean'>
   readonly emailVerified: Prisma.FieldRef<"Account", 'Boolean'>

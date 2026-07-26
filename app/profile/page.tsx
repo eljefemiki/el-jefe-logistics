@@ -10,8 +10,23 @@ import { trailerLabels } from "@/src/lib/ets2-trailers";
 
 export const dynamic = "force-dynamic";
 
-export default async function ProfilePage() {
+interface ProfilePageProps {
+  searchParams: Promise<{ discord?: string | string[] }>;
+}
+
+const discordMessages: Record<string, string> = {
+  verified: "Discord has been linked and your server membership is verified.",
+  not_member: "That Discord account has not joined the El Jefe Logistics server yet.",
+  denied: "Discord linking was cancelled.",
+  failed: "Discord could not be verified. Please try again.",
+};
+
+export default async function ProfilePage({ searchParams }: ProfilePageProps) {
   const sessionAccount = await requireAccount("/profile");
+  const params = await searchParams;
+  const discordStatus = Array.isArray(params.discord)
+    ? params.discord[0]
+    : params.discord;
   const account = await prisma.account.findUniqueOrThrow({
     where: { id: sessionAccount.id },
     select: {
@@ -19,9 +34,12 @@ export default async function ProfilePage() {
       lastName: true,
       email: true,
       steamId: true,
-      truckyUserId: true,
       truckyUsername: true,
       discordId: true,
+      discordUsername: true,
+      discordDisplayName: true,
+      discordVerifiedAt: true,
+      discordGuildJoinedAt: true,
       driver: { select: { assignedTrailer: true } },
     },
   });
@@ -40,7 +58,17 @@ export default async function ProfilePage() {
                 <p className="mt-2 text-slate-400">{account.email}</p>
               </div>
             </div>
-            <PrivateProfileForm profile={account} />
+            <PrivateProfileForm
+              profile={account}
+              discordEnabled={Boolean(
+                process.env.DISCORD_CLIENT_ID &&
+                  process.env.DISCORD_CLIENT_SECRET &&
+                  process.env.DISCORD_GUILD_ID,
+              )}
+              discordMessage={
+                discordStatus ? discordMessages[discordStatus] : undefined
+              }
+            />
             <section className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
               <div className="flex items-center gap-3">
                 <Truck className="h-6 w-6 text-blue-400" />

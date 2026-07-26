@@ -17,6 +17,9 @@ export type FleetTruckType =
   | "TRACTOR"
   | "RIGID";
 
+export type TruckOwnershipType = "OWNED" | "LEASED";
+export type LeaseTermMonths = 24 | 36 | 48;
+
 export interface FleetTruckDTO {
   id: string;
 
@@ -53,6 +56,9 @@ export interface FleetTruckDTO {
   purchaseDate: Date | null;
   purchasePrice: number | null;
   currentValue: number | null;
+  ownershipType: TruckOwnershipType;
+  leaseStartDate: Date | null;
+  leaseTermMonths: LeaseTermMonths | null;
 
   createdAt: Date;
   updatedAt: Date;
@@ -159,6 +165,9 @@ export interface CreateTruckInput {
   purchasePrice?: number;
 
   currentValue?: number;
+  ownershipType?: TruckOwnershipType;
+  leaseStartDate?: Date;
+  leaseTermMonths?: LeaseTermMonths;
 }
 
 export type UpdateTruckInput = Partial<CreateTruckInput>;

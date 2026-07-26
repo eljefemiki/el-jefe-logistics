@@ -24,7 +24,14 @@ export const truckTypeSchema = z.enum([
   "RIGID",
 ]);
 
-export const createTruckSchema = z.object({
+export const truckOwnershipTypeSchema = z.enum(["OWNED", "LEASED"]);
+export const leaseTermSchema = z.union([
+  z.literal(24),
+  z.literal(36),
+  z.literal(48),
+]);
+
+const truckFields = {
   fleetNumber: z
     .string()
     .trim()
@@ -100,10 +107,53 @@ export const createTruckSchema = z.object({
     .number()
     .min(0)
     .optional(),
-});
 
-export const updateTruckSchema =
-  createTruckSchema.partial();
+  ownershipType: truckOwnershipTypeSchema.default("OWNED"),
+
+  leaseStartDate: z.date().optional(),
+
+  leaseTermMonths: leaseTermSchema.optional(),
+};
+
+function validateLease(
+  value: {
+    ownershipType?: "OWNED" | "LEASED";
+    purchasePrice?: number;
+    leaseStartDate?: Date;
+    leaseTermMonths?: 24 | 36 | 48;
+  },
+  context: z.RefinementCtx,
+) {
+  if (value.ownershipType !== "LEASED") return;
+
+  if (!value.purchasePrice || value.purchasePrice <= 0) {
+    context.addIssue({
+      code: "custom",
+      path: ["purchasePrice"],
+      message: "Vehicle value is required for a lease.",
+    });
+  }
+
+  if (!value.leaseStartDate) {
+    context.addIssue({
+      code: "custom",
+      path: ["leaseStartDate"],
+      message: "Lease start date is required.",
+    });
+  }
+
+  if (!value.leaseTermMonths) {
+    context.addIssue({
+      code: "custom",
+      path: ["leaseTermMonths"],
+      message: "Select a 24, 36, or 48-month lease.",
+    });
+  }
+}
+
+export const createTruckSchema = z.object(truckFields).superRefine(validateLease);
+
+export const updateTruckSchema = z.object(truckFields).partial().superRefine(validateLease);
 
 export type CreateTruckData =
   z.infer<typeof createTruckSchema>;

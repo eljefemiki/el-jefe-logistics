@@ -7,6 +7,7 @@ import {
 import type { ReactNode } from "react";
 
 import type { FleetTruckDTO } from "@/src/server/fleet/types";
+import { calculateLeaseSummary } from "@/src/lib/fleet-finance";
 
 interface TruckStatsProps {
   truck: FleetTruckDTO;
@@ -65,6 +66,17 @@ export default function TruckStats({
     0,
     new Date().getFullYear() - truck.year,
   );
+  const lease =
+    truck.ownershipType === "LEASED" &&
+    truck.purchasePrice !== null &&
+    truck.leaseTermMonths &&
+    truck.leaseStartDate
+      ? calculateLeaseSummary(
+          truck.purchasePrice,
+          truck.leaseTermMonths,
+          truck.leaseStartDate,
+        )
+      : null;
 
   return (
     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -90,9 +102,13 @@ export default function TruckStats({
       />
 
       <StatCard
-        title="Value"
-        value={formatCurrency(truck.currentValue)}
-        subtitle="Current valuation"
+        title={lease ? "Lease Balance" : "Value"}
+        value={formatCurrency(lease?.remainingBalance ?? truck.currentValue)}
+        subtitle={
+          lease
+            ? `${formatCurrency(lease.monthlyPayment)} per month`
+            : "Current valuation"
+        }
         icon={<PoundSterling className="h-5 w-5" />}
       />
     </div>

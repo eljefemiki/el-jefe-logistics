@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   AlertCircle,
@@ -16,6 +16,10 @@ import {
   updateTruckAction,
 } from "@/src/server/fleet/actions";
 import type { FleetTruckDTO } from "@/src/server/fleet/types";
+import {
+  calculateLeaseSummary,
+  type LeaseTermMonths,
+} from "@/src/lib/fleet-finance";
 
 const initialCreateTruckState: CreateTruckActionState = {
   success: false,
@@ -69,6 +73,35 @@ export default function TruckForm({
     action,
     initialCreateTruckState
   );
+  const [ownershipType, setOwnershipType] = useState(
+    truck?.ownershipType ?? "OWNED",
+  );
+  const [vehicleValue, setVehicleValue] = useState(
+    truck?.purchasePrice?.toString() ?? "",
+  );
+  const [leaseTerm, setLeaseTerm] = useState<LeaseTermMonths>(
+    truck?.leaseTermMonths ?? 24,
+  );
+  const [leaseStartDate, setLeaseStartDate] = useState(
+    formatDateInput(truck?.leaseStartDate) ?? formatDateInput(new Date()) ?? "",
+  );
+  const leaseSummary = useMemo(() => {
+    const value = Number(vehicleValue);
+    if (
+      ownershipType !== "LEASED" ||
+      !Number.isFinite(value) ||
+      value <= 0 ||
+      !leaseStartDate
+    ) {
+      return null;
+    }
+
+    return calculateLeaseSummary(
+      value,
+      leaseTerm,
+      new Date(`${leaseStartDate}T00:00:00Z`),
+    );
+  }, [leaseStartDate, leaseTerm, ownershipType, vehicleValue]);
 
   useEffect(() => {
     if (state.success) {
@@ -410,11 +443,31 @@ export default function TruckForm({
           </h2>
 
           <p className="mt-1 text-sm text-slate-400">
-            Optional purchase and valuation information.
+            Record whether the truck is owned outright or paid off through a
+            fixed-term lease.
           </p>
         </div>
 
-        <div className="grid gap-6 p-6 md:grid-cols-3">
+        <div className="grid gap-6 p-6 md:grid-cols-2">
+          <div>
+            <label htmlFor="ownershipType" className={labelClasses}>
+              Financing
+            </label>
+
+            <select
+              id="ownershipType"
+              name="ownershipType"
+              value={ownershipType}
+              onChange={(event) =>
+                setOwnershipType(event.target.value as "OWNED" | "LEASED")
+              }
+              className={inputClasses}
+            >
+              <option value="OWNED">Owned outright</option>
+              <option value="LEASED">Lease to own</option>
+            </select>
+          </div>
+
           <div>
             <label
               htmlFor="purchaseDate"
@@ -453,7 +506,8 @@ export default function TruckForm({
               min="0"
               step="0.01"
               placeholder="125000"
-              defaultValue={truck?.purchasePrice ?? undefined}
+              value={vehicleValue}
+              onChange={(event) => setVehicleValue(event.target.value)}
               className={inputClasses}
             />
 
@@ -485,6 +539,68 @@ export default function TruckForm({
               errors={state.fieldErrors?.currentValue}
             />
           </div>
+
+          {ownershipType === "LEASED" && (
+            <>
+              <div>
+                <label htmlFor="leaseStartDate" className={labelClasses}>
+                  Lease Start Date
+                </label>
+
+                <input
+                  id="leaseStartDate"
+                  name="leaseStartDate"
+                  type="date"
+                  value={leaseStartDate}
+                  onChange={(event) => setLeaseStartDate(event.target.value)}
+                  required
+                  className={inputClasses}
+                />
+
+                <FieldError errors={state.fieldErrors?.leaseStartDate} />
+              </div>
+
+              <div>
+                <label htmlFor="leaseTermMonths" className={labelClasses}>
+                  Pay-off Period
+                </label>
+
+                <select
+                  id="leaseTermMonths"
+                  name="leaseTermMonths"
+                  value={leaseTerm}
+                  onChange={(event) =>
+                    setLeaseTerm(Number(event.target.value) as LeaseTermMonths)
+                  }
+                  className={inputClasses}
+                >
+                  <option value={24}>24 months</option>
+                  <option value={36}>36 months</option>
+                  <option value={48}>48 months</option>
+                </select>
+
+                <FieldError errors={state.fieldErrors?.leaseTermMonths} />
+              </div>
+
+              <div className="rounded-lg border border-blue-500/20 bg-blue-500/10 p-4 md:col-span-2">
+                <p className="text-sm font-medium text-blue-300">
+                  Estimated monthly lease
+                </p>
+                <p className="mt-1 text-2xl font-bold text-white">
+                  {leaseSummary
+                    ? leaseSummary.monthlyPayment.toLocaleString("en-GB", {
+                        style: "currency",
+                        currency: "GBP",
+                      })
+                    : "Enter the vehicle value"}
+                </p>
+                <p className="mt-1 text-sm text-slate-400">
+                  The full vehicle value is divided equally across {leaseTerm}{" "}
+                  months with no interest added.
+                </p>
+              </div>
+            </>
+          )}
         </div>
       </section>
 

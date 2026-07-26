@@ -24,9 +24,7 @@ export async function updatePrivateProfileAction(
 
   const validation = privateProfileSchema.safeParse({
     steamId: formData.get("steamId"),
-    truckyUserId: formData.get("truckyUserId"),
     truckyUsername: formData.get("truckyUsername"),
-    discordId: formData.get("discordId"),
   });
 
   if (!validation.success) {
@@ -47,7 +45,7 @@ export async function updatePrivateProfileAction(
     return { success: true, message: "Your private driver identities have been updated." };
   } catch (error) {
     if (typeof error === "object" && error !== null && "code" in error && error.code === "P2002") {
-      return { success: false, message: "One of these IDs is already linked to another account." };
+      return { success: false, message: "That Steam ID is already linked to another account." };
     }
 
     return { success: false, message: "Your profile could not be updated. Please try again." };

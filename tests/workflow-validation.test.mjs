@@ -16,9 +16,7 @@ test("auth accepts valid login/registration and rejects weak or mismatched crede
     name: "Fleet Admin",
     email: "admin@example.com",
     steamId: "76561198000000000",
-    truckyUserId: "123456",
     truckyUsername: "FleetAdmin",
-    discordId: "123456789012345678",
     password: "long-password",
     confirmPassword: "long-password",
   }).success, true);
@@ -26,9 +24,7 @@ test("auth accepts valid login/registration and rejects weak or mismatched crede
     name: "Fleet Admin",
     email: "admin@example.com",
     steamId: "not-a-steam-id",
-    truckyUserId: "",
     truckyUsername: "x",
-    discordId: "discord-name",
     password: "short",
     confirmPassword: "different",
   }).success, false);
@@ -47,6 +43,19 @@ test("fleet create/edit validates identifiers, year, mileage, and fuel bounds", 
     status: "AVAILABLE",
   };
   assert.equal(createTruckSchema.safeParse(truck).success, true);
+  assert.equal(createTruckSchema.safeParse({
+    ...truck,
+    ownershipType: "LEASED",
+    purchasePrice: 120000,
+    leaseStartDate: new Date("2026-01-01"),
+    leaseTermMonths: 36,
+  }).success, true);
+  assert.equal(createTruckSchema.safeParse({
+    ...truck,
+    ownershipType: "LEASED",
+    purchasePrice: 120000,
+    leaseTermMonths: 12,
+  }).success, false);
   assert.equal(createTruckSchema.safeParse({ ...truck, mileage: -1, fuelLevel: 101 }).success, false);
   assert.equal(updateTruckSchema.safeParse({ status: "MAINTENANCE", mileage: 12500 }).success, true);
 });

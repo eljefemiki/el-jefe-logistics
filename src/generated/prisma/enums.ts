@@ -245,3 +245,11 @@ export const CargoCategory = {
 } as const
 
 export type CargoCategory = (typeof CargoCategory)[keyof typeof CargoCategory]
+
+
+export const TruckOwnershipType = {
+  OWNED: 'OWNED',
+  LEASED: 'LEASED'
+} as const
+
+export type TruckOwnershipType = (typeof TruckOwnershipType)[keyof typeof TruckOwnershipType]

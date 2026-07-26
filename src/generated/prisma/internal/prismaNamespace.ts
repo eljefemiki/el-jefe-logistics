@@ -1587,9 +1587,12 @@ export const AccountScalarFieldEnum = {
   firstName: 'firstName',
   lastName: 'lastName',
   steamId: 'steamId',
-  truckyUserId: 'truckyUserId',
   truckyUsername: 'truckyUsername',
   discordId: 'discordId',
+  discordUsername: 'discordUsername',
+  discordDisplayName: 'discordDisplayName',
+  discordVerifiedAt: 'discordVerifiedAt',
+  discordGuildJoinedAt: 'discordGuildJoinedAt',
   role: 'role',
   isActive: 'isActive',
   emailVerified: 'emailVerified',
@@ -1848,6 +1851,9 @@ export const TruckScalarFieldEnum = {
   purchaseDate: 'purchaseDate',
   purchasePrice: 'purchasePrice',
   currentValue: 'currentValue',
+  ownershipType: 'ownershipType',
+  leaseStartDate: 'leaseStartDate',
+  leaseTermMonths: 'leaseTermMonths',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1965,6 +1971,20 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
+ * Reference to a field of type 'DateTime'
+ */
+export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+/**
+ * Reference to a field of type 'DateTime[]'
+ */
+export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
  * Reference to a field of type 'UserRole'
  */
 export type EnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole'>
@@ -1982,20 +2002,6 @@ export type ListEnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-/**
- * Reference to a field of type 'DateTime'
- */
-export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-/**
- * Reference to a field of type 'DateTime[]'
- */
-export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -2235,6 +2241,20 @@ export type EnumTruckStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pris
  */
 export type ListEnumTruckStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TruckStatus[]'>
     
+
+
+/**
+ * Reference to a field of type 'TruckOwnershipType'
+ */
+export type EnumTruckOwnershipTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TruckOwnershipType'>
+
+
+
+/**
+ * Reference to a field of type 'TruckOwnershipType[]'
+ */
+export type ListEnumTruckOwnershipTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TruckOwnershipType[]'>
+
 
 
 /**

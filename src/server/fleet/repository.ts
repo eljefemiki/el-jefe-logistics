@@ -186,6 +186,15 @@ export async function createTruck(
 
       currentValue:
         data.currentValue,
+
+      ownershipType:
+        data.ownershipType ?? "OWNED",
+
+      leaseStartDate:
+        data.ownershipType === "LEASED" ? data.leaseStartDate : null,
+
+      leaseTermMonths:
+        data.ownershipType === "LEASED" ? data.leaseTermMonths : null,
     },
 
     include: truckInclude,
@@ -203,6 +212,16 @@ export async function updateTruck(
 
     data: {
       ...data,
+
+      leaseStartDate:
+        data.ownershipType === "OWNED"
+          ? null
+          : data.leaseStartDate,
+
+      leaseTermMonths:
+        data.ownershipType === "OWNED"
+          ? null
+          : data.leaseTermMonths,
 
       depotId:
         data.depotId === ""

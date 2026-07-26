@@ -29,9 +29,7 @@ export default function RegisterForm() {
           password: form.get("password"),
           confirmPassword: form.get("confirmPassword"),
           steamId: form.get("steamId"),
-          truckyUserId: form.get("truckyUserId"),
           truckyUsername: form.get("truckyUsername"),
-          discordId: form.get("discordId"),
         }),
       });
       const result = await response.json();
@@ -107,9 +105,7 @@ export default function RegisterForm() {
 
         {[
           { id: "register-steam-id", name: "steamId", label: "Steam ID", placeholder: "17-digit SteamID64", inputMode: "numeric" as const },
-          { id: "register-trucky-user-id", name: "truckyUserId", label: "Trucky User ID", placeholder: "Your Trucky user ID", inputMode: "text" as const },
           { id: "register-trucky-username", name: "truckyUsername", label: "Trucky Username", placeholder: "Your Trucky username", inputMode: "text" as const },
-          { id: "register-discord-id", name: "discordId", label: "Discord ID", placeholder: "Your numeric Discord user ID", inputMode: "numeric" as const },
         ].map((field) => (
           <div key={field.name}>
             <label htmlFor={field.id} className="mb-2 block font-semibold text-white">
@@ -127,6 +123,11 @@ export default function RegisterForm() {
             />
           </div>
         ))}
+
+        <p className="rounded-xl border border-indigo-500/20 bg-indigo-500/10 p-4 text-sm leading-6 text-indigo-200">
+          You can securely link and verify Discord from your private profile
+          after creating your account.
+        </p>
 
         <PasswordField
           label="Password"

@@ -214,10 +214,13 @@ model Account {
 
   // Private community identities. These are only exposed through the
   // authenticated account owner's profile.
-  steamId       String? @unique
-  truckyUserId  String? @unique
-  truckyUsername String?
-  discordId     String? @unique
+  steamId              String?   @unique
+  truckyUsername       String?
+  discordId            String?   @unique
+  discordUsername      String?
+  discordDisplayName   String?
+  discordVerifiedAt    DateTime?
+  discordGuildJoinedAt DateTime?
 
   role UserRole @default(DRIVER)
 
@@ -264,7 +267,7 @@ model Driver {
   totalDeliveries Int @default(0)
   totalConvoys    Int @default(0)
 
-  favouriteTruck String?
+  favouriteTruck  String?
   assignedTrailer Ets2TrailerType?
   contractBids    ContractBid[]
 
@@ -397,20 +400,20 @@ model ContractListing {
   createdById String
   createdBy   Account  @relation(fields: [createdById], references: [id], onDelete: Restrict)
 
-  title         String
-  description   String
-  origin        String
-  destination   String
-    cargoType     String
-    cargoCategory CargoCategory  @default(GENERAL)
-    requiredTrailer Ets2TrailerType @default(DRY_FREIGHT)
-  weightKg      Float?
-  pickupDate    DateTime
-  deliveryDate  DateTime
-  budget        Float
-  currency      String                @default("GBP")
-  contractTerms String
-  status        ContractListingStatus @default(DRAFT)
+  title           String
+  description     String
+  origin          String
+  destination     String
+  cargoType       String
+  cargoCategory   CargoCategory         @default(GENERAL)
+  requiredTrailer Ets2TrailerType       @default(DRY_FREIGHT)
+  weightKg        Float?
+  pickupDate      DateTime
+  deliveryDate    DateTime
+  budget          Float
+  currency        String                @default("GBP")
+  contractTerms   String
+  status          ContractListingStatus @default(DRAFT)
 
   bids         ContractBid[] @relation("ListingBids")
   awardedBidId String?       @unique
@@ -436,7 +439,7 @@ model ContractBid {
   carrierName   String
   contactEmail  String
   driverId      String?
-  driver        Driver? @relation(fields: [driverId], references: [id], onDelete: SetNull)
+  driver        Driver?           @relation(fields: [driverId], references: [id], onDelete: SetNull)
   trailerType   Ets2TrailerType?
   amount        Float
   estimatedDays Int
@@ -621,9 +624,12 @@ model Truck {
   // FINANCIAL INFORMATION
   // =====================================================
 
-  purchaseDate  DateTime?
-  purchasePrice Float?
-  currentValue  Float?
+  purchaseDate    DateTime?
+  purchasePrice   Float?
+  currentValue    Float?
+  ownershipType   TruckOwnershipType @default(OWNED)
+  leaseStartDate  DateTime?
+  leaseTermMonths Int?
 
   maintenanceJobs MaintenanceJob[]
   fuelEntries     FuelEntry[]
@@ -641,6 +647,11 @@ model Truck {
   @@index([manufacturer])
   @@index([depotId])
   @@index([driverId])
+}
+
+enum TruckOwnershipType {
+  OWNED
+  LEASED
 }
 
 // =======================================================

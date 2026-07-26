@@ -99,6 +99,15 @@ export async function createTruckAction(
 
     currentValue:
       optionalNumber(formData.get("currentValue")),
+
+    ownershipType:
+      optionalString(formData.get("ownershipType")) ?? "OWNED",
+
+    leaseStartDate:
+      optionalDate(formData.get("leaseStartDate")),
+
+    leaseTermMonths:
+      optionalNumber(formData.get("leaseTermMonths")),
   };
 
   const validationResult = createTruckSchema.safeParse(rawData);
@@ -190,6 +199,15 @@ export async function updateTruckAction(
 
     currentValue:
       optionalNumber(formData.get("currentValue")),
+
+    ownershipType:
+      optionalString(formData.get("ownershipType")) ?? "OWNED",
+
+    leaseStartDate:
+      optionalDate(formData.get("leaseStartDate")),
+
+    leaseTermMonths:
+      optionalNumber(formData.get("leaseTermMonths")),
   };
 
   const validationResult = updateTruckSchema.safeParse(rawData);
